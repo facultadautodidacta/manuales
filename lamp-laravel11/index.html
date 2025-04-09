@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guía de Instalación LAMP en Debian 12</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="assets/img/logo.jpg" alt="Logo Facultad Autodidacta" class="logo">
+            <div class="title-container">
+                <h1>Guía de Instalación LAMP para Laravel en Debian 12</h1>
+<p>Instala y configura un stack LAMP completo (Linux, Apache, MySQL/MariaDB, PHP + Composer) en Debian 12 para desplegar aplicaciones Laravel en entornos de producción.</p>
+            </div>
+        </div>
+    </header>
+     
+    <section>
+        <h2>Crear un usuario nuevo con permisos de sudo</h2>
+        <p>Es recomendable trabajar con un usuario no root para mayor seguridad. Crea un nuevo usuario y asígnale permisos de sudo:</p>
+        <pre>
+sudo adduser nuevo_usuario
+sudo usermod -aG sudo nuevo_usuario
+</pre>
+        <p>Luego, cierra sesión y vuelve a iniciar sesión con el nuevo usuario:</p>
+        <pre>su - nuevo_usuario</pre>
+    </section>
+    
+    <section>
+        <h2>Actualizar el sistema Debian 12</h2>
+        <p>Antes de instalar cualquier paquete, es importante asegurarse de que todos los paquetes del sistema estén actualizados:</p>
+        <pre>
+sudo apt update
+sudo apt upgrade -y
+</pre>
+        <p>Este paso asegura que tu sistema esté completamente actualizado.</p>
+    </section>
+    
+    <section>
+        <h2>Instalar Apache 2</h2>
+        <p>Apache es uno de los servidores web más populares. Para instalarlo en Debian 12:</p>
+        <pre>sudo apt install apache2 -y</pre>
+        <p>Verifica que Apache está funcionando:</p>
+        <pre>sudo systemctl status apache2</pre>
+        <p>Accede a <strong>http://localhost</strong> para ver la página de bienvenida de Apache.</p>
+    </section>
+
+    <section>
+    <h2>Instalar PHP 8.4</h2>
+    <p>Para instalar PHP 8.4 en Debian 12, utilizamos el repositorio de <strong>Ondrej Sury</strong>:</p>
+    <pre>
+sudo apt install apt-transport-https
+sudo curl -sSLo /usr/share/keyrings/deb.sury.org-php.gpg https://packages.sury.org/php/apt.gpg
+sudo sh -c 'echo "deb [signed-by=/usr/share/keyrings/deb.sury.org-php.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list'
+sudo apt update
+</pre>
+    <p>Instala PHP y extensiones comunes:</p>
+    <pre>sudo apt install php8.4 php8.4-cli php8.4-{bz2,curl,mbstring,intl,mysql,xml,zip}</pre>
+    <pre>sudo apt install phpunit</pre>
+    <p>Verifica la instalación:</p>
+    <pre>php -v</pre>
+</section>
+
+
+    <section>
+        <h2>Instalar MariaDB</h2>
+        <p>MariaDB es una base de datos compatible con MySQL:</p>
+        <pre>sudo apt install mariadb-server -y</pre>
+        <p>Asegura la instalación:</p>
+        <pre>sudo mysql_secure_installation</pre>
+        <p>Accede a MariaDB:</p>
+        <pre>sudo mariadb</pre>
+        <p>Crea un usuario administrador:</p>
+        <pre>
+GRANT ALL ON *.* TO 'miusuarioAdmin'@'localhost' IDENTIFIED BY 'mipassword' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+EXIT;
+</pre>
+        <p>Accede con el nuevo usuario:</p>
+        <pre>mysql -u 'miusuarioAdmin' -p</pre>
+    </section>
+
+    <section>
+        <h2>Instalar Composer</h2>
+        <p>Composer es una herramienta de gestión de dependencias para PHP:</p>
+        <pre>
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'.PHP_EOL; } else { echo 'Installer corrupt'.PHP_EOL; unlink('composer-setup.php'); exit(1); }"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+sudo mv composer.phar /usr/local/bin/composer
+</pre>
+        <p>Verifica la instalación:</p>
+        <pre>composer --version</pre>
+    </section>
+
+    <section>
+        <h2>Instalar Git</h2>
+        <p>Git es un sistema de control de versiones distribuido esencial para el desarrollo moderno:</p>
+        <pre>sudo apt install git -y</pre>
+        <p>Verifica la instalación:</p>
+        <pre>git --version</pre>
+        <p>Configura tus datos de usuario (recomendado para commits):</p>
+        <pre>
+git config --global user.name "Tu Nombre"
+git config --global user.email "tu@email.com"
+</pre>
+        <p>Puedes ver tu configuración con:</p>
+        <pre>git config --list</pre>
+    </section>
+
+    <section>
+        <h2>Configurar Virtual Host para Laravel</h2>
+        <p>Sigue estos pasos para crear y configurar un Virtual Host en Apache para tu aplicación Laravel:</p>
+        
+        <h3>1. Crear el directorio del sitio (si no existe)</h3>
+        <pre>
+sudo mkdir -p /var/www/ventas
+sudo chown -R www-data:www-data /var/www/ventas
+</pre>
+        
+        <h3>2. Crear el archivo VirtualHost</h3>
+        <p>Abre el archivo de configuración:</p>
+        <pre>sudo nano /etc/apache2/sites-available/ventas.conf</pre>
+        <p>Y pega esta configuración:</p>
+        <pre>
+&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@localhost
+    ServerName 64.227.29.123
+
+    DocumentRoot /var/www/ventas
+
+    &lt;Directory /var/www/ventas&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/ventas_error.log
+    CustomLog ${APACHE_LOG_DIR}/ventas_access.log combined
+&lt;/VirtualHost&gt;
+</pre>
+        
+        <h3>3. Habilita el sitio y reinicia Apache</h3>
+        <pre>
+sudo a2ensite ventas.conf
+sudo systemctl reload apache2
+</pre>
+        
+        <h3>4. (Opcional) Habilita mod_rewrite si usarás Laravel u .htaccess</h3>
+        <pre>
+sudo a2enmod rewrite
+sudo systemctl restart apache2
+</pre>
+        
+        <h3>5. Prueba desde el navegador</h3>
+        <p>Accede a tu aplicación desde:</p>
+        <pre>http://64.227.29.123</pre>
+    </section>
+            <section>
+        <h2>Clonar y configurar el proyecto Laravel</h2>
+        <p>Implementación paso a paso de la aplicación en el servidor:</p>
+        
+        <h3>1. Clonar el repositorio</h3>
+        <pre>
+cd ~
+git clone https://github.com/facultadautodidacta/ventas_y_almacen_laravel_11.git
+cd ventas_y_almacen_laravel_11
+</pre>
+
+        <h3>2. Instalar dependencias con Composer</h3>
+        <pre>
+composer install --optimize-autoloader --no-dev
+</pre>
+
+        <h3>3. Configurar entorno (.env)</h3>
+        <pre>
+cp .env.example .env
+
+Editamos los parametros en el archivo .env:
+
+APP_NAME="Sistema de Ventas"
+APP_ENV=production
+APP_KEY=
+APP_DEBUG=false
+APP_URL=http://64.227.29.123
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ventas
+DB_USERNAME=ventasuser
+DB_PASSWORD=passventas
+
+</pre>
+
+        <h3>4. Generar clave de aplicación y migrar base de datos</h3>
+        <pre>
+php artisan key:generate
+php artisan migrate --force
+</pre>
+
+        <h3>5. Mover al directorio de producción</h3>
+        <pre>
+sudo cp -r ~/ventas_y_almacen_laravel_11/. /var/www/ventas/
+</pre>
+
+        <h3>6. Configurar permisos</h3>
+        <pre>
+sudo chown -R www-data:www-data /var/www/ventas
+sudo find /var/www/ventas -type f -exec chmod 644 {} \;
+sudo find /var/www/ventas -type d -exec chmod 755 {} \;
+sudo chmod -R 775 /var/www/ventas/storage
+sudo chmod -R 775 /var/www/ventas/bootstrap/cache
+</pre>
+
+        <h3>7. Optimizar para producción</h3>
+        <pre>
+cd /var/www/ventas
+sudo php artisan storage:link
+sudo php artisan config:cache
+sudo php artisan route:cache
+sudo php artisan view:cache
+</pre>
+
+        <p><strong>Notas importantes:</strong>
+        <br>- Los permisos 644 para archivos y 755 para directorios son estándar de seguridad
+        <br>- Los directorios storage y bootstrap/cache requieren 775 para escritura
+        <br>- Verifica que el usuario www-data tenga los permisos adecuados
+        <br>- Para entornos críticos, considera configurar SELinux o AppArmor</p>
+    </section>
+        <section>
+        <h2>Configuración final del VirtualHost</h2>
+        <p>Antes de probar la aplicación, debemos ajustar el VirtualHost para que apunte al directorio public:</p>
+        
+        <h3>1. Editar el VirtualHost</h3>
+        <pre>
+sudo nano /etc/apache2/sites-available/ventas.conf
+</pre>
+        <p>Actualiza la configuración para que apunte al directorio public de Laravel:</p>
+        <pre>
+&lt;VirtualHost *:80&gt;
+    ServerAdmin webmaster@localhost
+    ServerName 64.227.29.123
+
+    DocumentRoot /var/www/ventas/public
+
+    &lt;Directory /var/www/ventas/public&gt;
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    &lt;/Directory&gt;
+
+    ErrorLog ${APACHE_LOG_DIR}/ventas_error.log
+    CustomLog ${APACHE_LOG_DIR}/ventas_access.log combined
+&lt;/VirtualHost&gt;
+</pre>
+
+        <h3>2. Aplicar los cambios</h3>
+        <pre>
+sudo a2dissite ventas.conf
+sudo a2ensite ventas.conf
+sudo systemctl restart apache2
+</pre>
+
+        <h3>3. Probar la aplicación</h3>
+        <p>Accede a tu aplicación desde el navegador:</p>
+        <pre>
+http://64.227.29.123
+</pre>
+        <p>O desde la terminal con curl:</p>
+        <pre>
+curl -I http://localhost
+</pre>
+
+        <p><strong>Notas finales:</strong>
+        <br>- Asegúrate que el archivo <code>index.php</code> exista en <code>/var/www/ventas/public</code>
+        <br>- Verifica los logs si hay errores: <code>sudo tail -f /var/log/apache2/ventas_error.log</code>
+        <br>- Para producción, considera configurar HTTPS con Let's Encrypt</p>
+    </section>
+    <footer>
+        <div class="footer-content">
+<img src="assets/img/logo-footer.jpg" alt="Facultad Autodidacta" class="footer-logo">
+            <p>Guía de instalación LAMP para Debian 12. Hecho por <strong>Facultad Autodidacta</strong>.</p>
+        </div>
+    </footer>
+</body>
+</html>
