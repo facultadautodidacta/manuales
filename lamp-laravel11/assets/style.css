@@ -1,0 +1,217 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #000000;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    counter-reset: step-counter;
+}
+
+/* Estilo de encabezado */
+header {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px 0;
+    margin-bottom: 40px;
+    border-bottom: 5px solid #ff0000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.logo {
+    height: 80px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 8px rgba(255, 0, 0, 0.5));
+}
+
+.title-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+header h1 {
+    color: #ffffff;
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+header p {
+    color: #cccccc;
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 15px auto 0;
+}
+
+/* Estilo de los títulos */
+h1, h2 {
+    color: #000000;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-top: 50px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #ff0000;
+    counter-increment: step-counter;
+}
+
+h2::before {
+    content: counter(step-counter) ". ";
+    color: #ff0000;
+}
+
+/* Estilo de los párrafos */
+p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    color: #333333;
+}
+
+/* Estilo para las secciones */
+section {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilo para los bloques de código */
+pre {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.5;
+    margin: 25px 0;
+    border-left: 4px solid #ff0000;
+}
+
+/* Estilo de pie de página */
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 5px solid #ff0000;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-logo {
+    height: 50px;
+    width: auto;
+    margin-bottom: 15px;
+    opacity: 0.9;
+}
+
+footer p {
+    color: #ffffff;
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+footer strong {
+    color: #ff0000;
+}
+
+/* Efectos de hover para elementos interactivos */
+pre strong {
+    color: #ff0000;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    body {
+        padding: 0 15px;
+    }
+    
+    header {
+        padding: 15px 0;
+    }
+    
+    .logo-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .logo {
+        height: 60px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+    }
+    
+    section {
+        padding: 20px;
+    }
+    
+    pre {
+        padding: 15px;
+        font-size: 0.85rem;
+    }
+    
+    .footer-logo {
+        height: 40px;
+    }
+}
+
+/* Animaciones */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.logo:hover {
+    animation: pulse 1.5s infinite;
+}
