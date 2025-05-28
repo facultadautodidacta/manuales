@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introducción y Objetivos del Curso</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .objective-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .objective-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, var(--success-color), #20c997);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .skill-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--info-color), #138496);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .progress-custom {
+            height: 8px;
+            border-radius: 10px;
+            background-color: #e9ecef;
+        }
+
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 10px;
+        }
+
+        .mint-logo {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+        }
+
+        .animated-counter {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-rocket-takeoff hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">¡Bienvenido al Curso de Linux!</h1>
+                <p class="lead fs-4">Domina Linux Mint y adquiere las habilidades técnicas para migrar con confianza</p>
+            </div>
+        </div>
+
+        <!-- Objetivos Principales -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom text-center">
+                        <h2 class="mb-0">
+                            <i class="bi bi-bullseye me-2"></i>
+                            Objetivos del Curso
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-lg-6 mb-4">
+                                <div class="objective-card card h-100">
+                                    <div class="card-body">
+                                        <div class="feature-icon">
+                                            <i class="bi bi-gear-fill"></i>
+                                        </div>
+                                        <h4 class="card-title text-primary">Control Total de Linux</h4>
+                                        <p class="card-text">
+                                            Aprenderás a dominar una distribución Linux desde cero, comprendiendo 
+                                            su arquitectura, sistema de archivos, y herramientas fundamentales para 
+                                            administrar tu sistema de manera eficiente.
+                                        </p>
+                                        <div class="mt-3">
+                                            <span class="skill-badge">Administración del Sistema</span>
+                                            <span class="skill-badge">Línea de Comandos</span>
+                                            <span class="skill-badge">Gestión de Archivos</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <div class="objective-card card h-100">
+                                    <div class="card-body">
+                                        <div class="feature-icon">
+                                            <i class="bi bi-arrow-left-right"></i>
+                                        </div>
+                                        <h4 class="card-title text-primary">Migración Exitosa desde Windows</h4>
+                                        <p class="card-text">
+                                            Desarrollarás las habilidades técnicas necesarias para realizar una 
+                                            migración completa y exitosa desde Windows a Linux Mint, incluyendo 
+                                            transferencia de datos y configuración de aplicaciones.
+                                        </p>
+                                        <div class="mt-3">
+                                            <span class="skill-badge">Migración de Datos</span>
+                                            <span class="skill-badge">Configuración de Software</span>
+                                            <span class="skill-badge">Troubleshooting</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ¿Por qué Linux Mint? -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-body p-4">
+                        <div class="text-center mb-4">
+                            <div class="mint-logo">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h3 class="text-primary">¿Por qué elegimos Linux Mint?</h3>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="bi bi-person-check-fill text-success fs-1 mb-3"></i>
+                                <h5>Fácil para Principiantes</h5>
+                                <p class="text-muted">Interfaz familiar similar a Windows que facilita la transición</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="bi bi-lightning-charge-fill text-warning fs-1 mb-3"></i>
+                                <h5>Alto Rendimiento</h5>
+                                <p class="text-muted">Optimizado para ofrecer el máximo rendimiento en cualquier hardware</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <i class="bi bi-people-fill text-info fs-1 mb-3"></i>
+                                <h5>Gran Comunidad</h5>
+                                <p class="text-muted">Amplio soporte de la comunidad y documentación extensa</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estadísticas del Curso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-body p-4">
+                        <h3 class="text-center text-primary mb-4">
+                            <i class="bi bi-graph-up me-2"></i>
+                            Lo que lograrás en este curso
+                        </h3>
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-4">
+                                <div class="animated-counter">17</div>
+                                <h6 class="text-muted">Capítulos Completos</h6>
+                                <div class="progress progress-custom">
+                                    <div class="progress-bar progress-bar-custom" style="width: 100%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <div class="animated-counter">50+</div>
+                                <h6 class="text-muted">Comandos de Terminal</h6>
+                                <div class="progress progress-custom">
+                                    <div class="progress-bar progress-bar-custom" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <div class="animated-counter">10+</div>
+                                <h6 class="text-muted">Herramientas Esenciales</h6>
+                                <div class="progress progress-custom">
+                                    <div class="progress-bar progress-bar-custom" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <div class="animated-counter">100%</div>
+                                <h6 class="text-muted">Preparado para Migrar</h6>
+                                <div class="progress progress-custom">
+                                    <div class="progress-bar progress-bar-custom" style="width: 100%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Estructura del Curso -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom text-center">
+                        <h3 class="mb-0">
+                            <i class="bi bi-map me-2"></i>
+                            Estructura del Curso
+                        </h3>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <h5 class="text-primary">
+                                    <i class="bi bi-play-circle me-2"></i>
+                                    Fundamentos (Cap. 1-5)
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Introducción a Linux</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Instalación de Linux Mint</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Primeros pasos</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Migración desde Windows</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <h5 class="text-primary">
+                                    <i class="bi bi-tools me-2"></i>
+                                    Herramientas (Cap. 6-12)
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Gestión de paquetes</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Línea de comandos</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Personalización</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Sistema de archivos</li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <h5 class="text-primary">
+                                    <i class="bi bi-star me-2"></i>
+                                    Avanzado (Cap. 13-17)
+                                </h5>
+                                <ul class="list-unstyled">
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Herramientas para desarrolladores</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>SSH y conexiones remotas</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Monitoreo y automatización</li>
+                                    <li><i class="bi bi-check-circle text-success me-2"></i>Scripts avanzados</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <hr class="section-divider">
+                        
+                        <div class="text-center">
+                            <h4 class="text-primary mb-3">¡Comencemos tu viaje hacia Linux!</h4>
+                            <p class="lead text-muted">
+                                Al finalizar este curso, tendrás el conocimiento y la confianza necesaria para 
+                                usar Linux Mint como tu sistema operativo principal y realizar migraciones exitosas.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Animación de contadores
+        document.addEventListener('DOMContentLoaded', function() {
+            const counters = document.querySelectorAll('.animated-counter');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                const increment = target / 50;
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (counter.textContent.includes('%')) {
+                        counter.textContent = Math.floor(current) + '%';
+                    } else if (counter.textContent.includes('+')) {
+                        counter.textContent = Math.floor(current) + '+';
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 50);
+            });
+            
+            // Animación de barras de progreso
+            setTimeout(() => {
+                document.querySelectorAll('.progress-bar').forEach(bar => {
+                    bar.style.transition = 'width 2s ease-in-out';
+                });
+            }, 500);
+        });
+    </script>
+</body>
+</html>
