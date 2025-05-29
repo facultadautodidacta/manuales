@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es Linux y por qué usarlo?</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #fd7e14;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .feature-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .benefit-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--info-color), #138496);
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .linux-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        .use-case-card {
+            border-top: 4px solid var(--warning-color);
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .use-case-icon {
+            color: var(--warning-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .img-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            transition: all 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .distro-logo {
+            height: 60px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-pc-display hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">¿Qué es Linux y por qué usarlo?</h1>
+                <p class="lead fs-4">El sistema operativo libre que domina el mundo digital</p>
+            </div>
+        </div>
+
+        <!-- ¿Qué es Linux? -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-question-circle me-2"></i>
+                            ¿Qué es Linux?
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    Linux es un <strong>sistema operativo</strong> libre y de código abierto basado en Unix. 
+                                    Fue creado por <strong>Linus Torvalds</strong> en 1991 y ha evolucionado gracias a una 
+                                    gran comunidad global de desarrolladores.
+                                </p>
+                                <p>
+                                    A diferencia de Windows o macOS, Linux no es un solo sistema, sino una <strong>familia</strong> 
+                                    de sistemas llamados "distribuciones" (distros) que comparten el mismo núcleo o <strong>kernel</strong>.
+                                </p>
+                                <div class="mt-4">
+                                    <span class="benefit-badge"><i class="bi bi-github"></i> Código Abierto</span>
+                                    <span class="benefit-badge"><i class="bi bi-people-fill"></i> Comunidad Global</span>
+                                    <span class="benefit-badge"><i class="bi bi-shield-lock"></i> Seguridad</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-container">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/800px-Tux.svg.png" 
+                                         alt="Tux, la mascota de Linux" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ¿Para qué sirve Linux? -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            ¿Dónde se usa Linux?
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-globe use-case-icon"></i>
+                                        <h5>Servidores Web</h5>
+                                        <p class="text-muted">El 90% de la nube funciona con Linux, incluyendo Google, Facebook y Amazon</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-code-square use-case-icon"></i>
+                                        <h5>Desarrollo de Software</h5>
+                                        <p class="text-muted">Entorno preferido por desarrolladores para programar y automatizar</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-laptop use-case-icon"></i>
+                                        <h5>Computadoras Personales</h5>
+                                        <p class="text-muted">Alternativa eficiente y segura a Windows y macOS</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-cloud use-case-icon"></i>
+                                        <h5>Infraestructura en la Nube</h5>
+                                        <p class="text-muted">Base de Docker, Kubernetes y servicios cloud</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-shield-lock use-case-icon"></i>
+                                        <h5>Ciberseguridad</h5>
+                                        <p class="text-muted">Herramientas para hacking ético y pentesting</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 use-case-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-joystick use-case-icon"></i>
+                                        <h5>Videojuegos</h5>
+                                        <p class="text-muted">Gracias a Steam Proton y herramientas como Lutris</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <div class="img-container">
+                                <img src="../img/linux1.png" 
+                                     alt="Linux en diferentes ámbitos" class="img-fluid rounded" style="max-height: 300px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Razones para usar Linux en 2025 -->
+        <!-- Razones para usar Linux en 2025 -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="card card-custom fade-in-up delay-2">
+            <div class="card-header-custom">
+                <h2 class="mb-0">
+                    <i class="bi bi-star-fill me-2"></i>
+                    11 Razones para usar Linux en 2025
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                <div class="row">
+                    <!-- Razón 1 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-currency-dollar linux-icon"></i>
+                                    Gratuito y Libre
+                                </h4>
+                                <p class="card-text">
+                                    Sin licencias costosas, sin restricciones, y con libertad total para 
+                                    modificarlo a tus necesidades. Ahorra cientos de dólares en licencias 
+                                    de sistema operativo y software.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 2 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-shield-check linux-icon"></i>
+                                    Privacidad y Seguridad
+                                </h4>
+                                <p class="card-text">
+                                    Menos exposición a virus y sin recolección de datos personales. Linux 
+                                    es inmune al 99% del malware diseñado para Windows.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 3 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-arrow-repeat linux-icon"></i>
+                                    Actualizaciones Controladas
+                                </h4>
+                                <p class="card-text">
+                                    Tú decides cuándo y cómo actualizar, sin reinicios forzados que 
+                                    interrumpen tu trabajo. Las actualizaciones son rápidas y no requieren 
+                                    reinicios constantes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 4 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-code-slash linux-icon"></i>
+                                    Ideal para Desarrolladores
+                                </h4>
+                                <p class="card-text">
+                                    Ambiente flexible y completo para programar, automatizar y administrar 
+                                    sistemas. Terminal poderosa y todas las herramientas de desarrollo 
+                                    disponibles fácilmente.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 5 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-speedometer2 linux-icon"></i>
+                                    Rendimiento Eficiente
+                                </h4>
+                                <p class="card-text">
+                                    Más rápido y estable, incluso en equipos de pocos recursos. Linux 
+                                    puede revivir computadoras antiguas que Windows ya no soporta.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 6 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-palette linux-icon"></i>
+                                    Personalización Total
+                                </h4>
+                                <p class="card-text">
+                                    Desde el entorno de escritorio hasta el comportamiento del sistema. 
+                                    Cambia cada aspecto de tu interfaz con temas, iconos y extensiones.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 7 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-people linux-icon"></i>
+                                    Comunidad Activa
+                                </h4>
+                                <p class="card-text">
+                                    Miles de tutoriales, foros, wikis y canales de ayuda disponibles. 
+                                    La comunidad de Linux es una de las más activas y colaborativas del 
+                                    mundo del software.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 8 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-controller linux-icon"></i>
+                                    Soporte para Videojuegos
+                                </h4>
+                                <p class="card-text">
+                                    Gracias a Steam con Proton, Lutris, Wine y el impulso del Steam Deck, 
+                                    jugar en Linux es una realidad para muchos gamers. Disfruta desde 
+                                    títulos indie hasta juegos AAA.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 9 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-diagram-3 linux-icon"></i>
+                                    Compatibilidad con Tecnologías Modernas
+                                </h4>
+                                <p class="card-text">
+                                    Linux es compatible con contenedores como Docker, inteligencia artificial, 
+                                    redes avanzadas y otras tecnologías de última generación.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 10 -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-laptop linux-icon"></i>
+                                    Revivir Hardware Antiguo
+                                </h4>
+                                <p class="card-text">
+                                    Puedes instalar distribuciones ligeras como Lubuntu, Xubuntu o Puppy Linux 
+                                    en computadoras que Windows dejó atrás. Ideal para reciclar equipos.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Razón 11 (extra opcional) -->
+                    <div class="col-md-6 mb-4">
+                        <div class="feature-card card h-100">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-book linux-icon"></i>
+                                    Aprender más sobre Computación
+                                </h4>
+                                <p class="card-text">
+                                    Linux te enseña cómo funciona un sistema operativo desde dentro. 
+                                    Ideal para estudiantes, autodidactas y entusiastas de la tecnología.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- row -->
+            </div> <!-- card-body -->
+        </div>
+    </div>
+</div>
+
+
+        <!-- Distribuciones populares -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-collection me-2"></i>
+                            Distribuciones Linux populares
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-4">
+                                <img src="../img/mint.png" 
+                                     alt="Linux Mint" class="distro-logo">
+                                <h5>Linux Mint</h5>
+                                <p class="text-muted">Ideal para principiantes, basado en Ubuntu</p>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/UbuntuCoF.svg/1200px-UbuntuCoF.svg.png" 
+                                     alt="Ubuntu" class="distro-logo">
+                                <h5>Ubuntu</h5>
+                                <p class="text-muted">Una de las más populares, con gran soporte</p>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Debian-OpenLogo.svg/1200px-Debian-OpenLogo.svg.png" 
+                                     alt="Debian" class="distro-logo">
+                                <h5>Debian</h5>
+                                <p class="text-muted">Estabilidad y filosofía de software libre</p>
+                            </div>
+                            <div class="col-md-3 mb-4">
+                                <img src="../img/arch.png" 
+                                     alt="Arch Linux" class="distro-logo">
+                                <h5>Arch Linux</h5>
+                                <p class="text-muted">Para usuarios avanzados, rolling release</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ¿Por qué Linux Mint? -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-patch-check me-2"></i>
+                            ¿Por qué elegir Linux Mint para empezar?
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    Entre todas las distribuciones Linux, <strong>Linux Mint</strong> destaca como 
+                                    la opción ideal para quienes dan sus primeros pasos en este sistema operativo.
+                                </p>
+                                <p>
+                                    Basado en Ubuntu (que a su vez se basa en Debian), Linux Mint ofrece una 
+                                    experiencia <strong>estable, pulida y fácil de usar</strong>, especialmente 
+                                    para usuarios que vienen de Windows.
+                                </p>
+                                <div class="mt-4">
+                                    <span class="benefit-badge"><i class="bi bi-check-circle"></i> Interfaz familiar</span>
+                                    <span class="benefit-badge"><i class="bi bi-check-circle"></i> Software incluido</span>
+                                    <span class="benefit-badge"><i class="bi bi-check-circle"></i> Actualizaciones seguras</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-container">
+                                    <img src="../img/escritorio.png" 
+                                         alt="Escritorio de Linux Mint" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="section-divider">
+
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 feature-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-person-check-fill text-success fs-1 mb-3"></i>
+                                        <h5>Fácil para Principiantes</h5>
+                                        <p class="text-muted">
+                                            Interfaz familiar similar a Windows que facilita la transición. Todo 
+                                            funciona desde el primer momento sin configuraciones complejas.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 feature-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-lightning-charge-fill text-warning fs-1 mb-3"></i>
+                                        <h5>Estabilidad Garantizada</h5>
+                                        <p class="text-muted">
+                                            Basado en Ubuntu LTS (Soporte a Largo Plazo) con actualizaciones 
+                                            estables y probadas. Ideal para trabajo diario sin sorpresas.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 feature-card">
+                                    <div class="card-body text-center">
+                                        <i class="bi bi-box-seam-fill text-info fs-1 mb-3"></i>
+                                        <h5>Software Incluido</h5>
+                                        <p class="text-muted">
+                                            Viene con todo lo necesario preinstalado: navegador, suite ofimática, 
+                                            reproductor multimedia y más. Listo para usar desde el inicio.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-flag-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">Comienza tu viaje con Linux</h3>
+                        <p class="lead">
+                            Linux Mint en 2025 es la puerta de entrada perfecta al mundo del software libre. 
+                            <strong>Estable, seguro y fácil de usar</strong>, te permite escapar del ciclo de 
+                            consumo forzado de los sistemas operativos tradicionales.
+                        </p>
+                        <p>
+                            En este curso aprenderás a dominarlo desde cero, adquiriendo habilidades que te 
+                            servirán tanto para uso personal como profesional.
+                        </p>
+                        <div class="mt-4">
+                            <span class="benefit-badge"><i class="bi bi-rocket"></i> Moderno</span>
+                            <span class="benefit-badge"><i class="bi bi-shield-check"></i> Seguro</span>
+                            <span class="benefit-badge"><i class="bi bi-emoji-smile"></i> Accesible</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.feature-card, .use-case-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
