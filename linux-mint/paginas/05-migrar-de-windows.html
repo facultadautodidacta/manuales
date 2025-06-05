@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Migrar de Windows a Linux | Curso Linux Mint</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .transition-card {
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .transition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .table-comparison {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-comparison thead {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+        }
+
+        .table-comparison th:first-child {
+            border-radius: 10px 0 0 0;
+        }
+
+        .table-comparison th:last-child {
+            border-radius: 0 10px 0 0;
+        }
+
+        .table-comparison tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table-comparison tr:hover {
+            background-color: #e9f5e1;
+        }
+
+        .app-icon {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .benefit-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        .shortcut-card {
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .shortcut-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .shortcut-key {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 5px;
+            font-family: monospace;
+            font-weight: bold;
+            margin: 0.2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .shortcut-category {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1 class="display-5 fw-bold">
+                <i class="bi bi-windows"></i> → <i class="bi bi-ubuntu"></i>
+            </h1>
+            <h2 class="mb-0">Migrar de Windows a Linux Mint</h2>
+            <p class="lead">Guía completa para una transición sin problemas</p>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card transition-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <i class="bi bi-info-circle"></i> Por qué migrar y qué esperar
+                        </h3>
+                        <p class="card-text">
+                            Migrar de Windows a Linux Mint es más fácil de lo que piensas. Linux Mint ofrece una experiencia 
+                            similar a Windows pero con mayor seguridad, privacidad y libertad. Aunque hay diferencias, 
+                            encontrarás alternativas para casi todas las funciones que usas en Windows.
+                        </p>
+                        <p>
+                            La curva de aprendizaje es mínima gracias a la interfaz intuitiva de Linux Mint. Estos son 
+                            algunos beneficios inmediatos que obtendrás:
+                        </p>
+                        <div class="mt-3">
+                            <span class="benefit-badge"><i class="bi bi-shield-check"></i> Sin virus ni malware</span>
+                            <span class="benefit-badge"><i class="bi bi-lightning-charge"></i> Sistema más rápido</span>
+                            <span class="benefit-badge"><i class="bi bi-currency-dollar"></i> Cero costos de licencia</span>
+                            <span class="benefit-badge"><i class="bi bi-arrow-repeat"></i> Actualizaciones controladas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de equivalencias -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4 text-center">
+                    <i class="bi bi-table"></i> Equivalencias de programas: Windows → Linux Mint
+                </h3>
+                
+                <div class="table-responsive table-comparison">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th width="25%">Función</th>
+                                <th width="40%">Linux Mint (por defecto o recomendado)</th>
+                                <th width="35%">Windows 10 equivalente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="bi bi-file-zip app-icon"></i> Compresión de archivos</td>
+                                <td><strong>Xarchiver</strong> / <strong>File Roller</strong></td>
+                                <td>Explorador de Windows (ZIP integrado)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-file-earmark-text app-icon"></i> Editor de texto</td>
+                                <td><strong>Xed</strong> (Editor de texto de Linux Mint)</td>
+                                <td>Bloc de notas (Notepad)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-music-note-beamed app-icon"></i> Reproductor multimedia</td>
+                                <td><strong>Rhythmbox</strong>, <strong>VLC</strong></td>
+                                <td>Windows Media Player</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-file-earmark-pdf app-icon"></i> Lector de PDF</td>
+                                <td><strong>Xreader</strong></td>
+                                <td>Microsoft Edge (lector integrado)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-file-earmark-word app-icon"></i> Suite ofimática</td>
+                                <td><strong>LibreOffice</strong> (Writer, Calc, Impress)</td>
+                                <td>Microsoft Office (Word, Excel, PowerPoint)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-folder app-icon"></i> Gestor de archivos</td>
+                                <td><strong>Nemo</strong></td>
+                                <td>Explorador de archivos de Windows</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-speedometer2 app-icon"></i> Monitor del sistema</td>
+                                <td><strong>Monitor del sistema</strong> (gnome-system-monitor)</td>
+                                <td>Administrador de tareas</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-hdd app-icon"></i> Administración de discos</td>
+                                <td><strong>Discos</strong> (GNOME Disks)</td>
+                                <td>Administración de discos de Windows</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-terminal app-icon"></i> Terminal</td>
+                                <td><strong>GNOME Terminal</strong></td>
+                                <td>CMD / PowerShell / Windows Terminal</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-image app-icon"></i> Edición de imágenes</td>
+                                <td><strong>GIMP</strong></td>
+                                <td>Adobe Photoshop</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-film app-icon"></i> Edición de video</td>
+                                <td><strong>Kdenlive</strong> / <strong>OpenShot</strong></td>
+                                <td>Adobe Premiere Pro</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-globe app-icon"></i> Navegador web</td>
+                                <td><strong>Firefox</strong> / <strong>Chromium</strong></td>
+                                <td>Microsoft Edge</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-box-seam app-icon"></i> Gestor de software</td>
+                                <td><strong>Gestor de software de Mint</strong></td>
+                                <td>Microsoft Store</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-key app-icon"></i> Gestor de contraseñas</td>
+                                <td><strong>Seahorse</strong> / <strong>GNOME Keyring</strong></td>
+                                <td>Administrador de credenciales de Windows</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-camera app-icon"></i> Captura de pantalla</td>
+                                <td><strong>Captura de pantalla de Mint</strong></td>
+                                <td>Recortes y anotaciones</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-arrow-repeat app-icon"></i> Actualizador del sistema</td>
+                                <td><strong>Gestor de actualizaciones de Mint</strong></td>
+                                <td>Windows Update</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="alert alert-info mt-4">
+                    <i class="bi bi-lightbulb"></i> <strong>Consejo:</strong> Muchos programas populares de Windows tienen 
+                    versiones nativas para Linux (como VLC, Firefox, Thunderbird) o alternativas de código abierto 
+                    igualmente buenas.
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de atajos de teclado (versión mejorada) -->
+<div class="row mb-5">
+    <div class="col-12">
+        <h3 class="mb-4 text-center">
+            <i class="bi bi-keyboard"></i> Atajos de teclado esenciales
+        </h3>
+        
+        <div class="alert alert-info mb-4">
+            <i class="bi bi-info-circle"></i> <strong>Nota:</strong> La tecla <strong>"Super"</strong> en Linux equivale a la tecla <strong>Windows (⊞)</strong> en tu teclado. En los atajos verás ambas referencias.
+        </div>
+        
+        <div class="row">
+            <!-- Categoría 1: Gestión de ventanas -->
+            <div class="col-md-6">
+                <div class="shortcut-card">
+                    <div class="shortcut-category">
+                        <h5 class="mb-0"><i class="bi bi-window"></i> Gestión de ventanas</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            <span class="shortcut-key">Super/⊞</span> Abrir menú principal
+                            <br><small class="text-muted">(Como el menú Inicio en Windows)</small>
+                        </p>
+                        <p><span class="shortcut-key">Super/⊞</span> + <span class="shortcut-key">↑</span> Maximizar ventana</p>
+                        <p><span class="shortcut-key">Super/⊞</span> + <span class="shortcut-key">↓</span> Minimizar/Restaurar</p>
+                        <p><span class="shortcut-key">Super/⊞</span> + <span class="shortcut-key">←</span> o <span class="shortcut-key">→</span> Ajustar a mitad de pantalla</p>
+                        <p><span class="shortcut-key">Alt</span> + <span class="shortcut-key">F4</span> Cerrar ventana <small class="text-muted">(igual que en Windows)</small></p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categoría 2: Sistema -->
+            <div class="col-md-6">
+                <div class="shortcut-card">
+                    <div class="shortcut-category">
+                        <h5 class="mb-0"><i class="bi bi-gear"></i> Sistema</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><span class="shortcut-key">Super/⊞</span> + <span class="shortcut-key">L</span> Bloquear pantalla</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Alt</span> + <span class="shortcut-key">Supr</span> Abrir diálogo de sesión
+                            <br><small class="text-muted">(Como Ctrl+Alt+Supr en Windows)</small>
+                        </p>
+                        <p><span class="shortcut-key">Super/⊞</span> + <span class="shortcut-key">E</span> Abrir gestor de archivos</p>
+                        <p><span class="shortcut-key">PrtSc</span> Captura de pantalla completa</p>
+                        <p><span class="shortcut-key">Alt</span> + <span class="shortcut-key">PrtSc</span> Captura de ventana activa</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categoría 3: Terminal -->
+            <div class="col-md-6">
+                <div class="shortcut-card">
+                    <div class="shortcut-category">
+                        <h5 class="mb-0"><i class="bi bi-terminal"></i> Terminal</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Alt</span> + <span class="shortcut-key">T</span> Abrir terminal</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">C</span> Copiar texto</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">Shift</span> + <span class="shortcut-key">V</span> Pegar texto</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">C</span> Cancelar comando</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">D</span> Cerrar terminal</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Categoría 4: Navegación -->
+            <div class="col-md-6">
+                <div class="shortcut-card">
+                    <div class="shortcut-category">
+                        <h5 class="mb-0"><i class="bi bi-folder"></i> Gestor de archivos (Nemo)</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><span class="shortcut-key">F2</span> Renombrar archivo</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">N</span> Nueva ventana</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">T</span> Nueva pestaña</p>
+                        <p><span class="shortcut-key">Ctrl</span> + <span class="shortcut-key">H</span> Mostrar archivos ocultos</p>
+                        <p><span class="shortcut-key">F3</span> Panel dual</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-primary mt-4">
+            <i class="bi bi-lightbulb"></i> <strong>Tip avanzado:</strong> En <strong>Configuración → Teclado → Atajos</strong> puedes:
+            <ul class="mt-2 mb-0">
+                <li>Ver todos los atajos con el nombre real "Super"</li>
+                <li>Personalizarlos cambiando "Super" por otras teclas</li>
+            </ul>
+        </div>
+    </div>
+</div>
+        <!-- Consejos adicionales -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card transition-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <i class="bi bi-trophy"></i> Consejos para nuevos usuarios de Linux
+                        </h3>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="alert alert-success">
+                                    <h5><i class="bi bi-check-circle"></i> Qué hacer</h5>
+                                    <ul>
+                                        <li>Explora el Centro de Software para descubrir aplicaciones</li>
+                                        <li>Usa Timeshift para hacer copias de seguridad del sistema</li>
+                                        <li>Actualiza regularmente tu sistema</li>
+                                        <li>Personaliza tu entorno a tu gusto</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-warning">
+                                    <h5><i class="bi bi-exclamation-triangle"></i> Qué evitar</h5>
+                                    <ul>
+                                        <li>No uses comandos de terminal que no entiendas</li>
+                                        <li>Evita instalar paquetes .deb de fuentes no confiables</li>
+                                        <li>No deshabilites las actualizaciones de seguridad</li>
+                                        <li>No esperes que todo funcione exactamente como en Windows</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <div class="alert alert-light">
+                                <p class="mb-0">
+                                    <i class="bi bi-chat-quote"></i> <em>"Linux no es Windows, y eso es una característica, no un error. 
+                                    Con un poco de paciencia, descubrirás un sistema más poderoso y flexible."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
