@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrador de paquetes APT | Curso Linux Mint</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .info-card {
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .table-comparison {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-comparison thead {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+        }
+
+        .table-comparison th:first-child {
+            border-radius: 10px 0 0 0;
+        }
+
+        .table-comparison th:last-child {
+            border-radius: 0 10px 0 0;
+        }
+
+        .table-comparison tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table-comparison tr:hover {
+            background-color: #e9f5e1;
+        }
+
+        .command-icon {
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .feature-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .code-block {
+            background-color: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .code-block .command {
+            color: #66d9ef;
+        }
+        
+        .code-block .comment {
+            color: #75715e;
+            font-style: italic;
+        }
+        
+        .code-block .argument {
+            color: #a6e22e;
+        }
+        
+        .terminal-icon {
+            color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1 class="display-5 fw-bold">
+                <i class="bi bi-box-seam"></i> Administrador de paquetes APT
+            </h1>
+            <h2 class="mb-0">Gestión de software en Linux Mint</h2>
+            <p class="lead">La herramienta esencial para instalar y mantener tu sistema</p>
+        </div>
+
+        <!-- Introducción a APT -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="info-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <i class="bi bi-question-circle"></i> ¿Qué es APT en Linux Mint?
+                        </h3>
+                        <p class="card-text">
+                            <strong>APT (Advanced Package Tool)</strong> es el gestor de paquetes predeterminado en Linux Mint, ya que esta distribución está basada en Ubuntu/Debian. Permite instalar, actualizar, buscar y eliminar paquetes de software desde los repositorios oficiales o fuentes externas.
+                        </p>
+                        <p>
+                            Es una herramienta de línea de comandos fácil de usar, que combina funciones de utilidades más antiguas como <code>apt-get</code> y <code>apt-cache</code>, ofreciendo una sintaxis más simple y moderna.
+                        </p>
+                        <div class="mt-3">
+                            <span class="feature-badge"><i class="bi bi-shield-check"></i> Gestión centralizada de software</span>
+                            <span class="feature-badge"><i class="bi bi-arrow-repeat"></i> Resolución automática de dependencias</span>
+                            <span class="feature-badge"><i class="bi bi-search"></i> Búsqueda eficiente de paquetes</span>
+                            <span class="feature-badge"><i class="bi bi-stack"></i> Soporte para múltiples repositorios</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparación APT vs Aptitude -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4 text-center">
+                    <i class="bi bi-arrow-left-right"></i> Comparación: APT vs Aptitude
+                </h3>
+                
+                <div class="info-card">
+                    <div class="card-body">
+                        <h4 class="text-primary">
+                            <i class="bi bi-info-circle"></i> ¿Qué es aptitude y en qué se diferencia de APT?
+                        </h4>
+                        <p>
+                            <strong>aptitude</strong> es una herramienta avanzada de gestión de paquetes también diseñada para sistemas basados en Debian. A diferencia de APT, aptitude incluye una interfaz de texto interactiva (tipo menú) además de soporte completo por línea de comandos.
+                        </p>
+                        <p>
+                            Su principal ventaja es su capacidad para resolver conflictos de dependencias automáticamente, ofreciendo alternativas cuando algo falla. Aunque es muy útil en entornos complejos o servidores, no suele venir preinstalado en Linux Mint, pero se puede instalar fácilmente con <code>sudo apt install aptitude</code>.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="table-responsive table-comparison mt-4">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th width="40%">Descripción</th>
+                                <th width="30%">Comando APT</th>
+                                <th width="30%">Comando Aptitude</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><i class="bi bi-arrow-repeat command-icon"></i> Actualizar la lista de paquetes</td>
+                                <td><code>sudo apt update</code></td>
+                                <td><code>sudo aptitude update</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-arrow-up command-icon"></i> Actualizar paquetes instalados</td>
+                                <td><code>sudo apt upgrade</code></td>
+                                <td><code>sudo aptitude safe-upgrade</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-arrow-up-square command-icon"></i> Actualizar todo el sistema (maneja cambios importantes)</td>
+                                <td><code>sudo apt full-upgrade</code></td>
+                                <td><code>sudo aptitude full-upgrade</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-search command-icon"></i> Buscar un paquete</td>
+                                <td><code>apt search nombre_del_paquete</code></td>
+                                <td><code>aptitude search nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-info-circle command-icon"></i> Mostrar información detallada de un paquete</td>
+                                <td><code>apt show nombre_del_paquete</code></td>
+                                <td><code>aptitude show nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-download command-icon"></i> Instalar un paquete</td>
+                                <td><code>sudo apt install nombre_del_paquete</code></td>
+                                <td><code>sudo aptitude install nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-trash command-icon"></i> Eliminar un paquete (sin borrar configuración)</td>
+                                <td><code>sudo apt remove nombre_del_paquete</code></td>
+                                <td><code>sudo aptitude remove nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-trash-fill command-icon"></i> Eliminar completamente un paquete (incluye config)</td>
+                                <td><code>sudo apt purge nombre_del_paquete</code></td>
+                                <td><code>sudo aptitude purge nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-broom command-icon"></i> Eliminar paquetes innecesarios automáticamente</td>
+                                <td><code>sudo apt autoremove</code></td>
+                                <td><code>sudo aptitude autoremove</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-tools command-icon"></i> Corregir paquetes rotos o dependencias</td>
+                                <td><code>sudo apt --fix-broken install</code></td>
+                                <td><code>sudo aptitude install -f</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-diagram-3 command-icon"></i> Ver dependencias de un paquete</td>
+                                <td><code>apt depends nombre_del_paquete</code></td>
+                                <td><code>aptitude show nombre_del_paquete</code></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-file-arrow-down command-icon"></i> Descargar un paquete sin instalarlo</td>
+                                <td><code>apt download nombre_del_paquete</code></td>
+                                <td><em>No aplica directamente en aptitude</em></td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-clock-history command-icon"></i> Ver historial de instalación/actualización</td>
+                                <td><code>less /var/log/apt/history.log</code></td>
+                                <td><em>Mismo archivo; no cambia con aptitude</em></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sección de ejemplos prácticos -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4 text-center">
+                    <i class="bi bi-terminal"></i> Ejemplos prácticos con APT
+                </h3>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-download terminal-icon"></i> Instalación de software
+                                </h5>
+                                <div class="code-block">
+                                    <span class="command">sudo</span> <span class="command">apt</span> <span class="argument">install</span> nombre_del_paquete
+                                    <span class="comment"># Instala un paquete específico</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">install</span> paquete1 paquete2 paquete3
+                                    <span class="comment"># Instala múltiples paquetes a la vez</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">install</span> ./paquete_local.deb
+                                    <span class="comment"># Instala un paquete .descargado manualmente</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-search terminal-icon"></i> Búsqueda de paquetes
+                                </h5>
+                                <div class="code-block">
+                                    <span class="command">apt</span> <span class="argument">search</span> término_de_búsqueda
+                                    <span class="comment"># Busca paquetes que coincidan con el término</span>
+                                    
+                                    <br><br><span class="command">apt</span> <span class="argument">show</span> nombre_del_paquete
+                                    <span class="comment"># Muestra información detallada de un paquete</span>
+                                    
+                                    <br><br><span class="command">apt</span> <span class="argument">list</span> --installed
+                                    <span class="comment"># Lista todos los paquetes instalados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-arrow-up terminal-icon"></i> Actualización del sistema
+                                </h5>
+                                <div class="code-block">
+                                    <span class="command">sudo</span> <span class="command">apt</span> <span class="argument">update</span>
+                                    <span class="comment"># Actualiza la lista de paquetes disponibles</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">upgrade</span>
+                                    <span class="comment"># Actualiza todos los paquetes instalados</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">full-upgrade</span>
+                                    <span class="comment"># Actualiza el sistema completo (puede eliminar paquetes si es necesario)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="info-card">
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">
+                                    <i class="bi bi-trash terminal-icon"></i> Eliminación de paquetes
+                                </h5>
+                                <div class="code-block">
+                                    <span class="command">sudo</span> <span class="command">apt</span> <span class="argument">remove</span> nombre_del_paquete
+                                    <span class="comment"># Elimina un paquete pero mantiene su configuración</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">purge</span> nombre_del_paquete
+                                    <span class="comment"># Elimina completamente un paquete y su configuración</span>
+                                    
+                                    <br><br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">autoremove</span>
+                                    <span class="comment"># Elimina paquetes automáticos no necesarios</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consejos adicionales -->
+        <div class="row">
+            <div class="col-12">
+                <div class="info-card">
+                    <div class="card-body">
+                        <h3 class="card-title text-primary">
+                            <i class="bi bi-lightbulb"></i> Consejos avanzados para usar APT
+                        </h3>
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="alert alert-success">
+                                    <h5><i class="bi bi-check-circle"></i> Buenas prácticas</h5>
+                                    <ul>
+                                        <li>Siempre ejecuta <code>sudo apt update</code> antes de instalar o actualizar paquetes</li>
+                                        <li>Usa <code>apt search</code> para encontrar paquetes antes de instalarlos</li>
+                                        <li>Revisa los cambios propuestos por <code>apt full-upgrade</code> antes de confirmar</li>
+                                        <li>Usa <code>apt show</code> para ver información detallada de un paquete</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="alert alert-warning">
+                                    <h5><i class="bi bi-exclamation-triangle"></i> Precauciones</h5>
+                                    <ul>
+                                        <li>No añadas repositorios no confiables a tus fuentes de software</li>
+                                        <li>Evita usar <code>apt full-upgrade</code> sin revisar los cambios propuestos</li>
+                                        <li>No instales paquetes .deb manualmente a menos que sea necesario</li>
+                                        <li>No elimines paquetes del sistema base a menos que sepas lo que haces</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-4">
+                            <div class="alert alert-light">
+                                <p class="mb-0">
+                                    <i class="bi bi-chat-quote"></i> <em>"APT es una de las herramientas más poderosas en Linux Mint. Dominarla te dará control total sobre tu sistema y el software que instalas."</em>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
