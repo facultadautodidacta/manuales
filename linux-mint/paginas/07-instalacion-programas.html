@@ -270,6 +270,52 @@
             </div>
         </div>
 
+        <!-- Nueva sección: Instalar OnlyOffice mediante repositorio -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="mb-4">
+                    <i class="bi bi-file-earmark-word"></i> Instalar OnlyOffice Desktop Editors mediante repositorio
+                </h3>
+                
+                <div class="method-card">
+                    <div class="card-body">
+                        <p>OnlyOffice es una suite ofimática compatible con Microsoft Office. A continuación, cómo instalarlo añadiendo su repositorio oficial para obtener actualizaciones automáticas.</p>
+                        
+                        <h5 class="mt-4"><span class="step-number">1</span> Pasos para instalar OnlyOffice:</h5>
+                        <div class="code-block">
+                            <span class="comment"># 1. Instalar dependencias necesarias</span>
+                            <br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">install</span> apt-transport-https ca-certificates wget
+                            
+                            <br><br><span class="comment"># 2. Descargar e instalar la clave GPG del repositorio</span>
+                            <br><span class="command">sudo</span> <span class="command">mkdir</span> -p /usr/share/keyrings
+                            <br><span class="command">wget</span> -qO- https://download.onlyoffice.com/keys/desktop/onlyoffice.gpg | <span class="command">sudo</span> <span class="command">gpg</span> --dearmor > /usr/share/keyrings/onlyoffice.gpg
+                            
+                            <br><br><span class="comment"># 3. Añadir el repositorio de OnlyOffice</span>
+                            <br><span class="command">echo</span> "deb [signed-by=/usr/share/keyrings/onlyoffice.gpg] https://download.onlyoffice.com/repo/debian squeeze main" | <span class="command">sudo</span> <span class="command">tee</span> /etc/apt/sources.list.d/onlyoffice.list
+                            
+                            <br><br><span class="comment"># 4. Actualizar la lista de paquetes e instalar OnlyOffice</span>
+                            <br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">update</span>
+                            <br><span class="command">sudo</span> <span class="command">apt</span> <span class="argument">install</span> onlyoffice-desktopeditors
+                        </div>
+                        
+                        <h5 class="mt-4"><span class="step-number">2</span> Actualizar OnlyOffice</h5>
+                        <p>Al tener el repositorio añadido, OnlyOffice se actualizará automáticamente con:</p>
+                        <div class="code-block">
+                            <span class="command">sudo</span> <span class="command">apt</span> <span class="argument">update</span> && <span class="command">sudo</span> <span class="command">apt</span> <span class="argument">upgrade</span>
+                        </div>
+                        
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-info-circle"></i> <strong>Nota:</strong> Este método instala la versión más reciente directamente desde los servidores de OnlyOffice, con soporte para actualizaciones.
+                        </div>
+                        
+                        <div class="alert alert-success mt-3">
+                            <i class="bi bi-check-circle"></i> <strong>Alternativa:</strong> También puedes instalar OnlyOffice como <a href="https://flathub.org/apps/org.onlyoffice.desktopeditors" target="_blank">Flatpak desde Flathub</a> si prefieres el aislamiento del sistema.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Método 4: Flatpak y Snap -->
         <div class="row mb-5">
             <div class="col-12">
@@ -347,6 +393,12 @@
                                 <td>Software no disponible en repositorios</td>
                                 <td>Riesgo de seguridad, dependencias manuales</td>
                                 <td>Cuando no hay alternativa (ej: Chrome)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Repositorios externos</strong></td>
+                                <td>Acceso a software específico, actualizaciones</td>
+                                <td>Potencial riesgo de seguridad</td>
+                                <td>Software confiable (ej: OnlyOffice)</td>
                             </tr>
                             <tr>
                                 <td><strong>Flatpak</strong></td>
