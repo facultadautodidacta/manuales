@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea de Comandos Parte 1: Fundamentos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+            --warning-color: #fd7e14;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .command-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .command-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .command-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .terminal-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        .terminal-window {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .terminal-prompt {
+            color: #87b84d;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: #ecf0f1;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .img-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            transition: all 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-terminal hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">Línea de Comandos Parte 1</h1>
+                <p class="lead fs-4"> 8.1 - Navegación en el sistema de archivos</p>
+            </div>
+        </div>
+
+        <!-- Introducción a la Terminal -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-question-circle me-2"></i>
+                            ¿Qué es la terminal de comandos?
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    La terminal (o consola) es una <strong>interfaz de texto</strong> para interactuar con tu sistema operativo. Aunque Linux Mint tiene una interfaz gráfica muy completa, la terminal te da <strong>control total</strong> sobre tu sistema.
+                                </p>
+                                <p>
+                                    Aprender a usar la terminal te permite:
+                                </p>
+                                <ul>
+                                    <li>Realizar tareas más rápido que con la interfaz gráfica</li>
+                                    <li>Automatizar procesos repetitivos</li>
+                                    <li>Acceder a funciones avanzadas del sistema</li>
+                                    <li>Administrar servidores y sistemas remotos</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <span class="command-badge"><i class="bi bi-lightning-charge"></i> Más rápido</span>
+                                    <span class="command-badge"><i class="bi bi-cpu"></i> Más potente</span>
+                                    <span class="command-badge"><i class="bi bi-magic"></i> Más flexible</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-container">
+                                    <img src="../img/terminal8.jpg" 
+                                         alt="Terminal de Linux Mint" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cómo abrir la terminal -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-box-arrow-up-right me-2"></i>
+                            Cómo abrir la terminal en Linux Mint
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <h4 class="text-primary">
+                                    <i class="bi bi-keyboard terminal-icon"></i>
+                                    Método 1: Atajo de teclado
+                                </h4>
+                                <p>
+                                    La forma más rápida es usar el atajo:
+                                </p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">Ctrl + Alt + T</span>
+                                </div>
+                                <p class="text-muted">
+                                    Este atajo abre una nueva ventana de terminal inmediatamente.
+                                </p>
+                            </div>
+                            <div class="col-md-6 mb-4">
+                                <h4 class="text-primary">
+                                    <i class="bi bi-search terminal-icon"></i>
+                                    Método 2: Menú de aplicaciones
+                                </h4>
+                                <ol>
+                                    <li>Haz clic en el menú "Inicio" (esquina inferior izquierda)</li>
+                                    <li>Escribe "Terminal" en la barra de búsqueda</li>
+                                    <li>Selecciona "Terminal" o "Terminal de Linux Mint"</li>
+                                </ol>
+                                <p class="text-muted">
+                                    También puedes anclar la terminal a tu panel para acceso rápido.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comandos básicos -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-code-square me-2"></i>
+                            Navegación en el sistema de archivos
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Estos son los comandos fundamentales que todo usuario de Linux debe conocer:
+                        </p>
+
+                        <!-- Comando pwd -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-signpost-2 terminal-icon"></i>
+                                    pwd - Mostrar ruta actual
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">pwd</span><br>
+                                    <span class="terminal-comment"># Muestra la ruta completa del directorio actual</span><br>
+                                    /home/usuario
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Muestra el directorio de trabajo actual (Print Working Directory).<br>
+                                    <strong>Uso:</strong> Cuando necesites saber exactamente en qué carpeta estás ubicado.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando ls -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-list-ul terminal-icon"></i>
+                                    ls - Listar archivos y carpetas
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls</span><br>
+                                    Documentos  Imágenes  Música  Descargas<br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls -l</span><br>
+                                    <span class="terminal-comment"># Lista con detalles (permisos, dueño, tamaño)</span><br>
+                                    total 16<br>
+                                    drwxr-xr-x 2 usuario usuario 4096 ene 10 10:00 Documentos<br>
+                                    drwxr-xr-x 2 usuario usuario 4096 ene 10 10:00 Imágenes
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Lista el contenido del directorio actual.<br>
+                                    <strong>Opciones útiles:</strong><br>
+                                    - <code>-l</code>: Formato largo con detalles<br>
+                                    - <code>-a</code>: Muestra archivos ocultos (que empiezan con .)<br>
+                                    - <code>-h</code>: Tamaños legibles (KB, MB, GB)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando cd -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-folder2-open terminal-icon"></i>
+                                    cd - Cambiar de directorio
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd Documentos</span><br>
+                                    <span class="terminal-comment"># Entra al directorio Documentos</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~/Documentos$</span>
+                                    <span class="terminal-command">cd ..</span><br>
+                                    <span class="terminal-comment"># Retrocede al directorio padre</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd /usr/local/bin</span><br>
+                                    <span class="terminal-comment"># Cambia a una ruta absoluta</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Cambia el directorio de trabajo actual (Change Directory).<br>
+                                    <strong>Atajos útiles:</strong><br>
+                                    - <code>cd ~</code>: Va al directorio home<br>
+                                    - <code>cd -</code>: Vuelve al directorio anterior<br>
+                                    - <code>cd ..</code>: Sube un nivel
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Rutas absolutas vs relativas -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-signpost-split terminal-icon"></i>
+                                    Rutas absolutas vs relativas
+                                </h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="terminal-window">
+                                            <span class="terminal-comment"># Ruta absoluta (siempre igual)</span><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">cd /home/usuario/Documentos</span><br><br>
+                                            <span class="terminal-comment"># Ruta relativa (depende de ubicación actual)</span><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">cd Documentos</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Rutas absolutas</h5>
+                                        <ul>
+                                            <li>Comienzan con <code>/</code></li>
+                                            <li>Siempre apuntan al mismo lugar</li>
+                                            <li>Ejemplo: <code>/usr/local/bin</code></li>
+                                        </ul>
+                                        <h5>Rutas relativas</h5>
+                                        <ul>
+                                            <li>Dependen del directorio actual</li>
+                                            <li>Usan <code>.</code> (actual) y <code>..</code> (padre)</li>
+                                            <li>Ejemplo: <code>../otra_carpeta</code></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Atajos útiles -->
+                        <div class="command-card card">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-keyboard-fill terminal-icon"></i>
+                                    Atajos útiles en la terminal
+                                </h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5>Símbolos especiales:</h5>
+                                        <ul class="list-unstyled">
+                                            <li><code>.</code> - Directorio actual</li>
+                                            <li><code>..</code> - Directorio padre</li>
+                                            <li><code>~</code> - Directorio home</li>
+                                            <li><code>-</code> - Directorio anterior</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h5>Teclas útiles:</h5>
+                                        <ul class="list-unstyled">
+                                            <li><kbd>Tab</kbd> - Autocompletar nombres</li>
+                                            <li><kbd>Ctrl+C</kbd> - Cancelar comando actual</li>
+                                            <li><kbd>Ctrl+L</kbd> - Limpiar la pantalla</li>
+                                            <li><kbd>↑</kbd>/<kbd>↓</kbd> - Historial de comandos</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="terminal-window mt-3">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd ~/Doc</span><kbd>Tab</kbd><br>
+                                    <span class="terminal-comment"># Se autocompleta a ~/Documentos/</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd ./Documentos</span><br>
+                                    <span class="terminal-comment"># Equivalente a cd Documentos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Práctica guiada -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-journal-check me-2"></i>
+                            Práctica guiada
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Aplica lo aprendido con estos ejercicios prácticos:
+                        </p>
+                        <ol>
+                            <li>Abre la terminal usando <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd></li>
+                            <li>Verifica tu ubicación actual con <code>pwd</code></li>
+                            <li>Lista los archivos de tu directorio home con <code>ls</code></li>
+                            <li>Entra a tu carpeta Documentos con <code>cd Documentos</code></li>
+                            <li>Vuelve al directorio anterior con <code>cd ..</code></li>
+                            <li>Prueba a navegar usando rutas absolutas y relativas</li>
+                            <li>Experimenta con el autocompletado usando <kbd>Tab</kbd></li>
+                        </ol>
+                        <div class="alert alert-primary mt-4">
+                            <i class="bi bi-lightbulb-fill"></i> <strong>Tip:</strong> No temas equivocarte. 
+                            Si ingresas un comando incorrecto, verás un mensaje de error pero no dañarás el sistema.
+                            Usa <kbd>Ctrl+C</kbd> para cancelar un comando que no responde.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-flag-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">¡Has dado tus primeros pasos en la terminal!</h3>
+                        <p class="lead">
+                            Estos comandos básicos son la base para dominar Linux desde la línea de comandos. 
+                            En la siguiente parte aprenderemos a crear, mover y eliminar archivos y directorios.
+                        </p>
+                        <p>
+                            Recuerda practicar estos comandos regularmente para ganar fluidez. La terminal 
+                            puede parecer intimidante al principio, pero con el tiempo se convertirá en 
+                            tu herramienta más poderosa.
+                        </p>
+                        <div class="mt-4">
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> pwd</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> ls</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> cd</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> Rutas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.command-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
