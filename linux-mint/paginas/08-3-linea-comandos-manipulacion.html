@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulación de Archivos y Directorios</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .command-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .command-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .command-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .terminal-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        .terminal-window {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .terminal-prompt {
+            color: #87b84d;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: #ecf0f1;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .terminal-error {
+            color: #e74c3c;
+        }
+
+        .terminal-success {
+            color: #2ecc71;
+        }
+
+        .img-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            transition: all 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .wildcard-example {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--info-color);
+        }
+
+        .wildcard-example h5 {
+            color: var(--info-color);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-files hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3"> Línea de Comandos Parte 1</h1>
+                <p class="lead fs-4">8.3 - Manipulación de Archivos y Directorios</p>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Gestión básica de archivos
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    Dominar los comandos para manipular archivos y directorios es esencial para trabajar eficientemente en la terminal de Linux.
+                                </p>
+                                <p>
+                                    En esta sección aprenderás:
+                                </p>
+                                <ul>
+                                    <li>Crear archivos y directorios</li>
+                                    <li>Copiar, mover y renombrar elementos</li>
+                                    <li>Eliminar archivos y carpetas</li>
+                                    <li>Usar comodines para trabajar con múltiples archivos</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <span class="command-badge"><i class="bi bi-file-earmark-plus"></i> Crear</span>
+                                    <span class="command-badge"><i class="bi bi-arrow-left-right"></i> Mover</span>
+                                    <span class="command-badge"><i class="bi bi-files"></i> Copiar</span>
+                                    <span class="command-badge"><i class="bi bi-trash"></i> Eliminar</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-container">
+                                    <img src="../img/file-management.jpg" 
+                                         alt="Gestión de archivos en terminal" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creación de archivos y directorios -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Crear archivos y directorios
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Los comandos básicos para crear nuevos elementos en el sistema:
+                        </p>
+
+                        <!-- Comando touch -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-file-earmark terminal-icon"></i>
+                                    touch - Crear archivos vacíos
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">touch nuevo_archivo.txt</span><br>
+                                    <span class="terminal-comment"># Crea un archivo vacío llamado nuevo_archivo.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">touch archivo1.txt archivo2.txt archivo3.txt</span><br>
+                                    <span class="terminal-comment"># Crea múltiples archivos a la vez</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">touch -t 202501011200 archivo_fecha.txt</span><br>
+                                    <span class="terminal-comment"># Crea un archivo con fecha específica (1 ene 2025, 12:00)</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función principal:</strong> Crear archivos vacíos o actualizar la fecha de modificación de archivos existentes.<br>
+                                    <strong>Opciones útiles:</strong><br>
+                                    - <code>-a</code>: Solo cambia el tiempo de acceso<br>
+                                    - <code>-m</code>: Solo cambia el tiempo de modificación<br>
+                                    - <code>-t</code>: Establece una fecha específica (formato [[CC]YY]MMDDhhmm[.ss])
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando mkdir -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-folder-plus terminal-icon"></i>
+                                    mkdir - Crear directorios
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mkdir nueva_carpeta</span><br>
+                                    <span class="terminal-comment"># Crea un directorio llamado nueva_carpeta</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mkdir -p proyecto/{src,doc,test}</span><br>
+                                    <span class="terminal-comment"># Crea estructura anidada: proyecto/src, proyecto/doc, proyecto/test</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mkdir dir1 dir2 dir3</span><br>
+                                    <span class="terminal-comment"># Crea múltiples directorios a la vez</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Crea nuevos directorios (Make Directory).<br>
+                                    <strong>Opciones importantes:</strong><br>
+                                    - <code>-p</code>: Crea directorios padres si no existen (no da error)<br>
+                                    - <code>-m</code>: Establece permisos al crear el directorio (ej: <code>mkdir -m 755 dir_seguro</code>)<br>
+                                    - <code>-v</code>: Muestra mensaje por cada directorio creado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copiar, mover y eliminar -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-arrow-left-right me-2"></i>
+                            Copiar, mover y eliminar
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Comandos esenciales para gestionar archivos y directorios existentes:
+                        </p>
+
+                        <!-- Comando cp -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-files terminal-icon"></i>
+                                    cp - Copiar archivos y directorios
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cp origen.txt destino.txt</span><br>
+                                    <span class="terminal-comment"># Copia origen.txt a destino.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cp -r directorio/ nuevo_directorio/</span><br>
+                                    <span class="terminal-comment"># Copia recursiva (para directorios)</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cp -i *.txt ~/backup/</span><br>
+                                    <span class="terminal-comment"># Copia todos los .txt a backup/ preguntando antes de sobrescribir</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Copia archivos y directorios (Copy).<br>
+                                    <strong>Opciones clave:</strong><br>
+                                    - <code>-r</code> o <code>-R</code>: Copia recursiva (para directorios)<br>
+                                    - <code>-i</code>: Pregunta antes de sobrescribir<br>
+                                    - <code>-u</code>: Solo copia si el origen es más nuevo<br>
+                                    - <code>-v</code>: Muestra lo que está copiando<br>
+                                    - <code>-p</code>: Preserva atributos (permisos, dueño, timestamps)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando mv -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-arrow-right terminal-icon"></i>
+                                    mv - Mover o renombrar
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mv viejo.txt nuevo.txt</span><br>
+                                    <span class="terminal-comment"># Renombra viejo.txt a nuevo.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mv archivo.txt directorio/</span><br>
+                                    <span class="terminal-comment"># Mueve archivo.txt al directorio/</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mv -i *.png ~/imagenes/</span><br>
+                                    <span class="terminal-comment"># Mueve todos los PNG a imágenes/, preguntando antes de sobrescribir</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Mueve o renombra archivos y directorios (Move).<br>
+                                    <strong>Comportamiento:</strong><br>
+                                    - Si el destino es un directorio existente, mueve el origen allí<br>
+                                    - Si el destino no existe, renombra el origen al destino<br>
+                                    <strong>Opciones útiles:</strong><br>
+                                    - <code>-i</code>: Pregunta antes de sobrescribir<br>
+                                    - <code>-n</code>: No sobrescribe archivos existentes<br>
+                                    - <code>-v</code>: Muestra lo que está moviendo
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comandos rm y rmdir -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-trash terminal-icon"></i>
+                                    rm y rmdir - Eliminar archivos y directorios
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">rm archivo.txt</span><br>
+                                    <span class="terminal-comment"># Elimina archivo.txt (sin confirmación!)</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">rm -i *.tmp</span><br>
+                                    <span class="terminal-comment"># Elimina todos los .tmp preguntando uno por uno</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">rm -rf directorio/</span><br>
+                                    <span class="terminal-error"># CUIDADO: Elimina directorio/ y todo su contenido recursivamente</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">rmdir directorio_vacio/</span><br>
+                                    <span class="terminal-comment"># Elimina solo directorios vacíos (más seguro)</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>rm (Remove):</strong><br>
+                                    - Elimina archivos y directorios (con opciones)<br>
+                                    - <code>-r</code> o <code>-R</code>: Elimina recursivamente directorios y su contenido<br>
+                                    - <code>-f</code>: Fuerza eliminación sin preguntar (peligroso!)<br>
+                                    - <code>-i</code>: Pregunta antes de eliminar (recomendado)<br>
+                                    <br>
+                                    <strong>rmdir (Remove Directory):</strong><br>
+                                    - Solo elimina directorios vacíos<br>
+                                    - Más seguro que <code>rm -r</code> para evitar eliminaciones accidentales
+                                </p>
+                                <div class="alert alert-danger mt-3">
+                                    <i class="bi bi-exclamation-triangle-fill"></i> <strong>¡Precaución!</strong> <code>rm -rf</code> es extremadamente peligroso. 
+                                    Una vez eliminados los archivos, no hay papelera de reciclaje en la terminal. 
+                                    Nunca ejecutes <code>rm -rf /</code> o <code>rm -rf *</code> sin estar absolutamente seguro.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comodines (wildcards) -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-asterisk me-2"></i>
+                            Uso de comodines (wildcards)
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Los comodines permiten trabajar con múltiples archivos a la vez, haciendo más eficiente el trabajo en la terminal.
+                        </p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Comodín * -->
+                                <div class="wildcard-example">
+                                    <h5><i class="bi bi-asterisk"></i> Asterisco (*) - Cualquier secuencia de caracteres</h5>
+                                    <p>Coincide con cero o más caracteres</p>
+                                    <div class="terminal-window">
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">ls *.txt</span><br>
+                                        <span class="terminal-comment"># Lista todos los archivos .txt</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">rm proyecto_*</span><br>
+                                        <span class="terminal-comment"># Elimina todos los archivos que empiezan con proyecto_</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">cp * /backup/</span><br>
+                                        <span class="terminal-comment"># Copia todos los archivos al directorio backup/</span>
+                                    </div>
+                                </div>
+
+                                <!-- Comodín ? -->
+                                <div class="wildcard-example">
+                                    <h5><i class="bi bi-question-circle"></i> Signo de interrogación (?) - Un solo carácter</h5>
+                                    <p>Coincide con exactamente un carácter cualquiera</p>
+                                    <div class="terminal-window">
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">ls foto?.jpg</span><br>
+                                        <span class="terminal-comment"># Lista foto1.jpg, foto2.jpg pero no foto10.jpg</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">mv documento?.txt docs/</span><br>
+                                        <span class="terminal-comment"># Mueve documento1.txt, documento2.txt, etc. (hasta documento9.txt)</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- Comodín [] -->
+                                <div class="wildcard-example">
+                                    <h5><i class="bi bi-brackets"></i> Corchetes ([]) - Conjunto de caracteres</h5>
+                                    <p>Coincide con cualquiera de los caracteres dentro de los corchetes</p>
+                                    <div class="terminal-window">
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">ls informe_[123].pdf</span><br>
+                                        <span class="terminal-comment"># Lista informe_1.pdf, informe_2.pdf, informe_3.pdf</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">rm *[ab].tmp</span><br>
+                                        <span class="terminal-comment"># Elimina archivos .tmp que terminan con a o b</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">cp imagen_[0-9].jpg backup/</span><br>
+                                        <span class="terminal-comment"># Copia imagen_0.jpg hasta imagen_9.jpg</span>
+                                    </div>
+                                </div>
+
+                                <!-- Comodín {} -->
+                                <div class="wildcard-example">
+                                    <h5><i class="bi bi-braces"></i> Llaves ({}) - Lista de patrones</h5>
+                                    <p>Genera combinaciones con los elementos separados por comas</p>
+                                    <div class="terminal-window">
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">touch archivo{1,2,3}.txt</span><br>
+                                        <span class="terminal-comment"># Crea archivo1.txt, archivo2.txt, archivo3.txt</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">mkdir -p proyecto/{src,doc,test}</span><br>
+                                        <span class="terminal-comment"># Crea directorio proyecto con subdirectorios src, doc, test</span><br><br>
+                                        <span class="terminal-prompt">usuario@mint:~$</span>
+                                        <span class="terminal-command">cp script.sh{,.bak}</span><br>
+                                        <span class="terminal-comment"># Copia script.sh a script.sh.bak (crea backup)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info mt-4">
+                            <i class="bi bi-lightbulb-fill"></i> <strong>Tip:</strong> Puedes combinar múltiples comodines para patrones más complejos. 
+                            Por ejemplo: <code>ls *[0-9]?.{jpg,png}</code> lista archivos que terminan con un número seguido de un carácter y extensión .jpg o .png.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Práctica guiada -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-journal-check me-2"></i>
+                            Práctica guiada
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Ejercicios para practicar la manipulación de archivos:
+                        </p>
+                        <ol>
+                            <li>Crea tres archivos vacíos llamados <code>reporte1.txt</code>, <code>reporte2.txt</code> y <code>reporte3.txt</code> con un solo comando</li>
+                            <li>Crea una estructura de directorios para un proyecto: <code>proyecto/docs</code>, <code>proyecto/src</code> y <code>proyecto/backup</code></li>
+                            <li>Copia todos los archivos <code>.txt</code> a la carpeta <code>backup</code></li>
+                            <li>Renombra <code>reporte1.txt</code> a <code>informe_final.txt</code></li>
+                            <li>Mueve todos los archivos que comienzan con "rep" al directorio <code>docs</code></li>
+                            <li>Elimina solo los archivos que terminan con un número del 1 al 5 (<code>[1-5]</code>)</li>
+                            <li>Prueba los diferentes comodines con <code>ls</code> para ver cómo funcionan</li>
+                        </ol>
+                        <div class="alert alert-primary mt-4">
+                            <i class="bi bi-lightbulb-fill"></i> <strong>Consejo:</strong> Antes de usar <code>rm</code> con comodines, prueba primero con <code>ls</code> 
+                            para ver qué archivos coinciden con tu patrón y evitar eliminaciones accidentales.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-flag-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">¡Ahora puedes gestionar archivos como un profesional!</h3>
+                        <p class="lead">
+                            Estos comandos son la base para trabajar eficientemente en la terminal de Linux.
+                        </p>
+                        <p>
+                            En la siguiente parte aprenderemos a ver y editar el contenido de archivos, buscar texto dentro de ellos
+                            y otras operaciones avanzadas con archivos.
+                        </p>
+                        <div class="mt-4">
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> touch/mkdir</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> cp/mv</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> rm/rmdir</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> Comodines</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.command-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
