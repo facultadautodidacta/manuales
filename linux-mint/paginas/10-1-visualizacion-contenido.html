@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualización de Contenido</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .command-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .command-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .command-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .terminal-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        .terminal-window {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .terminal-prompt {
+            color: #87b84d;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: #ecf0f1;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .terminal-error {
+            color: #e74c3c;
+        }
+
+        .terminal-success {
+            color: #2ecc71;
+        }
+
+        .terminal-output {
+            color: #bdc3c7;
+            margin-left: 0;
+        }
+
+        .img-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            transition: all 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .comparison-table {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .comparison-table table {
+            margin-bottom: 0;
+        }
+
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .comparison-table td {
+            border-color: #dee2e6;
+        }
+
+        .keyboard-key {
+            background-color: #e9ecef;
+            border: 1px solid #adb5bd;
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 0 0.1rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-eye hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">Línea de Comandos Parte 2</h1>
+                <p class="lead fs-4">10.1 - Visualización de Contenido</p>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Visualizar y examinar archivos
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    Una vez que sabes manipular archivos, el siguiente paso es poder ver y examinar su contenido de diferentes maneras.
+                                </p>
+                                <p>
+                                    En esta sección aprenderás:
+                                </p>
+                                <ul>
+                                    <li>Mostrar todo el contenido de archivos</li>
+                                    <li>Leer archivos largos página por página</li>
+                                    <li>Ver solo las primeras o últimas líneas</li>
+                                    <li>Obtener estadísticas y detalles de archivos</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <span class="command-badge"><i class="bi bi-file-text"></i> cat</span>
+                                    <span class="command-badge"><i class="bi bi-book-half"></i> less/more</span>
+                                    <span class="command-badge"><i class="bi bi-arrow-up-short"></i> head/tail</span>
+                                    <span class="command-badge"><i class="bi bi-graph-up"></i> wc/file/stat</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="img-container">
+                                    <img src="../img/terminal8.jpg" 
+                                         alt="Visualización de archivos en terminal" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comando cat -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-file-text me-2"></i>
+                            cat - Mostrar contenido completo
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            El comando <code>cat</code> (concatenate) muestra todo el contenido de uno o más archivos directamente en la terminal.
+                        </p>
+
+                        <!-- Uso básico de cat -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-eye terminal-icon"></i>
+                                    Uso básico de cat
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat archivo.txt</span><br>
+                                    <span class="terminal-output">Contenido completo del archivo.txt</span><br>
+                                    <span class="terminal-output">Se muestra línea por línea</span><br>
+                                    <span class="terminal-output">Hasta el final del archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat archivo1.txt archivo2.txt</span><br>
+                                    <span class="terminal-comment"># Muestra el contenido de ambos archivos concatenados</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat *.txt</span><br>
+                                    <span class="terminal-comment"># Muestra todos los archivos .txt en orden</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Muestra el contenido completo de archivos en la salida estándar.<br>
+                                    <strong>Ideal para:</strong> Archivos pequeños, scripts, archivos de configuración.<br>
+                                    <strong>Precaución:</strong> No uses cat con archivos muy largos, saturará la terminal.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Opciones de cat -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-gear terminal-icon"></i>
+                                    Opciones útiles de cat
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat -n archivo.txt</span><br>
+                                    <span class="terminal-output">     1  Primera línea numerada</span><br>
+                                    <span class="terminal-output">     2  Segunda línea numerada</span><br>
+                                    <span class="terminal-output">     3  Tercera línea numerada</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat -A archivo.txt</span><br>
+                                    <span class="terminal-comment"># Muestra caracteres no imprimibles (espacios, tabs, saltos de línea)</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat -s archivo.txt</span><br>
+                                    <span class="terminal-comment"># Suprime líneas en blanco múltiples consecutivas</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Opciones principales:</strong><br>
+                                    - <code>-n</code>: Numera todas las líneas<br>
+                                    - <code>-b</code>: Numera solo las líneas que no están en blanco<br>
+                                    - <code>-A</code>: Muestra caracteres especiales (tabs como ^I, fin de línea como $)<br>
+                                    - <code>-s</code>: Suprime líneas en blanco múltiples<br>
+                                    - <code>-T</code>: Muestra tabs como ^I
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comandos less y more -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-book-half me-2"></i>
+                            less y more - Lectura por páginas
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Para archivos largos, <code>less</code> y <code>more</code> permiten navegar por el contenido página por página.
+                        </p>
+
+                        <!-- Comando less -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-chevron-left terminal-icon"></i>
+                                    less - El paginador avanzado (recomendado)
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">less archivo_largo.txt</span><br>
+                                    <span class="terminal-comment"># Abre el archivo en modo interactivo</span><br>
+                                    <span class="terminal-output">── Contenido del archivo mostrado página por página ──</span><br>
+                                    <span class="terminal-output">Usa las teclas para navegar:</span><br>
+                                    <span class="terminal-success">:</span>
+                                </div>
+                                <div class="comparison-table">
+                                    <h5>Controles de navegación en less:</h5>
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Tecla</th>
+                                                <th>Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="keyboard-key">Espacio</span> o <span class="keyboard-key">f</span></td>
+                                                <td>Página siguiente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">b</span></td>
+                                                <td>Página anterior</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">↓</span> o <span class="keyboard-key">j</span></td>
+                                                <td>Línea siguiente</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">↑</span> o <span class="keyboard-key">k</span></td>
+                                                <td>Línea anterior</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">g</span></td>
+                                                <td>Ir al inicio del archivo</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">G</span></td>
+                                                <td>Ir al final del archivo</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">/texto</span></td>
+                                                <td>Buscar "texto" hacia adelante</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">?texto</span></td>
+                                                <td>Buscar "texto" hacia atrás</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">n</span></td>
+                                                <td>Siguiente coincidencia de búsqueda</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="keyboard-key">q</span></td>
+                                                <td>Salir de less</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Ventajas de less:</strong><br>
+                                    - Permite navegar hacia adelante y hacia atrás<br>
+                                    - Función de búsqueda integrada<br>
+                                    - No carga todo el archivo en memoria (eficiente con archivos grandes)<br>
+                                    - Resaltado de sintaxis básico
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando more -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-chevron-right terminal-icon"></i>
+                                    more - El paginador básico
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">more archivo.txt</span><br>
+                                    <span class="terminal-comment"># Muestra el archivo página por página (solo hacia adelante)</span><br>
+                                    <span class="terminal-output">-- More -- (25%)</span><br>
+                                    <span class="terminal-comment"># Presiona Espacio para continuar, q para salir</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Características de more:</strong><br>
+                                    - Solo permite avanzar (no retroceder)<br>
+                                    - Más simple que less<br>
+                                    - Muestra porcentaje de progreso<br>
+                                    - Controles: <span class="keyboard-key">Espacio</span> (siguiente página), <span class="keyboard-key">Enter</span> (siguiente línea), <span class="keyboard-key">q</span> (salir)
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-lightbulb-fill"></i> <strong>Recomendación:</strong> Usa <code>less</code> en lugar de <code>more</code> 
+                            porque es más potente y flexible. La mayoría de sistemas Linux modernos tienen <code>less</code> instalado por defecto.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comandos head y tail -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-arrow-up-short me-2"></i>
+                            head y tail - Primeras o últimas líneas
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Cuando solo necesitas ver el inicio o final de un archivo, <code>head</code> y <code>tail</code> son perfectos.
+                        </p>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <!-- Comando head -->
+                                <div class="command-card card mb-4">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-primary">
+                                            <i class="bi bi-arrow-up terminal-icon"></i>
+                                            head - Primeras líneas
+                                        </h4>
+                                        <div class="terminal-window">
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">head archivo.txt</span><br>
+                                            <span class="terminal-comment"># Muestra las primeras 10 líneas (por defecto)</span><br><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">head -n 5 archivo.txt</span><br>
+                                            <span class="terminal-comment"># Muestra solo las primeras 5 líneas</span><br><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">head -20 archivo.txt</span><br>
+                                            <span class="terminal-comment"># Muestra las primeras 20 líneas</span>
+                                        </div>
+                                        <p class="card-text mt-3">
+                                            <strong>Opciones de head:</strong><br>
+                                            - <code>-n NUM</code>: Muestra NUM líneas<br>
+                                            - <code>-c NUM</code>: Muestra NUM caracteres<br>
+                                            - <code>-q</code>: No muestra nombres de archivo<br>
+                                            - <code>-v</code>: Siempre muestra nombres de archivo
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <!-- Comando tail -->
+                                <div class="command-card card mb-4">
+                                    <div class="card-body">
+                                        <h4 class="card-title text-primary">
+                                            <i class="bi bi-arrow-down terminal-icon"></i>
+                                            tail - Últimas líneas
+                                        </h4>
+                                        <div class="terminal-window">
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">tail archivo.txt</span><br>
+                                            <span class="terminal-comment"># Muestra las últimas 10 líneas (por defecto)</span><br><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">tail -n 15 /var/log/syslog</span><br>
+                                            <span class="terminal-comment"># Muestra las últimas 15 líneas del log del sistema</span><br><br>
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">tail -f /var/log/syslog</span><br>
+                                            <span class="terminal-comment"># Sigue el archivo en tiempo real (útil para logs)</span>
+                                        </div>
+                                        <p class="card-text mt-3">
+                                            <strong>Opciones de tail:</strong><br>
+                                            - <code>-n NUM</code>: Muestra NUM líneas<br>
+                                            - <code>-c NUM</code>: Muestra NUM caracteres<br>
+                                            - <code>-f</code>: Sigue el archivo (follow)<br>
+                                            - <code>-F</code>: Como -f pero maneja rotación de logs
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplos prácticos -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-tools terminal-icon"></i>
+                                    Ejemplos prácticos con head y tail
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">head -1 *.txt</span><br>
+                                    <span class="terminal-comment"># Muestra la primera línea de todos los archivos .txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">tail -5 archivo1.txt archivo2.txt</span><br>
+                                    <span class="terminal-comment"># Muestra las últimas 5 líneas de ambos archivos</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">head -50 archivo.txt | tail -10</span><br>
+                                    <span class="terminal-comment"># Muestra las líneas 41-50 (combina head y tail con pipe)</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">tail -f /var/log/auth.log</span><br>
+                                    <span class="terminal-comment"># Monitorea intentos de login en tiempo real (Ctrl+C para salir)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comandos wc, file y stat -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-graph-up me-2"></i>
+                            wc, file y stat - Estadísticas y detalles
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Estos comandos te dan información detallada sobre archivos sin mostrar su contenido.
+                        </p>
+
+                        <!-- Comando wc -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-123 terminal-icon"></i>
+                                    wc - Contar palabras, líneas y caracteres
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">wc archivo.txt</span><br>
+                                    <span class="terminal-output">     42    156   1024 archivo.txt</span><br>
+                                    <span class="terminal-comment"># líneas  palabras  caracteres  nombre</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">wc -l *.txt</span><br>
+                                    <span class="terminal-comment"># Cuenta solo las líneas de todos los archivos .txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">wc -w ensayo.txt</span><br>
+                                    <span class="terminal-output">     1247 ensayo.txt</span><br>
+                                    <span class="terminal-comment"># Cuenta solo las palabras</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Opciones de wc:</strong><br>
+                                    - <code>-l</code>: Solo cuenta líneas<br>
+                                    - <code>-w</code>: Solo cuenta palabras<br>
+                                    - <code>-c</code>: Solo cuenta caracteres (bytes)<br>
+                                    - <code>-m</code>: Solo cuenta caracteres (incluyendo multibyte)<br>
+                                    - <code>-L</code>: Longitud de la línea más larga
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando file -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-file-earmark-check terminal-icon"></i>
+                                    file - Identificar tipo de archivo
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">file documento.txt</span><br>
+                                    <span class="terminal-output">documento.txt: UTF-8 Unicode text</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">file imagen.jpg</span><br>
+                                    <span class="terminal-output">imagen.jpg: JPEG image data, JFIF standard 1.01</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">file script.sh</span><br>
+                                    <span class="terminal-output">script.sh: Bourne-Again shell script, ASCII text executable</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">file *</span><br>
+                                    <span class="terminal-comment"># Identifica el tipo de todos los archivos en el directorio actual</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> Determina el tipo de archivo analizando su contenido, no solo la extensión.<br>
+                                    <strong>Útil para:</strong> Identificar archivos sin extensión, verificar si un archivo es realmente lo que parece ser, 
+                                    detectar archivos corruptos o binarios que parecen texto.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Comando stat -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-info-square terminal-icon"></i>
+                                    stat - Información detallada del archivo
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">stat archivo.txt</span><br>
+                                    <span class="terminal-output">  File: archivo.txt</span><br>
+                                    <span class="terminal-output">  Size: 1024      	Blocks: 8          IO Block: 4096   regular file</span><br>
+                                    <span class="terminal-output">Device: 801h/2049d	Inode: 123456      Links: 1</span><br>
+                                    <span class="terminal-output">Access: (0644/-rw-r--r--)  Uid: (1000/usuario)   Gid: (1000/usuario)</span><br>
+                                    <span class="terminal-output">Access: 2025-01-15 10:30:25.123456789 -0300</span><br>
+                                    <span class="terminal-output">Modify: 2025-01-15 10:25:30.987654321 -0300</span><br>
+                                    <span class="terminal-output">Change: 2025-01-15 10:25:30.987654321 -0300</span><br>
+                                    <span class="terminal-output"> Birth: -</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">stat -c "%n: %s bytes, %y" *.txt</span><br>
+                                    <span class="terminal-comment"># Formato personalizado: nombre, tamaño y fecha de modificación</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Información que proporciona stat:</strong><br>
+                                    - Nombre y tamaño del archivo<br>
+                                    - Tipo de archivo y permisos<br>
+                                    - Propietario y grupo<br>
+                                    - Fechas de acceso, modificación y cambio de metadatos<br>
+                                    - Número de inode y enlaces<br>
+                                    - Información del dispositivo donde está almacenado
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Práctica guiada -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-journal-check me-2"></i>
+                            Práctica guiada
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Ejercicios básicos para practicar visualización de archivos:
+                        </p>
+                        
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Paso inicial:</strong> Abre una terminal y ve a tu carpeta personal con <code>cd ~</code>
+                        </div>
+
+                        <h5>Ejercicio 1: Crear y ver un archivo simple</h5>
+                        <ol>
+                            <li>Crea un archivo de prueba: <code>echo "Hola mundo" > mi_archivo.txt</code></li>
+                            <li>Ve el contenido con: <code>cat mi_archivo.txt</code></li>
+                            <li>Agrega más contenido: <code>echo "Segunda línea" >> mi_archivo.txt</code></li>
+                            <li>Ve el archivo completo de nuevo: <code>cat mi_archivo.txt</code></li>
+                        </ol>
+
+                        <h5 class="mt-4">Ejercicio 2: Practicar con head y tail</h5>
+                        <ol>
+                            <li>Crea un archivo con más líneas: 
+                                <div class="terminal-window mt-2 mb-2">
+                                    <span class="terminal-command">echo "Línea 1" > archivo_largo.txt</span><br>
+                                    <span class="terminal-command">echo "Línea 2" >> archivo_largo.txt</span><br>
+                                    <span class="terminal-command">echo "Línea 3" >> archivo_largo.txt</span><br>
+                                    <span class="terminal-command">echo "Línea 4" >> archivo_largo.txt</span><br>
+                                    <span class="terminal-command">echo "Línea 5" >> archivo_largo.txt</span>
+                                </div>
+                            </li>
+                            <li>Ve las primeras 2 líneas: <code>head -2 archivo_largo.txt</code></li>
+                            <li>Ve las últimas 2 líneas: <code>tail -2 archivo_largo.txt</code></li>
+                            <li>Ve todo el archivo numerado: <code>cat -n archivo_largo.txt</code></li>
+                        </ol>
+
+                        <h5 class="mt-4">Ejercicio 3: Contar y examinar archivos</h5>
+                        <ol>
+                            <li>Cuenta las líneas de tu archivo: <code>wc -l archivo_largo.txt</code></li>
+                            <li>Cuenta las palabras: <code>wc -w archivo_largo.txt</code></li>
+                            <li>Ve qué tipo de archivo es: <code>file archivo_largo.txt</code></li>
+                            <li>Ve la información básica: <code>ls -l archivo_largo.txt</code></li>
+                        </ol>
+
+                        <h5 class="mt-4">Ejercicio 4: Explorar archivos del sistema (fácil)</h5>
+                        <ol>
+                            <li>Ve las primeras líneas de tu perfil de bash: <code>head -5 ~/.bashrc</code></li>
+                            <li>Ve información de tu sistema: <code>head -3 /etc/os-release</code></li>
+                            <li>Cuenta cuántas líneas tiene: <code>wc -l /etc/os-release</code></li>
+                        </ol>
+
+                        <div class="alert alert-success mt-4">
+                            <i class="bi bi-check-circle me-2"></i> <strong>¡Bien hecho!</strong> Una vez que domines estos ejercicios básicos, 
+                            estarás listo para explorar archivos más complejos y usar comandos como <code>less</code> para archivos largos.
+                        </div>
+
+                        <div class="alert alert-warning mt-3">
+                            <i class="bi bi-exclamation-triangle me-2"></i> <strong>Recuerda:</strong> Si te pierdes o algo no funciona, 
+                            siempre puedes usar <code>ls</code> para ver qué archivos tienes en tu directorio actual.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparación de comandos -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-table me-2"></i>
+                            Resumen comparativo
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="comparison-table">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Comando</th>
+                                        <th>Función</th>
+                                        <th>Mejor uso</th>
+                                        <th>Precaución</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>cat</code></td>
+                                        <td>Muestra todo el contenido</td>
+                                        <td>Archivos pequeños, scripts</td>
+                                        <td>No usar con archivos muy grandes</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>less</code></td>
+                                        <td>Paginador interactivo</td>
+                                        <td>Archivos largos, navegación</td>
+                                        <td>Recordar salir con 'q'</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>more</code></td>
+                                        <td>Paginador básico</td>
+                                        <td>Sistemas sin less</td>
+                                        <td>Solo avanza, no retrocede</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>head</code></td>
+                                        <td>Primeras líneas</td>
+                                        <td>Ver inicio de logs, archivos</td>
+                                        <td>Por defecto solo 10 líneas</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>tail</code></td>
+                                        <td>Últimas líneas</td>
+                                        <td>Logs recientes, monitoreo</td>
+                                        <td>-f consume recursos</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>wc</code></td>
+                                        <td>Contar líneas/palabras</td>
+                                        <td>Estadísticas de texto</td>
+                                        <td>Los espacios afectan el conteo</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>file</code></td>
+                                        <td>Identificar tipo</td>
+                                        <td>Archivos sin extensión</td>
+                                        <td>Puede no ser 100% preciso</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>stat</code></td>
+                                        <td>Metadatos completos</td>
+                                        <td>Información detallada</td>
+                                        <td>Mucha información</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-eye-fill text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">¡Ahora puedes examinar archivos como un experto!</h3>
+                        <p class="lead">
+                            Estos comandos te dan múltiples formas de visualizar y analizar el contenido de archivos según tus necesidades.
+                        </p>
+                        <p>
+                            En la siguiente sección aprenderemos sobre búsqueda de texto, filtrado de contenido 
+                            y manipulación avanzada de archivos con grep, sed y awk.
+                        </p>
+                        <div class="mt-4">
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> cat</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> less/more</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> head/tail</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> wc/file/stat</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.command-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
