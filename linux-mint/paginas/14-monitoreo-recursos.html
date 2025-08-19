@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14. Monitoreo de recursos - Manual Linux Mint</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+  <style>
+    :root { --primary-color:#87b84d; --secondary-color:#3c3c3c; --accent-color:#6a9e3d; --text-color:#2e3436; }
+    body { font-family:'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); color:var(--text-color);} 
+    .hero { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:3rem 0; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.1); margin-bottom:2rem; }
+    .badge-pill { background:linear-gradient(135deg,var(--primary-color),var(--accent-color)); color:#fff; border-radius:20px; padding:.35rem .8rem; margin:.15rem; display:inline-block; font-size:.9rem; }
+    .card-custom { border:none; border-radius:14px; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.08); overflow:hidden; }
+    .card-header-custom { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:1rem 1.25rem; }
+    .fade-in-up { animation:fadeInUp .6s ease-out; } @keyframes fadeInUp { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+    .tip { background:#f7f9fc; border-left:5px solid var(--primary-color); padding:.75rem 1rem; border-radius:8px; }
+    /* Terminal y salida esperada */
+    .terminal-window { background:#2c3e50; color:#ecf0f1; border-radius:8px; padding:1rem; font-family:"Courier New", monospace; font-size:14px; border:1px solid #223546; box-shadow:0 5px 15px rgba(0,0,0,.2); }
+    .terminal-prompt { color:#87b84d; font-weight:700; }
+    .terminal-command { color:#ecf0f1; }
+    .terminal-comment { color:#8fa6b3; font-style:italic; display:block; margin-top:.25rem; }
+    .terminal-output { color:#bdc3c7; display:block; }
+    .expected-output { background:#f7f9fc; border:1px solid rgba(135,184,77,.35); border-left:6px solid var(--primary-color); border-radius:8px; padding:.75rem 1rem; margin:.5rem 0 1rem; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+    .expected-title { font-weight:600; color:#2e7d32; margin-bottom:.35rem; }
+    .expected-output pre { background:#fff; border:1px dashed rgba(44,62,80,.15); border-radius:6px; padding:.6rem .75rem; margin:0; font-family:"Courier New", monospace; font-size:.95rem; white-space:pre-wrap; word-break:break-word; }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.fade-in-up').forEach((el,i)=>{ el.style.opacity='0'; setTimeout(()=>{ el.style.transition='opacity .5s'; el.style.opacity='1'; }, i*120); });
+    });
+  </script>
+</head>
+<body>
+  <div class="container-fluid p-4">
+    <div class="hero text-center fade-in-up">
+      <div class="container">
+        <i class="bi bi-activity" style="font-size:3.5rem"></i>
+        <h1 class="display-6 fw-bold mt-2 mb-2">Monitoreo de recursos</h1>
+        <p class="lead">Herramientas fáciles para ver CPU, memoria, red y disco</p>
+        <div class="mt-2">
+          <span class="badge-pill">System Monitor</span>
+          <span class="badge-pill">Discos</span>
+          <span class="badge-pill">btop</span>
+          <span class="badge-pill">htop</span>
+          <span class="badge-pill">df</span>
+          <span class="badge-pill">free</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monitoreo gráfico (GUI) -->
+    <div class="row mb-4">
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100 fade-in-up">
+          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-speedometer2 me-2"></i>Monitor del sistema (gráfico)</h3></div>
+          <div class="card-body p-4">
+            <p>Abre el <strong>Monitor del sistema</strong> desde el menú (o instala si no lo tienes):</p>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y gnome-system-monitor</span>
+              <span class="terminal-comment"># CPU, memoria, procesos y red con interfaz gráfica</span>
+            </div>
+            <ul class="mb-0">
+              <li>Ordena por <em>CPU</em> o <em>Memoria</em> para detectar procesos pesados.</li>
+              <li>Cierra procesos colgados desde la pestaña de <em>Procesos</em>.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100 fade-in-up">
+          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-hdd-network me-2"></i>Discos (SMART y particiones)</h3></div>
+          <div class="card-body p-4">
+            <p>La app <strong>Discos</strong> muestra información de unidades y estado SMART.</p>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y gnome-disk-utility</span>
+              <span class="terminal-comment"># Revisa salud del disco y gestiona montajes</span>
+            </div>
+            <div class="tip"><i class="bi bi-info-circle me-2"></i>Si ves sectores reasignados o errores SMART, haz copia de seguridad.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal: btop y htop -->
+    <div class="row mb-4">
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100 fade-in-up">
+          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-graph-up-arrow me-2"></i>btop (recomendado)</h3></div>
+          <div class="card-body p-4">
+            <p>Vista moderna de CPU, memoria, procesos, red y disco.</p>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y btop</span>
+              <br>
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">btop</span>
+              <span class="terminal-comment"># Teclas: q salir, F2 opciones, 1-4 paneles</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Resultado esperado</div><pre>Se abre la interfaz de btop con gráficos y listas de procesos.</pre></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 mb-4">
+        <div class="card card-custom h-100 fade-in-up">
+          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-list-ul me-2"></i>htop (alternativa clásica)</h3></div>
+          <div class="card-body p-4">
+            <p>Más liviano y muy conocido.</p>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y htop</span>
+              <br>
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">htop</span>
+              <span class="terminal-comment"># F6 ordenar, F3 buscar, q salir</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Resultado esperado</div><pre>Aparece htop con procesos y barras de CPU/memoria.</pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comandos rápidos útiles -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card card-custom fade-in-up">
+          <div class="card-header-custom"><h2 class="h5 mb-0"><i class="bi bi-terminal me-2"></i>Comandos rápidos</h2></div>
+          <div class="card-body p-4">
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">df -h</span>
+              <span class="terminal-comment"># Espacio libre/uso por partición</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       100G   45G   50G  48% /
+/dev/sda1       512M   60M  452M  12% /boot/efi</pre></div>
+
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">free -h</span>
+              <span class="terminal-comment"># Memoria RAM y swap</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Salida esperada</div><pre>              total        used        free      shared  buff/cache   available
+Mem:           15Gi       3.1Gi       9.8Gi       310Mi       2.2Gi        12Gi
+Swap:           2Gi          0B        2Gi</pre></div>
+
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">uptime -p</span>
+              <span class="terminal-comment"># Tiempo encendido y carga</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Salida esperada</div><pre>up 2 hours, 10 minutes</pre></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Opcional: red y disco en vivo -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="card card-custom fade-in-up">
+          <div class="card-header-custom"><h2 class="h5 mb-0"><i class="bi bi-wifi me-2"></i>Opcional: red y disco en vivo</h2></div>
+          <div class="card-body p-4">
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y nethogs iotop</span>
+              <span class="terminal-comment"># Requieren permisos de administrador</span>
+            </div>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo nethogs</span>
+              <span class="terminal-comment"># Ver consumo de red por proceso</span>
+            </div>
+            <div class="terminal-window mb-0">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo iotop</span>
+              <span class="terminal-comment"># Ver lectura/escritura de disco por proceso</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Práctica breve -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="card card-custom fade-in-up">
+          <div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-mortarboard me-2"></i>Práctica guiada (5 minutos)</h2></div>
+          <div class="card-body p-4">
+            <p class="lead">Tres comprobaciones rápidas de tu sistema.</p>
+
+            <h5>1) Instala y abre btop</h5>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y btop &amp;&amp; btop</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Resultado esperado</div><pre>Se abre btop mostrando CPU, memoria y procesos.</pre></div>
+
+            <h5 class="mt-3">2) Revisa el disco</h5>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">df -h</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Salida esperada</div><pre>/dev/sda2       100G   45G   50G  48% /</pre></div>
+
+            <h5 class="mt-3">3) Revisa la memoria</h5>
+            <div class="terminal-window mb-2">
+              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">free -h</span>
+            </div>
+            <div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Mem:   15Gi total, 3.1Gi usados, 12Gi disponibles</pre></div>
+
+            <div class="alert alert-success mt-2"><i class="bi bi-check2-circle me-2"></i>Listo: ya sabes ver rápidamente salud y uso de tu equipo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<!-- Archivo creado para monitoreo de recursos en Linux Mint: sencillo y práctico -->
+</html>

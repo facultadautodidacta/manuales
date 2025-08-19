@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10.5 Compresión y archivado - Manual Linux Mint</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .command-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .command-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .option-badge {
+            background: linear-gradient(135deg, var(--info-color), #007bff);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .option-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
+        }
+
+        .format-badge {
+            background: linear-gradient(135deg, var(--warning-color), #e0a800);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin: 0.2rem;
+            display: inline-block;
+            font-family: 'Courier New', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .format-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(253, 126, 20, 0.3);
+        }
+
+        .terminal-window {
+            background-color: #34495e;
+            color: #ecf0f1;
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid #2c3e50;
+        }
+
+        .terminal-prompt {
+            color: #87b84d;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: #ecf0f1;
+        }
+
+        .terminal-comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .terminal-output {
+            color: #bdc3c7;
+            margin-left: 0;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .file-size {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .compression-ratio {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+
+        .comparison-table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(135, 184, 77, 0.05);
+        }
+
+        .table th, .table td {
+            border-color: rgba(135, 184, 77, 0.2);
+            padding: 1rem;
+        }
+
+        .progress-custom {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #e9ecef;
+        }
+
+        .progress-bar-custom {
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        /* Salida esperada (consistente con 10-3) */
+        .expected-output {
+            background: #f7f9fc;
+            border: 1px solid rgba(135, 184, 77, 0.35);
+            border-left: 6px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            margin: 0.5rem 0 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+        .expected-title {
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 0.35rem;
+        }
+        .expected-output pre {
+            background: #ffffff;
+            border: 1px dashed rgba(44,62,80,0.15);
+            border-radius: 6px;
+            padding: 0.6rem 0.75rem;
+            margin: 0;
+            font-family: "Courier New", monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-archive hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">Línea de Comandos Parte 2</h1>
+                <p class="lead fs-4">10.5 - Compresión y archivado</p>
+                <div class="mt-4">
+                    <span class="command-badge">tar</span>
+                    <span class="command-badge">gzip</span>
+                    <span class="command-badge">gunzip</span>
+                    <span class="command-badge">zip</span>
+                    <span class="command-badge">unzip</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- tar básico -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-folder-symlink me-2"></i>
+                            tar — agrupar y comprimir (básico)
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            <code>tar</code> agrupa archivos en uno solo y, con <span class="option-badge">-z</span>, los comprime en <code>.tar.gz</code>.
+                        </p>
+
+                        <h5 class="mb-3">Básico que necesitas</h5>
+                        <div class="mb-3">
+                            <span class="option-badge">-c</span>
+                            <span class="option-badge">-x</span>
+                            <span class="option-badge">-t</span>
+                            <span class="option-badge">-f</span>
+                            <span class="option-badge">-v</span>
+                            <span class="option-badge">-z</span>
+                        </div>
+
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> tar -czf backup.tar.gz carpeta/</span>
+                            <div class="terminal-comment"># Crear comprimido .tar.gz</div>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> tar -tzf backup.tar.gz</span>
+                            <div class="terminal-comment"># Listar contenido sin extraer</div>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> tar -xzf backup.tar.gz -C destino/</span>
+                            <div class="terminal-comment"># Extraer en un directorio</div>
+                        </div>
+
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            Tip: <code>tar -tf archivo.tar</code> lista un .tar sin compresión.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- gzip/gunzip (archivos individuales) -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-file-zip me-2"></i>
+                            gzip y gunzip — archivos individuales (simple)
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Usa <code>gzip archivo</code> para comprimir un solo archivo y <code>gunzip archivo.gz</code> para descomprimirlo. Opción útil: <span class="option-badge">-k</span> mantiene el original.
+                        </p>
+
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ls -lh documento.txt</span>
+                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="file-size">1.2M</span> fecha hora documento.txt</div>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> gzip -k documento.txt</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ls -lh documento.*</span>
+                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="file-size">1.2M</span> fecha hora documento.txt</div>
+                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="compression-ratio">250K</span> fecha hora documento.txt.gz</div>
+                        </div>
+
+                        <div class="alert alert-warning mt-2">
+                            <small>Nota: sin <code>-k</code>, gzip reemplaza el archivo original.</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- zip/unzip básico -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-file-earmark-zip me-2"></i>
+                            zip y unzip — formato compatible con Windows
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            <code>zip</code> crea archivos <code>.zip</code> y <code>unzip</code> los extrae o lista. Ideal para compartir con usuarios de Windows.
+                        </p>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> zip -r paquete.zip carpeta/</span>
+                            <div class="terminal-comment"># Crear ZIP recursivo</div>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> unzip -l paquete.zip</span>
+                            <div class="terminal-comment"># Ver contenido</div>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> unzip paquete.zip -d destino/</span>
+                            <div class="terminal-comment"># Extraer en un directorio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <!-- (Se elimina comparación/benchmark para mantenerlo simple) -->
+
+        <!-- Práctica guiada (simple) -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-4">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-mortarboard me-2"></i>
+                            Práctica guiada
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">Tres ejercicios rápidos y seguros. Ejecuta en tu carpeta personal (<code>cd ~</code>).</p>
+
+                        <h5>Ejercicio 1: Preparar archivos de práctica</h5>
+                        <ol>
+                            <li>Crea carpeta y entra: <code>mkdir practica-comprimir; cd practica-comprimir</code></li>
+                            <li>Crea archivos y una subcarpeta:
+                                <div class="terminal-window mt-2 mb-2">
+                                    <span class="terminal-command">echo "Hola" > archivo1.txt</span><br>
+                                    <span class="terminal-command">echo "Linux Mint" > archivo2.txt</span><br>
+                                    <span class="terminal-command">mkdir docs</span><br>
+                                    <span class="terminal-command">echo "Nota" > docs/nota.txt</span><br>
+                                    <span class="terminal-command">ls -1</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">Salida esperada</div>
+                                    <pre>archivo1.txt
+archivo2.txt
+docs/</pre>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <h5 class="mt-4">Ejercicio 2: Crear y revisar un .tar.gz</h5>
+                        <ol>
+                            <li>Crear comprimido: <code>tar -czf paquete.tar.gz *.txt docs/</code></li>
+                            <li>Ver tamaño: <code>ls -lh paquete.tar.gz</code>
+                                <div class="expected-output">
+                                    <div class="expected-title">Salida esperada</div>
+                                    <pre>-rw-rw-r-- 1 usuario usuario 4.0K fecha hora paquete.tar.gz</pre>
+                                </div>
+                            </li>
+                            <li>Listar contenido: <code>tar -tzf paquete.tar.gz</code>
+                                <div class="expected-output">
+                                    <div class="expected-title">Salida esperada</div>
+                                    <pre>archivo1.txt
+archivo2.txt
+docs/
+docs/nota.txt</pre>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <h5 class="mt-4">Ejercicio 3: Crear y extraer ZIP</h5>
+                        <ol>
+                            <li>Crear ZIP: <code>zip -r paquete.zip *.txt docs/</code></li>
+                            <li>Ver contenido: <code>unzip -l paquete.zip</code>
+                                <div class="expected-output">
+                                    <div class="expected-title">Salida esperada</div>
+                                    <pre>Archive:  paquete.zip
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        6  fecha      hora    archivo1.txt
+       10  fecha      hora    archivo2.txt
+        0  fecha      hora    docs/
+        5  fecha      hora    docs/nota.txt
+---------                     -------
+       21                     4 files</pre>
+                                </div>
+                            </li>
+                            <li>Extraer en carpeta nueva:
+                                <div class="terminal-window mt-2 mb-2">
+                                    <span class="terminal-command">mkdir extraido</span><br>
+                                    <span class="terminal-command">unzip paquete.zip -d extraido</span><br>
+                                    <span class="terminal-command">ls -1 extraido</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">Salida esperada</div>
+                                    <pre>archivo1.txt
+archivo2.txt
+docs</pre>
+                                </div>
+                            </li>
+                        </ol>
+
+                        <div class="alert alert-success mt-3">
+                            <i class="bi bi-check-circle me-2"></i> ¡Listo! Ya dominas lo esencial: <code>tar -czf</code>, <code>tar -tzf</code>, <code>tar -xzf</code>, <code>zip</code> y <code>unzip</code>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- (Se elimina "Casos de uso" para mantenerlo breve) -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Animación de fade-in al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos con animación
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Efecto de escritura en terminal
+        document.addEventListener('DOMContentLoaded', function() {
+            const terminals = document.querySelectorAll('.terminal-window');
+            terminals.forEach((terminal, index) => {
+                terminal.style.opacity = '0';
+                setTimeout(() => {
+                    terminal.style.transition = 'opacity 0.5s ease';
+                    terminal.style.opacity = '1';
+                }, index * 200);
+            });
+        });
+
+        // Animación de barras de progreso
+        document.addEventListener('DOMContentLoaded', function() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.transition = 'width 1s ease-in-out';
+                    bar.style.width = bar.style.width;
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

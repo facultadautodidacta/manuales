@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>13. SSH local y remoto - Manual Linux Mint</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+	<style>
+		:root { --primary-color:#87b84d; --secondary-color:#3c3c3c; --accent-color:#6a9e3d; --text-color:#2e3436; }
+		body { font-family:'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); color:var(--text-color);} 
+		.hero { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:3rem 0; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.1); margin-bottom:2rem; }
+		.badge-pill { background:linear-gradient(135deg,var(--primary-color),var(--accent-color)); color:#fff; border-radius:20px; padding:.35rem .8rem; margin:.15rem; display:inline-block; font-size:.9rem; }
+		.card-custom { border:none; border-radius:14px; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.08); overflow:hidden; }
+		.card-header-custom { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:1rem 1.25rem; }
+		.fade-in-up { animation:fadeInUp .6s ease-out; } @keyframes fadeInUp { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+		.tip { background:#f7f9fc; border-left:5px solid var(--primary-color); padding:.75rem 1rem; border-radius:8px; }
+		/* Terminal y Salida esperada */
+		.terminal-window { background:#2c3e50; color:#ecf0f1; border-radius:8px; padding:1rem; font-family:"Courier New", monospace; font-size:14px; border:1px solid #223546; box-shadow:0 5px 15px rgba(0,0,0,.2); }
+		.terminal-prompt { color:#87b84d; font-weight:700; }
+		.terminal-command { color:#ecf0f1; }
+		.terminal-comment { color:#8fa6b3; font-style:italic; display:block; margin-top:.25rem; }
+		.terminal-output { color:#bdc3c7; display:block; }
+		.expected-output { background:#f7f9fc; border:1px solid rgba(135,184,77,.35); border-left:6px solid var(--primary-color); border-radius:8px; padding:.75rem 1rem; margin:.5rem 0 1rem; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+		.expected-title { font-weight:600; color:#2e7d32; margin-bottom:.35rem; }
+		.expected-output pre { background:#fff; border:1px dashed rgba(44,62,80,.15); border-radius:6px; padding:.6rem .75rem; margin:0; font-family:"Courier New", monospace; font-size:.95rem; white-space:pre-wrap; word-break:break-word; }
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			document.querySelectorAll('.fade-in-up').forEach((el,i)=>{ el.style.opacity='0'; setTimeout(()=>{ el.style.transition='opacity .5s'; el.style.opacity='1'; }, i*120); });
+		});
+	</script>
+</head>
+<body>
+	<div class="container-fluid p-4">
+		<div class="hero text-center fade-in-up">
+			<div class="container">
+				<i class="bi bi-shield-lock" style="font-size:3.5rem"></i>
+				<h1 class="display-6 fw-bold mt-2 mb-2">SSH local y remoto</h1>
+				<p class="lead">Conéctate de forma segura y sin contraseñas repetitivas</p>
+				<div class="mt-2">
+					<span class="badge-pill">ssh</span>
+					<span class="badge-pill">ssh-keygen</span>
+					<span class="badge-pill">ssh-copy-id</span>
+					<span class="badge-pill">scp</span>
+					<span class="badge-pill">sftp</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- Qué es SSH -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-info-circle me-2"></i>¿Qué es SSH?</h2></div>
+					<div class="card-body p-4">
+						<p><strong>SSH</strong> (Secure Shell) es un protocolo para administrar equipos de forma remota y segura mediante la terminal.</p>
+						<ul>
+							<li>Cifra la comunicación (usuario, contraseña/llave y datos).</li>
+							<li>Permite iniciar sesión, ejecutar comandos y transferir archivos.</li>
+							<li>Funciona en red local y a través de Internet.</li>
+						</ul>
+						<div class="tip"><i class="bi bi-shield-check me-2"></i>Usa llaves SSH en lugar de contraseñas: es más seguro y cómodo.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Instalación rápida -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-box-arrow-in-down me-2"></i>Instalación rápida</h2></div>
+					<div class="card-body p-4">
+						<p>En Linux Mint, el cliente SSH suele venir instalado. Si no:</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y openssh-client</span>
+							<span class="terminal-comment"># Cliente SSH (para conectarte a otros equipos)</span>
+						</div>
+						<p class="mb-1">Para aceptar conexiones en tu equipo (servidor SSH):</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y openssh-server</span>
+							<span class="terminal-comment"># Servicio SSH (escucha en el puerto 22)</span>
+							<br>
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo systemctl enable --now ssh</span>
+							<span class="terminal-comment"># Habilita e inicia el servicio</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Generar una llave SSH -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-key me-2"></i>Generar una llave SSH</h2></div>
+					<div class="card-body p-4">
+						<p>Usaremos <strong>ed25519</strong> (moderno y recomendado). El correo es solo un identificador.</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh-keygen -t ed25519 -C "tu@correo.com"</span>
+							<span class="terminal-comment"># Acepta la ruta por defecto (Enter). Puedes usar passphrase (opcional).</span>
+						</div>
+						<div class="expected-output">
+							<div class="expected-title">Salida esperada</div>
+							<pre>Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/usuario/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase):
+Your identification has been saved in /home/usuario/.ssh/id_ed25519.
+Your public key has been saved in /home/usuario/.ssh/id_ed25519.pub.
+The key fingerprint is:
+SHA256:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx tu@correo.com</pre>
+						</div>
+						<p class="mb-1">Tu llave pública está en <code>~/.ssh/id_ed25519.pub</code>. <strong>No compartas</strong> <code>~/.ssh/id_ed25519</code> (privada).</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Copiar la llave al servidor -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-upload me-2"></i>Copiar la llave al servidor</h2></div>
+					<div class="card-body p-4">
+						<p>Usa <strong>ssh-copy-id</strong> para instalar tu llave pública en el servidor. Te pedirá la contraseña una sola vez.</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh-copy-id usuario@192.168.1.50</span>
+							<span class="terminal-comment"># Reemplaza con tu usuario y la IP o dominio del servidor</span>
+						</div>
+						<div class="expected-output">
+							<div class="expected-title">Salida esperada</div>
+							<pre>/usr/bin/ssh-copy-id: INFO: Source of key(s): "/home/usuario/.ssh/id_ed25519.pub"
+Number of key(s) added: 1
+Now try logging into the machine, with:   "ssh 'usuario@192.168.1.50'"</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Conectarse por SSH -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-plug me-2"></i>Conectarse por SSH</h2></div>
+					<div class="card-body p-4">
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh usuario@192.168.1.50</span>
+							<span class="terminal-comment"># Primera vez: te preguntará si confías en el host (escribe yes)</span>
+						</div>
+						<div class="expected-output">
+							<div class="expected-title">Salida esperada</div>
+							<pre>The authenticity of host '192.168.1.50' can't be established.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Welcome to Ubuntu 22.04 LTS ...
+usuario@servidor:~$</pre>
+						</div>
+						<p>Ya estás en el servidor. Prueba:</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@servidor:~$</span> <span class="terminal-command">hostname && pwd</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Transferencia de archivos básica -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-arrow-left-right me-2"></i>Transferencia de archivos (rápido)</h2></div>
+					<div class="card-body p-4">
+						<p><strong>scp</strong> copia archivos de forma segura. Ejemplos:</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">scp archivo.txt usuario@192.168.1.50:/home/usuario/</span>
+							<span class="terminal-comment"># Subir archivo al servidor</span>
+							<br>
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">scp usuario@192.168.1.50:/home/usuario/archivo.txt .</span>
+							<span class="terminal-comment"># Descargar archivo desde el servidor</span>
+						</div>
+						<p class="mb-0">Para múltiples archivos/carpetas, considera <strong>sftp</strong> o <code>scp -r carpeta/</code>.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Práctica breve -->
+		<div class="row mb-5">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-mortarboard me-2"></i>Práctica guiada (5 minutos)</h2></div>
+					<div class="card-body p-4">
+						<p class="lead">Tres pasos para dejar SSH funcionando sin contraseñas repetitivas.</p>
+
+						<h5>1) Genera tu llave</h5>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh-keygen -t ed25519 -C "tu@correo.com"</span>
+						</div>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>... id_ed25519 y id_ed25519.pub creados en ~/.ssh</pre></div>
+
+						<h5 class="mt-3">2) Copia la llave al servidor</h5>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh-copy-id usuario@192.168.1.50</span>
+						</div>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Number of key(s) added: 1</pre></div>
+
+						<h5 class="mt-3">3) Conéctate y verifica</h5>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">ssh usuario@192.168.1.50</span>
+						</div>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>usuario@servidor:~$ hostname
+mi-servidor</pre></div>
+
+						<div class="tip mt-2"><i class="bi bi-exclamation-triangle me-2"></i>No compartas tu llave privada (<code>~/.ssh/id_ed25519</code>). Haz copia de seguridad en un lugar seguro.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

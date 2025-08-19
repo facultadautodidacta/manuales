@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirección y Tuberías</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --danger-color: #dc3545;
+            --warning-color: #fd7e14;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        .command-card {
+            border-left: 4px solid var(--primary-color);
+            background: white;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            border-left-color: var(--accent-color);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .command-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            margin: 0.25rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .command-badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
+        }
+
+        .terminal-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 0.5rem;
+        }
+
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 5px;
+            margin: 2rem 0;
+        }
+
+        .terminal-window {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            border-radius: 10px;
+            padding: 1.5rem;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .terminal-prompt {
+            color: #87b84d;
+            font-weight: bold;
+        }
+
+        .terminal-command {
+            color: #ecf0f1;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-comment {
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .terminal-error {
+            color: #e74c3c;
+        }
+
+        .terminal-success {
+            color: #2ecc71;
+        }
+
+        .terminal-output {
+            color: #bdc3c7;
+            margin-left: 0;
+        }
+
+        .img-container {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .img-container img {
+            transition: all 0.5s ease;
+        }
+
+        .img-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .flow-diagram {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .flow-step {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+        }
+
+        .pipe-example {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--info-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .pipe-example h5 {
+            color: var(--info-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .redirect-symbol {
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-arrow-left-right hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">Línea de Comandos Parte 2</h1>
+                <p class="lead fs-4">10.2 - Redirección y Tuberías</p>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            El poder de la redirección y tuberías
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    Las redirecciones y tuberías son el corazón de la potencia de Linux, permitiendo conectar comandos y controlar flujos de datos.
+                                </p>
+                                <p>
+                                    En esta sección aprenderás:
+                                </p>
+                                <ul>
+                                    <li>Redirigir salida a archivos con <code>&gt;</code> y <code>&gt;&gt;</code></li>
+                                    <li>Usar entrada estándar con <code>&lt;</code></li>
+                                    <li>Conectar comandos con pipes <code>|</code></li>
+                                    <li>Crear flujos de trabajo complejos</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <span class="command-badge"><i class="bi bi-arrow-right"></i> Redirección</span>
+                                    <span class="command-badge"><i class="bi bi-arrow-left"></i> Entrada</span>
+                                    <span class="command-badge"><i class="bi bi-arrow-left-right"></i> Pipes</span>
+                                    <span class="command-badge"><i class="bi bi-link-45deg"></i> Flujos</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="flow-diagram text-center">
+                                    <h4>Flujo de datos</h4>
+                                    <div class="mt-3">
+                                        <span class="flow-step">Comando 1</span>
+                                        <span class="flow-arrow">|</span>
+                                        <span class="flow-step">Comando 2</span>
+                                        <span class="flow-arrow">></span>
+                                        <span class="flow-step">Archivo</span>
+                                    </div>
+                                    <p class="mt-3 text-muted">Los datos fluyen de izquierda a derecha</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Redirección de salida -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-1">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-arrow-right me-2"></i>
+                            Redirección de salida: > y >>
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            La redirección permite enviar la salida de un comando a un archivo en lugar de mostrarla en pantalla.
+                        </p>
+
+                        <!-- Redirección simple > -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-chevron-right terminal-icon"></i>
+                                    > - Redirección simple (sobrescribe)
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls -la <span class="redirect-symbol">></span> lista_archivos.txt</span><br>
+                                    <span class="terminal-comment"># Guarda la lista de archivos en lista_archivos.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">echo "Mi primer archivo" <span class="redirect-symbol">></span> mensaje.txt</span><br>
+                                    <span class="terminal-comment"># Crea mensaje.txt con el texto</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">date <span class="redirect-symbol">></span> fecha_actual.txt</span><br>
+                                    <span class="terminal-comment"># Guarda la fecha y hora actual en un archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat mensaje.txt</span><br>
+                                    <span class="terminal-output">Mi primer archivo</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Comportamiento:</strong> <code>&gt;</code> crea un archivo nuevo o <strong>sobrescribe</strong> completamente uno existente.<br>
+                                    <strong>Útil para:</strong> Crear archivos de log, guardar salidas de comandos, generar reportes.<br>
+                                    <strong>⚠️ Precaución:</strong> Si el archivo existe, se borra su contenido anterior.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Redirección append >> -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-chevron-double-right terminal-icon"></i>
+                                    >> - Redirección append (añade al final)
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">echo "Primera línea" <span class="redirect-symbol">></span> log.txt</span><br>
+                                    <span class="terminal-comment"># Crea el archivo con la primera línea</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">echo "Segunda línea" <span class="redirect-symbol">>></span> log.txt</span><br>
+                                    <span class="terminal-comment"># Añade la segunda línea al final</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">date <span class="redirect-symbol">>></span> log.txt</span><br>
+                                    <span class="terminal-comment"># Añade la fecha al final del archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat log.txt</span><br>
+                                    <span class="terminal-output">Primera línea</span><br>
+                                    <span class="terminal-output">Segunda línea</span><br>
+                                    <span class="terminal-output">mié 30 jul 2025 14:30:25 -03</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Comportamiento:</strong> <code>&gt;&gt;</code> añade contenido al final del archivo sin borrar lo anterior.<br>
+                                    <strong>Ideal para:</strong> Logs continuos, archivos de historial, acumular datos.<br>
+                                    <strong>✅ Seguro:</strong> No borra contenido existente, solo añade al final.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplos prácticos de redirección -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-tools terminal-icon"></i>
+                                    Ejemplos prácticos de redirección
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ps aux <span class="redirect-symbol">></span> procesos_actuales.txt</span><br>
+                                    <span class="terminal-comment"># Guarda la lista de procesos en un archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">df -h <span class="redirect-symbol">>></span> reporte_sistema.txt</span><br>
+                                    <span class="terminal-comment"># Añade información de discos al reporte</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">free -h <span class="redirect-symbol">>></span> reporte_sistema.txt</span><br>
+                                    <span class="terminal-comment"># Añade información de memoria</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">echo "=== Log del $(date) ===" <span class="redirect-symbol">>></span> actividad.log</span><br>
+                                    <span class="terminal-comment"># Crea una entrada de log con timestamp</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Entrada estándar -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-2">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-arrow-left me-2"></i>
+                            Entrada estándar: <
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            La redirección de entrada permite que un comando lea datos desde un archivo en lugar del teclado.
+                        </p>
+
+                        <!-- Uso de < -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-chevron-left terminal-icon"></i>
+                                    < - Redirección de entrada
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">echo -e "Línea 1\nLínea 2\nLínea 3" > datos.txt</span><br>
+                                    <span class="terminal-comment"># Creamos un archivo con datos de ejemplo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">wc -l <span class="redirect-symbol"><</span> datos.txt</span><br>
+                                    <span class="terminal-output">3</span><br>
+                                    <span class="terminal-comment"># Cuenta líneas leyendo desde el archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">sort <span class="redirect-symbol"><</span> nombres.txt</span><br>
+                                    <span class="terminal-comment"># Ordena el contenido del archivo nombres.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mail usuario@ejemplo.com <span class="redirect-symbol"><</span> mensaje.txt</span><br>
+                                    <span class="terminal-comment"># Envía un email usando el contenido del archivo</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Función:</strong> <code>&lt;</code> hace que el comando lea datos del archivo especificado.<br>
+                                    <strong>Equivalencia:</strong> <code>wc -l &lt; archivo.txt</code> es similar a <code>cat archivo.txt | wc -l</code><br>
+                                    <strong>Uso común:</strong> Procesar archivos de datos, configuraciones, scripts automatizados.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pipes (tuberías) -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-3">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-arrow-left-right me-2"></i>
+                            Pipes (tuberías): |
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Los pipes conectan la salida de un comando con la entrada del siguiente, creando flujos de procesamiento de datos.
+                        </p>
+
+                        <!-- Concepto básico de pipes -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-arrow-left-right terminal-icon"></i>
+                                    Concepto básico del pipe |
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls -la <span class="redirect-symbol">|</span> head -5</span><br>
+                                    <span class="terminal-output">total 48</span><br>
+                                    <span class="terminal-output">drwxr-xr-x  5 usuario usuario 4096 jul 30 14:30 .</span><br>
+                                    <span class="terminal-output">drwxr-xr-x  3 root    root    4096 jul 15 10:00 ..</span><br>
+                                    <span class="terminal-output">-rw-r--r--  1 usuario usuario  220 jul 15 10:00 .bash_logout</span><br>
+                                    <span class="terminal-output">-rw-r--r--  1 usuario usuario 3771 jul 15 10:00 .bashrc</span><br>
+                                    <span class="terminal-comment"># Lista archivos y muestra solo las primeras 5 líneas</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat archivo.txt <span class="redirect-symbol">|</span> grep "error"</span><br>
+                                    <span class="terminal-comment"># Busca la palabra "error" en archivo.txt</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ps aux <span class="redirect-symbol">|</span> wc -l</span><br>
+                                    <span class="terminal-output">156</span><br>
+                                    <span class="terminal-comment"># Cuenta cuántos procesos están ejecutándose</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Funcionamiento:</strong> El pipe <code>|</code> toma la salida del comando de la izquierda y la pasa como entrada al comando de la derecha.<br>
+                                    <strong>Ventaja:</strong> No se crean archivos temporales, el procesamiento es directo y eficiente.<br>
+                                    <strong>Filosofía Unix:</strong> "Haz una cosa y hazla bien" - combina herramientas simples para tareas complejas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplos básicos con pipes -->
+                        <div class="command-card card mb-0">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-link terminal-icon"></i>
+                                    Ejemplos básicos
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls | wc -l</span><br>
+                                    <span class="terminal-comment"># Cuenta archivos del directorio</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cat notas.txt | head -3</span><br>
+                                    <span class="terminal-comment"># Muestra las primeras 3 líneas</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ls | sort</span><br>
+                                    <span class="terminal-comment"># Ordena la salida de ls</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    <!-- Práctica guiada (simplificada) -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-journal-check me-2"></i>
+                            Práctica guiada
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">Práctica rápida (3 ejercicios):</p>
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Preparación:</strong> Abre una terminal y ve a tu carpeta personal con <code>cd ~</code>
+                        </div>
+
+                        <h5>1) Redirección básica</h5>
+                        <ol>
+                            <li><code>date > info.txt</code> (crea/reescribe)</li>
+                            <li><code>whoami >> info.txt</code> (añade)</li>
+                            <li><code>cat info.txt</code> (ver resultado)</li>
+                        </ol>
+
+                        <h5 class="mt-3">2) Pipes básicos</h5>
+                        <ol>
+                            <li><code>ls | wc -l</code> (cuenta archivos)</li>
+                            <li><code>ls | head -3</code> (primeros 3)</li>
+                            <li><code>ls | sort</code> (ordena)</li>
+                        </ol>
+
+                        <h5 class="mt-3">3) Mini flujo útil</h5>
+                        <ol>
+                            <li><code>echo "manzana\nbanana\nmanzana" > frutas.txt</code></li>
+                            <li><code>cat frutas.txt | sort | uniq > frutas_unicas.txt</code></li>
+                            <li><code>cat frutas_unicas.txt</code> (ver resultado)</li>
+                        </ol>
+
+                        <div class="alert alert-success mt-4">
+                            <i class="bi bi-check-circle me-2"></i>
+                            ¡Listo! Ya dominas lo esencial de redirecciones y pipes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+    <!-- Conclusión (breve) -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-arrow-left-right text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">¡Listo con lo esencial!</h3>
+                        <p class="lead">Ya sabes redirigir con <code>></code>, añadir con <code>>></code>, usar entrada con <code><</code> y encadenar con <code>|</code>.</p>
+                        <p>Más adelante veremos filtros como <code>grep</code>, <code>sort</code> y <code>uniq</code> con más detalle.</p>
+                        <div class="mt-4">
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> ></span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> >></span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> <</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> |</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.command-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

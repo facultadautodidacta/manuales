@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>12. Tecnologías para desarrolladores - Manual Linux Mint</title>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet" />
+	<style>
+		:root { --primary-color:#87b84d; --secondary-color:#3c3c3c; --accent-color:#6a9e3d; --text-color:#2e3436; }
+		body { font-family:'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%); color:var(--text-color);} 
+		.hero { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:3rem 0; border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.1); margin-bottom:2rem; }
+		.badge-pill { background:linear-gradient(135deg,var(--primary-color),var(--accent-color)); color:#fff; border-radius:20px; padding:.35rem .8rem; margin:.15rem; display:inline-block; font-size:.9rem; }
+		.card-custom { border:none; border-radius:14px; background:#fff; box-shadow:0 8px 24px rgba(0,0,0,.08); overflow:hidden; }
+		.card-header-custom { background:linear-gradient(135deg,var(--secondary-color),#2c3e50); color:#fff; padding:1rem 1.25rem; }
+		.fade-in-up { animation:fadeInUp .6s ease-out; } @keyframes fadeInUp { from{opacity:0; transform:translateY(16px);} to{opacity:1; transform:translateY(0);} }
+		pre code { font-size:.95rem; }
+		.tip { background:#f7f9fc; border-left:5px solid var(--primary-color); padding:.75rem 1rem; border-radius:8px; }
+		/* Salida esperada */
+		.expected-output { background:#f7f9fc; border:1px solid rgba(135,184,77,.35); border-left:6px solid var(--primary-color); border-radius:8px; padding:.75rem 1rem; margin:.5rem 0 1rem; box-shadow:0 2px 10px rgba(0,0,0,.04); }
+		.expected-title { font-weight:600; color:#2e7d32; margin-bottom:.35rem; }
+		.expected-output pre { background:#fff; border:1px dashed rgba(44,62,80,.15); border-radius:6px; padding:.6rem .75rem; margin:0; font-family:"Courier New", monospace; font-size:.95rem; white-space:pre-wrap; word-break:break-word; }
+
+		/* Terminal estilo (como en capítulos 10.x) */
+		.terminal-window { background:#2c3e50; color:#ecf0f1; border-radius:8px; padding:1rem; font-family:"Courier New", monospace; font-size:14px; border:1px solid #223546; box-shadow:0 5px 15px rgba(0,0,0,.2); }
+		.terminal-prompt { color:#87b84d; font-weight:700; }
+		.terminal-command { color:#ecf0f1; }
+		.terminal-comment { color:#8fa6b3; font-style:italic; display:block; margin-top:.25rem; }
+		.terminal-output { color:#bdc3c7; display:block; }
+	</style>
+	<script>
+		document.addEventListener('DOMContentLoaded',()=>{
+			document.querySelectorAll('.fade-in-up').forEach((el,i)=>{ el.style.opacity='0'; setTimeout(()=>{ el.style.transition='opacity .5s'; el.style.opacity='1'; }, i*120); });
+		});
+	</script>
+</head>
+<body>
+	<div class="container-fluid p-4">
+		<div class="hero text-center fade-in-up">
+			<div class="container">
+				<i class="bi bi-code-slash" style="font-size:3.5rem"></i>
+				<h1 class="display-6 fw-bold mt-2 mb-2">Tecnologías para desarrolladores</h1>
+				<p class="lead">Cap. 12 — Lo esencial hoy y cómo instalarlo en Linux Mint</p>
+				<div class="mt-2">
+					<span class="badge-pill">Git</span>
+					<span class="badge-pill">VS Code</span>
+					<span class="badge-pill">Node.js (nvm)</span>
+					<span class="badge-pill">Python</span>
+					<span class="badge-pill">Docker</span>
+					<span class="badge-pill">SQLite</span>
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Esenciales del sistema -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-tools me-2"></i>Esenciales del sistema</h2></div>
+					<div class="card-body p-4">
+						<p>Primero, algunas utilidades que todo dev usa:</p>
+						<ul>
+							<li><strong>curl</strong> (descargas en terminal), <strong>git</strong> (control de versiones), <strong>build-essential</strong> (compiladores).</li>
+						</ul>
+									<div class="terminal-window mb-3">
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt update &amp;&amp; sudo apt install -y curl git build-essential</span>
+										<span class="terminal-comment"># Actualiza e instala utilidades básicas</span>
+									</div>
+						<div class="tip"><i class="bi bi-info-circle me-2"></i>Usa el <strong>Gestor de software</strong> si prefieres interfaz gráfica.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Git -->
+		<div class="row mb-4">
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-git me-2"></i>Git</h3></div>
+					<div class="card-body p-4">
+						<p>Instala y configura tu identidad:</p>
+									<div class="terminal-window mb-2">
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y git</span>
+										<span class="terminal-comment"># Instala Git</span>
+										<br/>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">git --version</span>
+										<div class="terminal-output">git version 2.x.x</div>
+										<br/>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">git config --global user.name "Tu Nombre"</span>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">git config --global user.email "tu@correo.com"</span>
+										<span class="terminal-comment"># Configura tu identidad</span>
+									</div>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>git version 2.x.x</pre></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- VS Code -->
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-microsoft me-2"></i>Visual Studio Code</h3></div>
+					<div class="card-body p-4">
+						<p>Instalación sencilla por <strong>Flatpak (recomendado por facilidad)</strong>:</p>
+						<pre class="mb-2"><code class="language-bash">sudo apt install -y flatpak
+flatpak install -y flathub com.visualstudio.code</code></pre>
+						<div class="tip"><i class="bi bi-lightbulb me-2"></i>También puedes instalarlo desde <em>Gestor de software</em> buscando “Visual Studio Code”.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Node.js (nvm) y npm -->
+		<div class="row mb-4">
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-node-plus-fill me-2"></i>Node.js con nvm</h3></div>
+					<div class="card-body p-4">
+						<p>Gestiona versiones de Node fácilmente con <strong>nvm</strong>:</p>
+									<div class="terminal-window mb-2">
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</span>
+										<span class="terminal-comment"># Instala nvm</span>
+										<br/>
+										<span class="terminal-comment"># Cierra y abre la terminal nuevamente</span>
+										<br/>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">nvm install --lts</span>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">node -v</span>
+										<div class="terminal-output">v18.x.x</div>
+										<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">npm -v</span>
+										<div class="terminal-output">9.x.x</div>
+									</div>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>v18.x.x
+9.x.x</pre></div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Python -->
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-filetype-py me-2"></i>Python (venv + pipx)</h3></div>
+					<div class="card-body p-4">
+						<p>Entornos aislados y herramientas globales limpias:</p>
+						<pre class="mb-2"><code class="language-bash">sudo apt install -y python3 python3-venv python3-pip pipx
+python3 --version
+# Crear entorno para un proyecto
+python3 -m venv .venv
+source .venv/bin/activate
+pip install requests
+# Herramientas globales sin ensuciar el sistema
+pipx ensurepath
+pipx install black</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Python 3.x.x
+(.venv) $</pre></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Docker y DB -->
+		<div class="row mb-4">
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-box-seam me-2"></i>Docker (rápido)</h3></div>
+					<div class="card-body p-4">
+						<p>Versión simple desde repositorios de Mint/Ubuntu:</p>
+						<pre class="mb-2"><code class="language-bash">sudo apt install -y docker.io docker-compose-plugin
+sudo usermod -aG docker $USER
+# Cierra sesión y vuelve a entrar para aplicar el grupo
+docker --version</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Docker version 24.x.x, build ...</pre></div>
+						<div class="tip"><i class="bi bi-shield-check me-2"></i>Para producción, considera la guía oficial de Docker (repositorio upstream).</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6 mb-4">
+				<div class="card card-custom h-100 fade-in-up">
+					<div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-database me-2"></i>Base de datos ligera: SQLite</h3></div>
+					<div class="card-body p-4">
+						<p>Ideal para empezar y pruebas locales:</p>
+						<pre class="mb-2"><code class="language-bash">sudo apt install -y sqlite3
+sqlite3 --version</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>3.4x.x 20xx-xx-xx ...</pre></div>
+						<div class="tip"><i class="bi bi-lightbulb me-2"></i>¿Necesitas servidor? Prueba <code>sudo apt install postgresql</code> y usa <code>psql</code>.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Práctica: tu stack en 5 minutos -->
+		<!-- LAMP (Linux, Apache, MariaDB, PHP) -->
+		<div class="row mb-4">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h5 mb-0"><i class="bi bi-layers me-2"></i>Pila LAMP (Apache, MariaDB, PHP)</h2></div>
+					<div class="card-body p-4">
+						<p>Ideal para desarrollo web clásico en PHP.</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y apache2 mariadb-server php libapache2-mod-php php-mysql</span>
+							<span class="terminal-comment"># Instala servidor web, base de datos y PHP</span>
+							<br/>
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo systemctl enable --now apache2 mariadb</span>
+							<span class="terminal-comment"># Habilita e inicia servicios</span>
+						</div>
+						<p class="mb-2">Prueba rápida de PHP:</p>
+						<div class="terminal-window mb-2">
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">echo "&lt;?php phpinfo(); ?>" | sudo tee /var/www/html/info.php &gt;/dev/null</span>
+							<span class="terminal-comment"># Crea /info.php</span>
+							<br/>
+							<span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">xdg-open http://localhost/info.php</span>
+							<span class="terminal-comment"># Abre la página en tu navegador</span>
+						</div>
+						<div class="tip"><i class="bi bi-shield-lock me-2"></i>Para asegurar MariaDB: <code>sudo mysql_secure_installation</code>.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row mb-5">
+			<div class="col-12">
+				<div class="card card-custom fade-in-up">
+					<div class="card-header-custom"><h2 class="h4 mb-0"><i class="bi bi-mortarboard me-2"></i>Práctica: tu stack en 5 minutos</h2></div>
+					<div class="card-body p-4">
+						<p class="lead">Comprueba que todo funciona con estos pasos rápidos.</p>
+
+						<h5>1) Versiones</h5>
+						<pre><code class="language-bash">git --version
+node -v
+npm -v
+python3 --version
+pipx --version
+docker --version
+sqlite3 --version</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>git version 2.x.x
+v18.x.x
+9.x.x
+Python 3.x.x
+pipx.x.x
+Docker version 24.x.x, build ...
+3.4x.x ...</pre></div>
+
+						<h5 class="mt-3">2) Prueba Node y Python</h5>
+						<pre><code class="language-bash">mkdir -p ~/dev-prueba &amp;&amp; cd ~/dev-prueba
+node -e "console.log('Node OK')"
+python3 -c "print('Python OK')"</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Node OK
+Python OK</pre></div>
+
+						<h5 class="mt-3">3) Docker hello-world (opcional)</h5>
+						<pre><code class="language-bash">docker run --rm hello-world</code></pre>
+						<div class="expected-output"><div class="expected-title">Salida esperada</div><pre>Hello from Docker!
+This message shows that your installation appears to be working correctly.</pre></div>
+
+						<div class="alert alert-success mt-2"><i class="bi bi-check2-circle me-2"></i>¡Listo! Ya tienes el stack base para la mayoría de proyectos modernos.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
