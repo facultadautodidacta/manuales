@@ -78,27 +78,6 @@
         }
 
         .command-badge {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            background: white;
-            overflow: hidden;
-        }
-
-        .card-custom:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-        }
-
-        .card-header-custom {
-            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
-            color: white;
-            border: none;
-            padding: 1.5rem;
-        }
-
-        .command-badge {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: white;
             padding: 0.5rem 1rem;
@@ -146,15 +125,13 @@
         }
 
         .terminal-window {
-            background-color: #34495e;
+            background-color: #2c3e50;
             color: #ecf0f1;
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: 10px;
+            padding: 1.5rem;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
             margin-bottom: 1.5rem;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 1px solid #2c3e50;
         }
 
         .terminal-prompt {
@@ -164,6 +141,7 @@
 
         .terminal-command {
             color: #ecf0f1;
+            margin-left: 0.5rem;
         }
 
         .terminal-comment {
@@ -182,8 +160,30 @@
         .terminal-output {
             color: #bdc3c7;
             margin-left: 0;
-            display: block;
-            margin-bottom: 2px;
+        }
+
+        .flow-diagram {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 2px solid var(--primary-color);
+        }
+
+        .flow-step {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            margin: 0.25rem;
+            font-weight: bold;
+        }
+
+        .flow-arrow {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
         }
 
         .command-line {
@@ -289,10 +289,54 @@
                 <i class="bi bi-search hero-icon"></i>
                 <h1 class="display-4 fw-bold mb-3">Línea de Comandos Parte 2</h1>
                 <p class="lead fs-4">10.3 - Búsqueda de archivos y contenido</p>
-                <div class="mt-4">
-                    <span class="command-badge">find</span>
-                    <span class="command-badge">locate</span>
-                    <span class="command-badge">grep</span>
+            </div>
+        </div>
+
+        <!-- Introducción -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            El poder de encontrar cualquier cosa en Linux
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    ¿Has perdido un archivo? ¿No recuerdas dónde guardaste algo? En Linux es súper fácil encontrar cualquier cosa.
+                                </p>
+                                <p>
+                                    Aprenderás 3 comandos simples:
+                                </p>
+                                <ul>
+                                    <li><code>find</code> - Busca archivos por nombre</li>
+                                    <li><code>locate</code> - Encuentra programas rápidamente</li>
+                                    <li><code>grep</code> - Busca texto dentro de archivos</li>
+                                </ul>
+                                <div class="mt-4">
+                                    <span class="command-badge"><i class="bi bi-folder2-open"></i> find</span>
+                                    <span class="command-badge"><i class="bi bi-lightning"></i> locate</span>
+                                    <span class="command-badge"><i class="bi bi-file-text"></i> grep</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="flow-diagram text-center">
+                                    <h4>Herramientas de búsqueda</h4>
+                                    <div class="mt-3">
+                                        <span class="flow-step">find</span>
+                                        <span class="flow-arrow">+</span>
+                                        <span class="flow-step">grep</span>
+                                        <span class="flow-arrow">=</span>
+                                        <span class="flow-step">¡Todo!</span>
+                                    </div>
+                                    <p class="mt-3 text-muted">Encuentra archivos y su contenido</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -300,62 +344,172 @@
         <!-- Comando find -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="card card-custom fade-in-up">
+                <div class="card card-custom fade-in-up delay-1">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
-                            <i class="bi bi-folder-search me-2"></i>
-                            Comando find - Búsqueda avanzada por criterios
+                            <i class="bi bi-folder2-open me-2"></i>
+                            find - Como un detective para tus archivos
                         </h2>
                     </div>
                     <div class="card-body p-4">
-                        <p class="lead">
-                            <code>find</code> busca archivos y carpetas por nombre o tipo recorriendo directorios. Aquí verás lo básico para usarlo a diario.
-                        </p>
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-lightbulb me-2"></i>
+                            <strong>Piénsalo así:</strong> <code>find</code> es como un detective que busca archivos por su nombre. Le dices "busca todas las fotos" y él las encuentra.
+                        </div>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-gear me-2"></i>Sintaxis básica</h4>
-                    <div class="terminal-window">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <div class="terminal-dot red"></div>
-                                <div class="terminal-dot yellow"></div>
-                                <div class="terminal-dot green"></div>
+                        <!-- Nivel 1: Lo súper básico -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-success">
+                                    <i class="bi bi-1-circle-fill me-2"></i>
+                                    Paso 1: Tu primera búsqueda
+                                </h4>
+                                <p class="mb-3">Imagina que perdiste una foto llamada "cumpleanos.jpg" en tu carpeta personal:</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">find . -name "cumpleanos.jpg"</span><br>
+                                    <span class="terminal-output">./Fotos/cumpleanos.jpg</span><br>
+                                    <span class="terminal-comment"># ¡Encontrado! Está en la carpeta Fotos</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">
+                                        <i class="bi bi-info-circle-fill"></i>
+                                        ¿Qué significa cada parte?
+                                    </div>
+                                    <ul class="mb-0 mt-2">
+                                        <li><strong>find</strong> = "busca"</li>
+                                        <li><strong>.</strong> = "desde aquí" (tu carpeta actual)</li>
+                                        <li><strong>-name</strong> = "por nombre"</li>
+                                        <li><strong>"cumpleanos.jpg"</strong> = el archivo que buscas</li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="terminal-title">Terminal</div>
                         </div>
-                        <div class="terminal-content">
-                            <div class="command-line">$ find [ruta] [opciones] [expresión]</div>
-                        </div>
-                    </div>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-list-check me-2"></i>Lo básico que necesitas</h4>
-                    <div class="row">
-                        <div class="col-md-6 mb-2">
-                            <span class="option-badge">-name "patrón"</span> por nombre (sensibles a mayúsculas)
+                        <!-- Nivel 2: Buscar varios archivos -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-2-circle-fill me-2"></i>
+                                    Paso 2: El truco del asterisco (*)
+                                </h4>
+                                <p class="mb-3">¿Quieres encontrar TODAS tus fotos? Usa el asterisco (*) = "cualquier cosa":</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">find . -name "*.jpg"</span><br>
+                                    <span class="terminal-output">./Fotos/playa.jpg</span><br>
+                                    <span class="terminal-output">./Fotos/cumpleanos.jpg</span><br>
+                                    <span class="terminal-output">./perfil.jpg</span><br>
+                                    <span class="terminal-comment"># Encuentra TODAS las fotos JPG</span>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6">
+                                        <h6>Ejemplos prácticos:</h6>
+                                        <ul>
+                                            <li><code>"vacaciones*"</code> → todo lo que empiece con "vacaciones"</li>
+                                            <li><code>"*.mp3"</code> → todas las canciones</li>
+                                            <li><code>"*.pdf"</code> → todos los documentos PDF</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="expected-output">
+                                            <div class="expected-title">
+                                                <i class="bi bi-star-fill"></i>
+                                                Regla de oro
+                                            </div>
+                                            <p class="mb-0">El asterisco (*) significa "no me importa qué hay aquí"</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <span class="option-badge">-iname "patrón"</span> por nombre (sin distinguir mayúsculas)
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <span class="option-badge">-type f</span> archivos
-                        </div>
-                        <div class="col-md-6 mb-2">
-                            <span class="option-badge">-type d</span> directorios
-                        </div>
-                    </div>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplos rápidos</h4>
-                    <div class="terminal-window">
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> find . -name "*.txt"</span>
-                        <div class="terminal-output">./notas.txt</div>
-                        <div class="terminal-output">./docs/lista.txt</div>
-                        <br>
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> find . -iname "foto*"</span>
-                        <div class="terminal-output">./Fotos/foto01.jpg</div>
-                        <br>
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> find . -type d</span>
-                        <div class="terminal-output">.</div>
-                        <div class="terminal-output">./Fotos</div>
-                        <div class="terminal-output">./docs</div>
+                        <!-- Nivel 3: Archivos vs Carpetas -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-warning">
+                                    <i class="bi bi-3-circle-fill me-2"></i>
+                                    Paso 3: Solo archivos o solo carpetas
+                                </h4>
+                                <p class="mb-3">A veces solo quieres archivos (no carpetas) o viceversa:</p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><i class="bi bi-file-earmark"></i> Solo archivos:</h6>
+                                        <div class="terminal-window">
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">find . -type f -name "*.mp3"</span><br>
+                                            <span class="terminal-output">./Música/cancion.mp3</span><br>
+                                            <span class="terminal-comment"># Solo archivos de música</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="bi bi-folder"></i> Solo carpetas:</h6>
+                                        <div class="terminal-window">
+                                            <span class="terminal-prompt">usuario@mint:~$</span>
+                                            <span class="terminal-command">find . -type d -name "*trabajo*"</span><br>
+                                            <span class="terminal-output">./trabajo_universidad</span><br>
+                                            <span class="terminal-comment"># Solo carpetas</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="expected-output mt-3">
+                                    <div class="expected-title">
+                                        <i class="bi bi-bookmark-fill"></i>
+                                        Memoria fácil
+                                    </div>
+                                    <ul class="mb-0">
+                                        <li><strong>-type f</strong> = "File" (archivo)</li>
+                                        <li><strong>-type d</strong> = "Directory" (carpeta/directorio)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Casos comunes -->
+                        <div class="command-card card mb-0">
+                            <div class="card-body">
+                                <h4 class="card-title text-info">
+                                    <i class="bi bi-heart-fill me-2"></i>
+                                    Los casos más comunes (copia y pega)
+                                </h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>🖼️ Encontrar fotos:</h6>
+                                        <div class="terminal-window mb-3">
+                                            <span class="terminal-command">find . -name "*.jpg" -o -name "*.png"</span><br>
+                                            <span class="terminal-comment"># Todas tus fotos</span>
+                                        </div>
+
+                                        <h6>🎵 Encontrar música:</h6>
+                                        <div class="terminal-window mb-3">
+                                            <span class="terminal-command">find . -name "*.mp3" -o -name "*.wav"</span><br>
+                                            <span class="terminal-comment"># Todas tus canciones</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>📄 Encontrar documentos:</h6>
+                                        <div class="terminal-window mb-3">
+                                            <span class="terminal-command">find . -name "*.pdf" -o -name "*.doc*"</span><br>
+                                            <span class="terminal-comment"># PDFs y documentos Word</span>
+                                        </div>
+
+                                        <h6>📋 Buscar por fecha (hoy):</h6>
+                                        <div class="terminal-window">
+                                            <span class="terminal-command">find . -name "*" -mtime -1</span><br>
+                                            <span class="terminal-comment"># Archivos de hoy</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-success mt-3 mb-0">
+                                    <i class="bi bi-lightbulb-fill me-2"></i>
+                                    <strong>Tip profesional:</strong> El símbolo <code>-o</code> significa "O" (busca esto O aquello)
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -364,60 +518,64 @@
         <!-- Comando locate -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="card card-custom fade-in-up delay-1">
+                <div class="card card-custom fade-in-up delay-2">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
-                            <i class="bi bi-lightning me-2"></i>
-                            Comando locate - Búsqueda rápida
+                            <i class="bi bi-lightning-charge me-2"></i>
+                            locate - Velocidad máxima para buscar
                         </h2>
                     </div>
                     <div class="card-body p-4">
                         <p class="lead">
-                            <code>locate</code> encuentra rutas por nombre usando una base de datos del sistema. Es muy rápido para búsquedas simples por nombre.
+                            <code>locate</code> es súper rápido. Encuentra programas y archivos instantáneamente.
                         </p>
 
-                    <div class="alert alert-info">
-                        <i class="bi bi-info-circle me-2"></i>
-                        <strong>Nota importante:</strong> locate utiliza una base de datos que se actualiza diariamente. 
-                        Para actualizar manualmente: <code>sudo updatedb</code>
-                    </div>
-
-                    <h4 class="mt-4 mb-3"><i class="bi bi-gear me-2"></i>Sintaxis</h4>
-                    <div class="terminal-window">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <div class="terminal-dot red"></div>
-                                <div class="terminal-dot yellow"></div>
-                                <div class="terminal-dot green"></div>
+                        <!-- Uso básico -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-lightning terminal-icon"></i>
+                                    Uso básico de locate
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">locate firefox</span><br>
+                                    <span class="terminal-output">/usr/bin/firefox</span><br>
+                                    <span class="terminal-output">/usr/share/applications/firefox.desktop</span><br>
+                                    <span class="terminal-comment"># Encuentra TODO lo relacionado con Firefox</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">locate "*.pdf" | head -5</span><br>
+                                    <span class="terminal-output">/home/usuario/curriculum.pdf</span><br>
+                                    <span class="terminal-output">/home/usuario/manual.pdf</span><br>
+                                    <span class="terminal-comment"># Primeros 5 PDFs del sistema</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>Súper rápido:</strong> Como tener un índice de todo.<br>
+                                    <strong>Limitación:</strong> Solo encuentra archivos de ayer o antes.<br>
+                                    <strong>Para actualizar:</strong> <code>sudo updatedb</code> (hazlo 1 vez por semana)
+                                </p>
                             </div>
-                            <div class="terminal-title">Sintaxis locate</div>
                         </div>
-                        <div class="terminal-content">
-                            <div class="command-line">$ locate [opciones] patrón</div>
-                        </div>
-                    </div>
 
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <h5>Opciones comunes:</h5>
-                            <span class="option-badge">-i</span> ignorar mayúsculas
-                            <span class="option-badge">-l N</span> limitar resultados
+                        <!-- Trucos útiles -->
+                        <div class="command-card card mb-0">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-magic terminal-icon"></i>
+                                    Trucos útiles
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">locate -c "*.mp3"</span><br>
+                                    <span class="terminal-output">247</span><br>
+                                    <span class="terminal-comment"># Cuenta: tienes 247 canciones MP3</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">locate chrome | grep bin</span><br>
+                                    <span class="terminal-output">/usr/bin/google-chrome</span><br>
+                                    <span class="terminal-comment"># ¿Dónde está instalado Chrome?</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplos prácticos</h4>
-                    
-                    <div class="terminal-window">
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> locate firefox</span>
-                        <div class="terminal-output">/usr/bin/firefox</div>
-                        <div class="terminal-output">/usr/share/applications/firefox.desktop</div>
-                        <br>
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> locate -i -l 5 "*.pdf"</span>
-                        <div class="terminal-output">/home/usuario/Documentos/manual.pdf</div>
-                        <div class="terminal-output">/home/usuario/Descargas/guia.pdf</div>
-                        <div class="terminal-output">/home/usuario/Esquemas/apuntes.pdf</div>
-                        <div class="terminal-output">/home/usuario/proyectos/info.pdf</div>
-                        <div class="terminal-output">/home/usuario/Escritorio/presentacion.pdf</div>
                     </div>
                 </div>
             </div>
@@ -426,155 +584,265 @@
         <!-- Comando grep -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="card card-custom fade-in-up delay-2">
+                <div class="card card-custom fade-in-up delay-3">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
                             <i class="bi bi-file-text-search me-2"></i>
-                            Comando grep - Buscar texto dentro de archivos
+                            grep - El detective de texto
                         </h2>
                     </div>
                     <div class="card-body p-4">
                         <p class="lead">
-                            <code>grep</code> busca texto dentro de archivos o de la salida de otros comandos. Ideal para encontrar palabras o líneas rápidamente.
+                            <code>grep</code> busca palabras dentro de archivos. Como Ctrl+F pero para todo el sistema.
                         </p>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-gear me-2"></i>Sintaxis básica</h4>
-                    <div class="terminal-window">
-                        <div class="terminal-header">
-                            <div class="terminal-dots">
-                                <div class="terminal-dot red"></div>
-                                <div class="terminal-dot yellow"></div>
-                                <div class="terminal-dot green"></div>
+                        <!-- Uso básico -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-search terminal-icon"></i>
+                                    Uso básico de grep
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">grep "universidad" curriculum.txt</span><br>
+                                    <span class="terminal-output">Estudié en la Universidad Nacional</span><br>
+                                    <span class="terminal-comment"># Busca "universidad" en tu curriculum</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">ps aux | grep firefox</span><br>
+                                    <span class="terminal-output">usuario  1234  2.5  5.2 firefox</span><br>
+                                    <span class="terminal-comment"># ¿Está Firefox ejecutándose ahora?</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>En archivos:</strong> <code>grep "palabra" archivo.txt</code><br>
+                                    <strong>Con pipes:</strong> <code>comando | grep "palabra"</code><br>
+                                    <strong>Muy útil:</strong> Para encontrar información específica.
+                                </p>
                             </div>
-                            <div class="terminal-title">Sintaxis grep</div>
                         </div>
-                        <div class="terminal-content">
-                            <div class="command-line">$ grep [opciones] "patrón" archivo(s)</div>
-                            <div class="command-line">$ comando | grep [opciones] "patrón"</div>
-                        </div>
-                    </div>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-list-check me-2"></i>Opciones básicas</h4>
-                    <div class="row">
-                        <div class="col-md-12 mb-2">
-                            <span class="option-badge">-i</span> ignorar mayúsculas
-                            <span class="option-badge">-n</span> mostrar número de línea
-                            <span class="option-badge">-r</span> buscar en subcarpetas
-                            <span class="option-badge">-c</span> contar coincidencias
+                        <!-- Opciones simples -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-toggles terminal-icon"></i>
+                                    Opciones útiles
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">grep -i "médico" agenda.txt</span><br>
+                                    <span class="terminal-output">Cita médico: jueves 10am</span><br>
+                                    <span class="terminal-comment"># -i encuentra "médico", "MÉDICO", "Médico"</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">grep -c "Juan" contactos.txt</span><br>
+                                    <span class="terminal-output">3</span><br>
+                                    <span class="terminal-comment"># -c cuenta: tienes 3 contactos llamados Juan</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>-i:</strong> No importa mayúsculas o minúsculas<br>
+                                    <strong>-c:</strong> Solo cuenta las veces que aparece
+                                </p>
+                            </div>
                         </div>
-                    </div>
 
-                    <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplos rápidos</h4>
-                    <div class="terminal-window">
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> grep "Linux" notas.txt</span>
-                        <div class="terminal-output">Aprendiendo Linux paso a paso</div>
-                        <br>
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> grep -n -i "error" app.log</span>
-                        <div class="terminal-output">12:ERROR: conexión fallida</div>
-                    </div>
-                    <div class="terminal-window">
-                        <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> grep -r "TODO" .</span>
-                        <div class="terminal-output">./src/main.py:# TODO: refactorizar</div>
-                        <div class="terminal-output">./docs/readme.md:TODO: agregar ejemplos</div>
+                        <!-- Buscar en varias carpetas -->
+                        <div class="command-card card mb-0">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-folder-tree terminal-icon"></i>
+                                    Buscar en carpetas
+                                </h4>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">grep -r "teléfono" ~/Documentos</span><br>
+                                    <span class="terminal-output">./contactos.txt:Teléfono: 555-1234</span><br>
+                                    <span class="terminal-comment"># Busca en TODAS las carpetas de Documentos</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">grep -r "cumpleaños" ~ | head -3</span><br>
+                                    <span class="terminal-output">./agenda.txt:Cumpleaños de mamá</span><br>
+                                    <span class="terminal-comment"># Busca en todo tu home (primeros 3 resultados)</span>
+                                </div>
+                                <p class="card-text mt-3">
+                                    <strong>-r:</strong> Busca en la carpeta Y todas las subcarpetas<br>
+                                    <strong>head -3:</strong> Muestra solo los primeros 3 resultados
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de práctica -->
+        <!-- Práctica guiada -->
         <div class="row mb-5">
             <div class="col-12">
-                <div class="card card-custom fade-in-up delay-3">
+                <div class="card card-custom">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
-                            <i class="bi bi-mortarboard me-2"></i>
-                            Práctica guiada (3 ejercicios rápidos)
+                            <i class="bi bi-play-circle me-2"></i>
+                            Práctica paso a paso (¡Hazlo ahora!)
                         </h2>
                     </div>
                     <div class="card-body p-4">
-                        <p class="lead">Pon en práctica lo esencial de find, grep y locate sin riesgos.</p>
-                        
-                        <div class="alert alert-info mb-4">
-                            <i class="bi bi-info-circle me-2"></i>
-                            <strong>Preparación:</strong> Abre una terminal y ve a tu carpeta personal con <code>cd ~</code>
+                        <div class="alert alert-primary mb-4">
+                            <i class="bi bi-hand-index me-2"></i>
+                            <strong>¡No solo leas, práctica!</strong> Sigue estos pasos exactos para aprender de verdad.
                         </div>
 
-                        <h5>Ejercicio 1: Prepara un mini entorno</h5>
-                        <ol>
-                            <li>Crea una carpeta y 3 archivos de prueba:
-                                <div class="terminal-window mt-2 mb-2">
-                                    <span class="terminal-command">mkdir -p busqueda_demo/sub</span><br>
-                                    <span class="terminal-command">echo "Hola Linux" > busqueda_demo/notas.txt</span><br>
-                                    <span class="terminal-command">echo "Configuración" > busqueda_demo/config.conf</span><br>
-                                    <span class="terminal-command">echo "TODO: aprender grep" > busqueda_demo/sub/tareas.txt</span>
+                        <!-- Preparación -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-info">
+                                    <i class="bi bi-gear-fill me-2"></i>
+                                    Preparación (30 segundos)
+                                </h4>
+                                <p>Primero, abramos terminal y vayamos a tu carpeta personal:</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd ~</span><br>
+                                    <span class="terminal-comment"># Te lleva a tu carpeta personal</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">pwd</span><br>
+                                    <span class="terminal-output">/home/usuario</span><br>
+                                    <span class="terminal-comment"># Confirma dónde estás</span>
                                 </div>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada</div>
-                                    <pre>Estos comandos no muestran salida si se ejecutan correctamente.</pre>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <h5 class="mt-3">Ejercicio 2: find básico</h5>
-                        <ol>
-                            <li>Lista archivos: <code>find busqueda_demo -type f</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada (ejemplo)</div>
-                                    <pre>busqueda_demo/notas.txt
-busqueda_demo/config.conf
-busqueda_demo/sub/tareas.txt</pre>
-                                </div>
-                            </li>
-                            <li>Busca por patrón: <code>find busqueda_demo -name "*.txt"</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada</div>
-                                    <pre>busqueda_demo/notas.txt
-busqueda_demo/sub/tareas.txt</pre>
-                                </div>
-                            </li>
-                            <li>Lista solo carpetas: <code>find busqueda_demo -type d</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada (ejemplo)</div>
-                                    <pre>busqueda_demo
-busqueda_demo/sub</pre>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <h5 class="mt-3">Ejercicio 3: grep básico</h5>
-                        <ol>
-                            <li>Buscar una palabra: <code>grep "Linux" busqueda_demo/*.txt</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada</div>
-                                    <pre>busqueda_demo/notas.txt:Hola Linux</pre>
-                                </div>
-                            </li>
-                            <li>Buscar recursivo (sin distinguir mayúsculas): <code>grep -r -i "todo" busqueda_demo</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada</div>
-                                    <pre>busqueda_demo/sub/tareas.txt:TODO: aprender grep</pre>
-                                </div>
-                            </li>
-                            <li>Contar coincidencias en un archivo: <code>grep -c "o" busqueda_demo/notas.txt</code>
-                                <div class="expected-output">
-                                    <div class="expected-title"><i class="bi bi-eye"></i>Salida esperada</div>
-                                    <pre>1</pre>
-                                </div>
-                            </li>
-                        </ol>
-
-                        <div class="alert alert-info mt-3">
-                            <i class="bi bi-lightning-charge me-2"></i>
-                            <strong>Extra (opcional):</strong> si tienes la base actualizada (<code>sudo updatedb</code>), prueba <code>locate -i -l 5 pdf</code>.
+                            </div>
                         </div>
 
-                        <div class="alert alert-success mt-4">
-                            <i class="bi bi-check-circle me-2"></i> <strong>¡Fantástico!</strong> Ahora sabes cómo encontrar archivos por nombre, 
-                            ubicación y contenido. Estas herramientas te ayudarán mucho en tu trabajo diario con Linux.
+                        <!-- Paso 1 -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-success">
+                                    <i class="bi bi-1-circle-fill me-2"></i>
+                                    Paso 1: Crea archivos de prueba
+                                </h4>
+                                <p>Vamos a crear una carpeta con archivos para practicar:</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">mkdir practica_busqueda</span><br>
+                                    <span class="terminal-comment"># Crea la carpeta</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">cd practica_busqueda</span><br>
+                                    <span class="terminal-comment"># Entra a la carpeta</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">echo "Me gusta Linux Mint" > mi_opinion.txt</span><br>
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">echo "TODO: aprender más comandos" > tareas.txt</span><br>
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">echo "Foto de mis vacaciones" > vacaciones.jpg</span><br>
+                                    <span class="terminal-comment"># (Solo simulamos una foto)</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">
+                                        <i class="bi bi-check-circle-fill"></i>
+                                        ¿Funcionó? Comprueba:
+                                    </div>
+                                    <p class="mb-0">Escribe <code>ls</code> y deberías ver: mi_opinion.txt, tareas.txt, vacaciones.jpg</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="alert alert-warning mt-3">
-                            <i class="bi bi-lightbulb me-2"></i> <strong>Recuerda:</strong> find = por nombre/tipo, grep = por texto, locate = rápido por nombre (con <code>updatedb</code>).
+                        <!-- Paso 2 -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-primary">
+                                    <i class="bi bi-2-circle-fill me-2"></i>
+                                    Paso 2: Tu primera búsqueda con find
+                                </h4>
+                                <p>Ahora busquemos archivos (¡como un detective!):</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">find . -name "*.txt"</span><br>
+                                    <span class="terminal-output">./mi_opinion.txt</span><br>
+                                    <span class="terminal-output">./tareas.txt</span><br>
+                                    <span class="terminal-comment"># ¡Encuentra todos los archivos .txt!</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">find . -name "*vacaciones*"</span><br>
+                                    <span class="terminal-output">./vacaciones.jpg</span><br>
+                                    <span class="terminal-comment"># Busca cualquier archivo con "vacaciones"</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">
+                                        <i class="bi bi-lightbulb-fill"></i>
+                                        ¿Ves cómo funciona?
+                                    </div>
+                                    <p class="mb-0">El asterisco (*) es mágico: encuentra "cualquier cosa" antes o después.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Paso 3 -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-warning">
+                                    <i class="bi bi-3-circle-fill me-2"></i>
+                                    Paso 3: Busca texto dentro de archivos (grep)
+                                </h4>
+                                <p>Ahora busquemos palabras DENTRO de los archivos:</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">grep "Linux" *.txt</span><br>
+                                    <span class="terminal-output">mi_opinion.txt:Me gusta Linux Mint</span><br>
+                                    <span class="terminal-comment"># Encuentra "Linux" y te dice en qué archivo</span><br><br>
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">grep "TODO" *.txt</span><br>
+                                    <span class="terminal-output">tareas.txt:TODO: aprender más comandos</span><br>
+                                    <span class="terminal-comment"># Perfecto para encontrar pendientes</span>
+                                </div>
+                                <div class="expected-output">
+                                    <div class="expected-title">
+                                        <i class="bi bi-star-fill"></i>
+                                        ¡Genial! Ya entiendes la diferencia:
+                                    </div>
+                                    <ul class="mb-0">
+                                        <li><strong>find</strong> = busca nombres de archivos</li>
+                                        <li><strong>grep</strong> = busca texto dentro de archivos</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Limpieza -->
+                        <div class="command-card card mb-4">
+                            <div class="card-body">
+                                <h4 class="card-title text-secondary">
+                                    <i class="bi bi-trash me-2"></i>
+                                    Limpieza (opcional)
+                                </h4>
+                                <p>Si quieres borrar la carpeta de práctica:</p>
+                                <div class="terminal-window">
+                                    <span class="terminal-prompt">usuario@mint:~/practica_busqueda$</span>
+                                    <span class="terminal-command">cd ..</span><br>
+                                    <span class="terminal-prompt">usuario@mint:~$</span>
+                                    <span class="terminal-command">rm -rf practica_busqueda</span><br>
+                                    <span class="terminal-comment"># Borra la carpeta y todo su contenido</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resultado final -->
+                        <div class="alert alert-success">
+                            <h5><i class="bi bi-trophy-fill me-2"></i>¡Felicitaciones!</h5>
+                            <p class="mb-0">Ya sabes usar <code>find</code> y <code>grep</code>. Con estos dos comandos puedes encontrar cualquier archivo o texto en Linux. ¡Eres oficialmente un detective de archivos! 🕵️</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusión -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-custom">
+                    <div class="card-body text-center p-5">
+                        <i class="bi bi-search text-primary fs-1 mb-3"></i>
+                        <h3 class="text-primary mb-3">¡Nunca más perderás un archivo!</h3>
+                        <p class="lead">Ya sabes usar <code>find</code>, <code>locate</code> y <code>grep</code> para encontrar cualquier cosa.</p>
+                        <p>Con estos 3 comandos simples puedes encontrar archivos y texto en segundos.</p>
+                        <div class="mt-4">
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> find</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> locate</span>
+                            <span class="command-badge"><i class="bi bi-check-circle"></i> grep</span>
                         </div>
                     </div>
                 </div>
@@ -582,41 +850,28 @@ busqueda_demo/sub</pre>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // Animación de fade-in al hacer scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observar todos los elementos con clase fade-in
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Observar todos los elementos con clase fade-in-up
-        document.querySelectorAll('.fade-in-up').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Efecto de escritura en el terminal
         document.addEventListener('DOMContentLoaded', function() {
-            const commandLines = document.querySelectorAll('.command-line');
-            commandLines.forEach((line, index) => {
-                line.style.opacity = '0';
-                setTimeout(() => {
-                    line.style.transition = 'opacity 0.5s ease';
-                    line.style.opacity = '1';
-                }, index * 100);
+            // Efecto de aparición para las tarjetas
+            const cards = document.querySelectorAll('.command-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            cards.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.6s ease-out';
+                observer.observe(card);
             });
         });
     </script>
