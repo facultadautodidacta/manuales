@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #87b84d;
@@ -19,6 +21,7 @@
             --danger-color: #dc3545;
             --warning-color: #fd7e14;
             --info-color: #17a2b8;
+            --success-color: #28a745;
         }
 
         body {
@@ -34,7 +37,7 @@
             padding: 3rem 0;
             margin-bottom: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .hero-icon {
@@ -46,7 +49,7 @@
         .card-custom {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             background: white;
             overflow: hidden;
@@ -54,7 +57,7 @@
 
         .card-custom:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
         }
 
         .card-header-custom {
@@ -80,50 +83,14 @@
             box-shadow: 0 3px 10px rgba(134, 184, 77, 0.3);
         }
 
-        .option-badge {
-            background: linear-gradient(135deg, var(--info-color), #007bff);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 0.2rem;
-            display: inline-block;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s ease;
-        }
-
-        .option-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(23, 162, 184, 0.3);
-        }
-
-        .signal-badge {
-            background: linear-gradient(135deg, var(--danger-color), #c82333);
-            color: white;
-            padding: 0.25rem 0.5rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin: 0.2rem;
-            display: inline-block;
-            font-family: 'Courier New', monospace;
-            transition: all 0.3s ease;
-        }
-
-        .signal-badge:hover {
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
-        }
-
         .terminal-window {
-            background-color: #34495e;
+            background-color: #2c3e50;
             color: #ecf0f1;
-            border-radius: 8px;
-            padding: 1rem;
+            border-radius: 10px;
+            padding: 1.5rem;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
             margin-bottom: 1.5rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 1px solid #2c3e50;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .terminal-prompt {
@@ -133,6 +100,7 @@
 
         .terminal-command {
             color: #ecf0f1;
+            margin-left: 0.5rem;
         }
 
         .terminal-comment {
@@ -143,25 +111,196 @@
         .terminal-output {
             color: #bdc3c7;
             margin-left: 0;
+        }
+
+        /* Componentes pedagógicos */
+        .analogy-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-left: 5px solid var(--success-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .analogy-box h5 {
+            color: var(--success-color);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid var(--info-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .concept-title {
+            font-weight: 700;
+            color: var(--info-color);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .concept-box code {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .decision-guide {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            border: 3px solid var(--warning-color);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(253, 126, 20, 0.15);
+        }
+
+        .decision-guide h4 {
+            color: var(--warning-color);
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .scenario {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .scenario:last-child {
+            margin-bottom: 0;
+        }
+
+        .scenario strong {
+            color: var(--secondary-color);
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 0.5rem;
         }
 
-        .process-header {
-            color: #3498db;
-            font-weight: bold;
+        .scenario code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--primary-color);
+            font-weight: 600;
         }
 
-        .process-running {
-            color: #2ecc71;
+        .common-errors {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
         }
 
-        .process-stopped {
-            color: #e74c3c;
+        .common-errors h5 {
+            color: var(--warning-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .process-zombie {
-            color: #f39c12;
+        .common-errors code {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--danger-color);
+            font-weight: 600;
+        }
+
+        .safety-levels {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .safety-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 10px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .safety-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .safety-safe {
+            border-left: 5px solid var(--success-color);
+        }
+
+        .safety-warning {
+            border-left: 5px solid var(--warning-color);
+        }
+
+        .safety-danger {
+            border-left: 5px solid var(--danger-color);
+        }
+
+        .command-translation {
+            background: #f8f9fa;
+            border: 2px solid var(--primary-color);
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .command-translation > code {
+            display: block;
+            background: var(--secondary-color);
+            color: #ecf0f1;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .translation {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .translation h6 {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .translation code {
+            background: #e9ecef;
+            padding: 0.15rem 0.35rem;
+            border-radius: 3px;
+            color: var(--secondary-color);
+            font-weight: 600;
         }
 
         @keyframes fadeInUp {
@@ -169,6 +308,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -179,32 +319,28 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-        .delay-4 { animation-delay: 0.8s; }
-
-        .comparison-table {
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .delay-1 {
+            animation-delay: 0.2s;
         }
 
-        .table-header {
-            background: linear-gradient(135deg, var(--secondary-color), #2c3e50);
-            color: white;
+        .delay-2 {
+            animation-delay: 0.4s;
         }
 
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(135, 184, 77, 0.05);
+        .delay-3 {
+            animation-delay: 0.6s;
         }
 
-        .table th, .table td {
-            border-color: rgba(135, 184, 77, 0.2);
-            padding: 1rem;
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .delay-5 {
+            animation-delay: 1s;
         }
     </style>
 </head>
+
 <body>
     <div class="container-fluid p-4">
         <!-- Hero Section -->
@@ -223,203 +359,418 @@
             </div>
         </div>
 
+        <!-- Analogía inicial -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="analogy-box fade-in-up">
+                    <h5><i class="bi bi-lightbulb"></i> ¿Qué es la gestión de procesos?</h5>
+                    <p class="mb-2">
+                        <strong>Es como el "Administrador de Tareas" de Windows.</strong> Un <strong>proceso</strong> es simplemente un programa en ejecución (Firefox, terminal, reproductor de música, etc.).
+                    </p>
+                    <p class="mb-0">
+                        Con estos comandos puedes ver qué está ejecutándose, cuánta RAM consume, y cerrar programas que se hayan trabado.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Guía de decisión -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="decision-guide fade-in-up delay-1">
+                    <h4><i class="bi bi-signpost-2"></i> ¿Qué herramienta necesito?</h4>
+                    <div class="scenario">
+                        <strong>🎯 Quiero ver qué consume mi RAM/CPU</strong>
+                        <p class="mb-0">→ Usa <code>top</code> o <code>htop</code> (monitor en tiempo real)</p>
+                    </div>
+                    <div class="scenario">
+                        <strong>🔍 Quiero buscar un proceso específico (ej. Firefox)</strong>
+                        <p class="mb-0">→ Usa <code>ps aux | grep firefox</code></p>
+                    </div>
+                    <div class="scenario">
+                        <strong>❌ Quiero cerrar un programa trabado</strong>
+                        <p class="mb-0">→ Encuentra su PID con <code>ps</code>, luego <code>kill PID</code></p>
+                    </div>
+                    <div class="scenario">
+                        <strong>⚙️ Quiero ejecutar algo en segundo plano</strong>
+                        <p class="mb-0">→ Agrega <code>&</code> al final del comando</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conceptos clave -->
+        <div class="row mb-4">
+            <div class="col-md-6 mb-3">
+                <div class="concept-box fade-in-up delay-2">
+                    <div class="concept-title"><i class="bi bi-hash"></i> ¿Qué es un PID?</div>
+                    <p class="mb-0">
+                        <strong>PID</strong> = Process ID (ID de Proceso). Es como el <strong>"DNI"</strong> de cada programa. 
+                        Cada vez que abres algo, Linux le asigna un número único. Ejemplo: Firefox puede tener PID 2468.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <div class="concept-box fade-in-up delay-2">
+                    <div class="concept-title"><i class="bi bi-broadcast"></i> ¿Qué son las señales?</div>
+                    <p class="mb-2">
+                        Son mensajes que le envías a un proceso:
+                    </p>
+                    <ul class="mb-0">
+                        <li><code>SIGTERM</code> (15): "Por favor, cierra" ← <strong>Amable</strong>, permite guardar datos</li>
+                        <li><code>SIGKILL</code> (9): "¡MUERE YA!" ← <strong>Forzado</strong>, puede corromper archivos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
         <!-- Comando ps -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <div class="card card-custom fade-in-up">
-                    <div class="card-header-custom">
-                        <h2 class="mb-0">
-                            <i class="bi bi-list-task me-2"></i>
-                            Comando ps - Ver procesos activos
-                        </h2>
-                    </div>
-                    <div class="card-body p-4">
-                        <p class="lead">
-                            <code>ps</code> muestra procesos en ese instante. Con <code>ps</code> ves los tuyos, con <code>ps aux</code> ves todos.
-                        </p>
-
-                        <h4 class="mt-4 mb-3"><i class="bi bi-list-check me-2"></i>Básico que necesitas</h4>
-                        <div class="row">
-                            <div class="col-md-12 mb-2">
-                                <span class="option-badge">ps</span> procesos del shell actual
-                                <span class="option-badge">ps aux</span> todos los procesos
-                                <span class="option-badge">ps aux | grep nombre</span> buscar por nombre
-                            </div>
-                        </div>
-
-                        <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplo rápido</h4>
-                        <div class="terminal-window">
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps</span>
-                            <div class="process-header">    PID TTY          TIME CMD</div>
-                            <div class="terminal-output">   1234 pts/0    00:00:01 bash</div>
-                            <div class="terminal-output">   5678 pts/0    00:00:00 ps</div>
-                            <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep firefox</span>
-                            <div class="terminal-output">usuario     2468  5.2  8.1 2847364 658234 ?      Sl   10:40   2:15 firefox</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comandos top y htop -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <div class="card card-custom fade-in-up delay-1">
-                    <div class="card-header-custom">
-                        <h2 class="mb-0">
-                            <i class="bi bi-activity me-2"></i>
-                            Comandos top y htop - Monitor de sistema en tiempo real
-                        </h2>
-                    </div>
-                    <div class="card-body p-4">
-                        <p class="lead">
-                            <code>top</code> muestra procesos en vivo (CPU, memoria). Presiona <code>q</code> para salir. Si tienes <code>htop</code>, es similar y más visual.
-                        </p>
-
-                        <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplo rápido</h4>
-                        <div class="terminal-window">
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> top</span>
-                            <div class="terminal-output">top - 14:35:22 up  4:05,  2 users,  load average: 0.85, 0.92, 1.15</div>
-                            <div class="terminal-output">Tasks: 185 total,   1 running, 184 sleeping</div>
-                            <div class="process-header">    PID USER      %CPU %MEM     TIME+ COMMAND</div>
-                            <div class="terminal-output">   2468 usuario     8.2  8.1   2:15.34 firefox</div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <span class="option-badge">q</span> salir
-                                <span class="option-badge">P</span> ordenar por CPU
-                                <span class="option-badge">M</span> ordenar por memoria
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comandos kill y killall -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <div class="card card-custom fade-in-up delay-2">
-                    <div class="card-header-custom">
-                        <h2 class="mb-0">
-                            <i class="bi bi-x-circle me-2"></i>
-                            Finalizar procesos: kill (básico)
-                        </h2>
-                    </div>
-                    <div class="card-body p-4">
-                        <p class="lead">
-                            Usa <code>kill PID</code> para pedir que un proceso termine de forma amable (SIGTERM por defecto).
-                        </p>
-
-                        <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplo rápido</h4>
-                        <div class="terminal-window">
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep sleep</span>
-                            <div class="terminal-output">usuario     3001  0.0  0.0  10000   800 ?        S    14:42   0:00 sleep 100</div>
-                            <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> kill 3001</span>
-                            <div class="terminal-comment"># Termina suavemente el proceso con PID 3001</div>
-                        </div>
-
-                        <div class="alert alert-warning mt-2">
-                            <i class="bi bi-exclamation-triangle me-2"></i>
-                            Evita <code>-9</code> salvo que sea necesario. Primero intenta <code>kill PID</code> (SIGTERM).
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comandos jobs, fg, bg -->
-        <div class="row mb-5">
+        <div class="row mb-4">
             <div class="col-12">
                 <div class="card card-custom fade-in-up delay-3">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
-                            <i class="bi bi-layers me-2"></i>
-                            Trabajos: jobs, fg, bg (lo esencial)
+                            <i class="bi bi-list-task me-2"></i>
+                            Comando ps - Ver procesos (foto instantánea)
                         </h2>
                     </div>
                     <div class="card-body p-4">
                         <p class="lead">
-                            Envía un comando al fondo con <code>&amp;</code>, lista trabajos con <code>jobs</code>, vuelve al frente con <code>fg</code> y reanuda al fondo con <code>bg</code>.
+                            <code>ps</code> muestra los procesos en ese momento (como tomar una foto).
                         </p>
 
-                        <h4 class="mt-4 mb-3"><i class="bi bi-terminal me-2"></i>Ejemplo rápido</h4>
+                        <div class="command-translation">
+                            <code>ps aux</code>
+                            <div class="translation">
+                                <h6><i class="bi bi-translate me-2"></i>¿Qué significa cada letra?</h6>
+                                <ul class="mb-0">
+                                    <li><code>a</code> = <strong>all</strong> (todos los usuarios)</li>
+                                    <li><code>u</code> = <strong>user</strong> (muestra quién lo ejecuta, % CPU, % RAM)</li>
+                                    <li><code>x</code> = incluye procesos sin terminal (servicios en segundo plano)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-terminal me-2"></i>Ejemplos prácticos</h5>
                         <div class="terminal-window">
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> sleep 60 &</span>
-                            <div class="terminal-output">[1] 2534</div>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep firefox</span>
+                            <span class="terminal-output">usuario  2468  5.2  8.1 2847364 658234 ?  Sl  10:40  2:15 /usr/lib/firefox/firefox</span>
+                            <span class="terminal-comment"># ↑ PID=2468, usa 5.2% CPU y 8.1% RAM</span>
                             <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> jobs</span>
-                            <div class="terminal-output">[1]+  Running                 sleep 60 &</div>
-                            <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> fg %1</span>
-                            <div class="terminal-comment"># Trae el trabajo 1 al primer plano</div>
-                            <div class="terminal-output">sleep 60</div>
-                            <div class="terminal-comment"># Presiona Ctrl+Z para pausarlo</div>
-                            <div class="terminal-output">^Z</div>
-                            <div class="terminal-output">[1]+  Stopped                 sleep 60</div>
-                            <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> bg %1</span>
-                            <div class="terminal-output">[1]+ sleep 60 &</div>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | head -5</span>
+                            <span class="terminal-comment"># Ver solo las primeras 5 líneas</span>
+                        </div>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Tip:</strong> Anota el PID del proceso que quieras cerrar, lo usarás con <code>kill</code>.
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Sección de práctica -->
-        <div class="row mb-5">
+        <!-- Comandos top/htop -->
+        <div class="row mb-4">
             <div class="col-12">
                 <div class="card card-custom fade-in-up delay-4">
                     <div class="card-header-custom">
                         <h2 class="mb-0">
-                            <i class="bi bi-mortarboard me-2"></i>
-                            Práctica guiada
+                            <i class="bi bi-activity me-2"></i>
+                            top / htop - Monitor en tiempo real
                         </h2>
                     </div>
                     <div class="card-body p-4">
-                        <p class="lead">Práctica rápida (3 ejercicios):</p>
-                        <div class="alert alert-info mb-3">
-                            <i class="bi bi-info-circle me-2"></i>
-                            Abre una terminal y ve a tu carpeta personal con <code>cd ~</code>.
+                        <p class="lead">
+                            <code>top</code> es como ver un video: actualiza los procesos cada segundo. <code>htop</code> es la versión más visual (colores, barras).
+                        </p>
+
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-keyboard me-2"></i>Teclas útiles en <code>top</code></h6>
+                                <ul>
+                                    <li><code>q</code> → salir</li>
+                                    <li><code>P</code> → ordenar por CPU</li>
+                                    <li><code>M</code> → ordenar por memoria</li>
+                                    <li><code>k</code> → matar proceso (te pedirá el PID)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6><i class="bi bi-info-circle me-2"></i>¿Cuándo usar cada uno?</h6>
+                                <ul>
+                                    <li><code>top</code> → Ya viene instalado, rápido</li>
+                                    <li><code>htop</code> → Más bonito y fácil de leer (instálalo con <code>sudo apt install htop</code>)</li>
+                                </ul>
+                            </div>
                         </div>
 
-                        <h5>1) Ver procesos con ps</h5>
-                        <ol>
-                            <li><code>ps</code> (procesos del shell)</li>
-                            <li><code>ps aux | head -5</code> (primeras 5 líneas)</li>
-                            <li><code>ps aux | grep bash</code> (buscar por nombre)</li>
-                        </ol>
-
-                        <h5 class="mt-3">2) Monitoreo con top</h5>
-                        <ol>
-                            <li><code>top</code> (presiona <code>q</code> para salir)</li>
-                            <li>Ordena por CPU con <code>P</code> y por memoria con <code>M</code></li>
-                        </ol>
-
-                        <h5 class="mt-3">3) Trabajos en segundo plano</h5>
-                        <ol>
-                            <li><code>sleep 30 &</code> (envía al fondo)</li>
-                            <li><code>jobs</code> (ver trabajos)</li>
-                            <li><code>fg %1</code> luego <code>Ctrl+Z</code> y <code>bg %1</code> (frente, pausar, fondo)</li>
-                        </ol>
-
-                        <div class="alert alert-success mt-3">
-                            <i class="bi bi-check-circle me-2"></i>
-                            ¡Listo! Ya dominas lo esencial: ver procesos, monitorear y manejar trabajos.
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> top</span>
+                            <span class="terminal-output">top - 14:35:22 up 4:05, 2 users, load average: 0.85, 0.92, 1.15</span>
+                            <span class="terminal-output">Tasks: 185 total, 1 running, 184 sleeping</span>
+                            <span class="terminal-output">%Cpu(s): 12.5 us,  3.2 sy,  0.0 ni, 84.0 id</span>
+                            <span class="terminal-output">MiB Mem :   7892.5 total,   2134.2 free,   3456.8 used</span>
+                            <span class="terminal-comment"># Presiona 'q' para salir</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Comando kill -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-5">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-x-octagon me-2"></i>
+                            kill - Cerrar procesos
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <p class="lead">
+                            Usa <code>kill PID</code> para cerrar un proceso. Por defecto envía SIGTERM (cierre amable).
+                        </p>
+
+                        <h5 class="mt-4 mb-3"><i class="bi bi-shield-exclamation me-2"></i>Semáforo de seguridad</h5>
+                        <div class="safety-levels">
+                            <div class="safety-item safety-safe">
+                                <div class="safety-icon">🟢</div>
+                                <div>
+                                    <strong><code>kill PID</code></strong><br>
+                                    <small>Cierre amable. El programa puede guardar datos antes de cerrar. <strong>Úsalo siempre primero.</strong></small>
+                                </div>
+                            </div>
+                            <div class="safety-item safety-warning">
+                                <div class="safety-icon">🟡</div>
+                                <div>
+                                    <strong><code>killall nombre</code></strong><br>
+                                    <small>Cierra TODOS los procesos con ese nombre. Cuidado con nombres comunes como "bash" o "python".</small>
+                                </div>
+                            </div>
+                            <div class="safety-item safety-danger">
+                                <div class="safety-icon">🔴</div>
+                                <div>
+                                    <strong><code>kill -9 PID</code></strong><br>
+                                    <small>Muerte forzada (SIGKILL). <strong>ÚLTIMO RECURSO.</strong> No da tiempo a guardar. Puede corromper archivos.</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-terminal me-2"></i>Ejemplo paso a paso</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-comment"># 1. Buscar el proceso trabado</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep firefox</span>
+                            <span class="terminal-output">usuario  2468  95.2  8.1  ...  firefox</span>
+                            <br>
+                            <span class="terminal-comment"># 2. Intentar cerrar amablemente (SIGTERM)</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> kill 2468</span>
+                            <br>
+                            <span class="terminal-comment"># 3. Si no responde después de 10 segundos, forzar</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> kill -9 2468</span>
+                        </div>
+
+                        <div class="common-errors">
+                            <h5><i class="bi bi-exclamation-triangle"></i> Errores comunes</h5>
+                            <ul class="mb-0">
+                                <li><strong>Usar <code>kill -9</code> de inmediato:</strong> Dale tiempo al proceso de cerrar bien (10-15 segundos).</li>
+                                <li><strong>Confundir PID con número de trabajo:</strong> <code>kill %1</code> es para trabajos, <code>kill 2468</code> es para PIDs.</li>
+                                <li><strong>Hacer <code>killall python</code>:</strong> Cerrará TODOS los scripts Python activos (puede ser desastroso).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background/Foreground -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-5">
+                    <div class="card-header-custom">
+                        <h2 class="mb-0">
+                            <i class="bi bi-layers me-2"></i>
+                            Segundo plano (Background) y Primer plano (Foreground)
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="analogy-box">
+                            <h5><i class="bi bi-lightbulb"></i> Analogía</h5>
+                            <p class="mb-0">
+                                Es como <strong>"minimizar ventanas"</strong>. El programa sigue corriendo, pero no ocupa tu terminal. 
+                                Útil para servidores web, descargas largas, o procesos que tardan mucho.
+                            </p>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-info-circle me-2"></i>Conceptos básicos</h5>
+                        <ul>
+                            <li><code>&</code> al final → ejecuta en segundo plano desde el inicio</li>
+                            <li><code>Ctrl+Z</code> → <strong>pausa</strong> el proceso actual (no lo cierra)</li>
+                            <li><code>jobs</code> → lista trabajos en segundo plano</li>
+                            <li><code>fg %1</code> → trae el trabajo 1 al primer plano</li>
+                            <li><code>bg %1</code> → reanuda el trabajo 1 en segundo plano</li>
+                        </ul>
+
+                        <h5 class="mt-4"><i class="bi bi-terminal me-2"></i>Ejemplo práctico</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-comment"># Ejecutar en segundo plano desde el inicio</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> sleep 300 &</span>
+                            <span class="terminal-output">[1] 3421</span>
+                            <span class="terminal-comment"># ↑ [1] es el número de trabajo, 3421 es el PID</span>
+                            <br>
+                            <span class="terminal-comment"># Ver trabajos activos</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> jobs</span>
+                            <span class="terminal-output">[1]+  Running     sleep 300 &</span>
+                            <br>
+                            <span class="terminal-comment"># Traer al primer plano</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> fg %1</span>
+                            <span class="terminal-output">sleep 300</span>
+                            <span class="terminal-comment"># Ahora presiona Ctrl+Z para pausarlo</span>
+                            <span class="terminal-output">^Z</span>
+                            <span class="terminal-output">[1]+  Stopped     sleep 300</span>
+                            <br>
+                            <span class="terminal-comment"># Reanudar en segundo plano</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> bg %1</span>
+                            <span class="terminal-output">[1]+ sleep 300 &</span>
+                        </div>
+
+                        <div class="alert alert-info mt-3 mb-0">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Importante:</strong> <code>Ctrl+Z</code> NO cierra el programa, solo lo pausa. Usa <code>kill</code> para cerrarlo definitivamente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Práctica guiada rápida -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="card card-custom fade-in-up delay-5" style="border: 3px solid var(--primary-color);">
+                    <div class="card-header-custom" style="background: linear-gradient(135deg, var(--primary-color), var(--accent-color));">
+                        <h2 class="mb-0">
+                            <i class="bi bi-rocket-takeoff me-2"></i>
+                            Práctica guiada (10 minutos)
+                        </h2>
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="alert alert-success mb-4">
+                            <i class="bi bi-clock me-2"></i>
+                            <strong>Objetivo:</strong> Dominar lo esencial en 10 minutos. Abre una terminal y sigue estos pasos.
+                        </div>
+
+                        <h5><i class="bi bi-1-circle-fill me-2 text-primary"></i>Crear un proceso de prueba (2 min)</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> sleep 500 &</span>
+                            <span class="terminal-output">[1] 3421</span>
+                            <span class="terminal-comment"># Creaste un proceso "inútil" que dura 500 segundos</span>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-2-circle-fill me-2 text-primary"></i>Encontrarlo con ps (2 min)</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep sleep</span>
+                            <span class="terminal-output">usuario  3421  0.0  0.0  10000  800 ?  S  15:30  0:00 sleep 500</span>
+                            <span class="terminal-comment"># ↑ Anota el PID (3421 en este ejemplo)</span>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-3-circle-fill me-2 text-primary"></i>Ver procesos en tiempo real (2 min)</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> top</span>
+                            <span class="terminal-comment"># Presiona 'M' para ordenar por memoria, 'q' para salir</span>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-4-circle-fill me-2 text-primary"></i>Cerrar el proceso amablemente (2 min)</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> kill 3421</span>
+                            <span class="terminal-comment"># Usa el PID que anotaste en el paso 2</span>
+                            <br>
+                            <span class="terminal-comment"># Verificar que se cerró</span>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ps aux | grep sleep</span>
+                            <span class="terminal-comment"># No debería aparecer nada (excepto el mismo grep)</span>
+                        </div>
+
+                        <h5 class="mt-4"><i class="bi bi-5-circle-fill me-2 text-primary"></i>Jugar con segundo plano (2 min)</h5>
+                        <div class="terminal-window">
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> sleep 60 &</span>
+                            <span class="terminal-output">[1] 3500</span>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> jobs</span>
+                            <span class="terminal-output">[1]+  Running     sleep 60 &</span>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> fg %1</span>
+                            <span class="terminal-comment"># Ahora presiona Ctrl+Z</span>
+                            <span class="terminal-output">^Z</span>
+                            <span class="terminal-output">[1]+  Stopped     sleep 60</span>
+                            <br>
+                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> kill %1</span>
+                            <span class="terminal-comment"># Cerrar el trabajo pausado</span>
+                        </div>
+
+                        <div class="alert alert-success mt-4 mb-0">
+                            <h5 class="mb-3"><i class="bi bi-trophy-fill me-2"></i>¡Felicitaciones!</h5>
+                            <p class="mb-2"><strong>Ya sabes:</strong></p>
+                            <ul class="mb-0">
+                                <li>✅ Encontrar procesos con <code>ps aux | grep</code></li>
+                                <li>✅ Monitorear sistema con <code>top</code></li>
+                                <li>✅ Cerrar procesos con <code>kill</code></li>
+                                <li>✅ Manejar trabajos en segundo plano con <code>&</code>, <code>jobs</code>, <code>fg</code>, <code>bg</code></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resumen final -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card card-custom" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);">
+                    <div class="card-body p-4">
+                        <h3 class="mb-3"><i class="bi bi-bookmark-check me-2"></i>Resumen: Lo que REALMENTE necesitas recordar</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>📋 Para ver procesos:</h5>
+                                <ul>
+                                    <li><code>ps aux | grep nombre</code> → buscar específico</li>
+                                    <li><code>top</code> → monitor en vivo</li>
+                                    <li><code>htop</code> → versión visual de top</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>❌ Para cerrar procesos:</h5>
+                                <ul>
+                                    <li><code>kill PID</code> → cierre amable</li>
+                                    <li><code>kill -9 PID</code> → solo si lo anterior falla</li>
+                                    <li><code>killall nombre</code> → cierra todos (cuidado)</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>⚙️ Para segundo plano:</h5>
+                                <ul>
+                                    <li><code>comando &</code> → ejecutar en background</li>
+                                    <li><code>Ctrl+Z</code> → pausar proceso</li>
+                                    <li><code>jobs</code> → listar trabajos</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>🛡️ Regla de oro:</h5>
+                                <ul>
+                                    <li>Siempre usa <code>kill PID</code> primero</li>
+                                    <li>Espera 10-15 segundos</li>
+                                    <li>Solo usa <code>-9</code> si no hay respuesta</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Animación de fade-in al hacer scroll
+        // Animación de fade-in
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -428,27 +779,19 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, observerOptions);
 
-        // Observar elementos con animación
         document.querySelectorAll('.fade-in-up').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
             observer.observe(el);
-        });
-
-        // Efecto de escritura en terminal
-        document.addEventListener('DOMContentLoaded', function() {
-            const terminals = document.querySelectorAll('.terminal-window');
-            terminals.forEach((terminal, index) => {
-                terminal.style.opacity = '0';
-                setTimeout(() => {
-                    terminal.style.transition = 'opacity 0.5s ease';
-                    terminal.style.opacity = '1';
-                }, index * 200);
-            });
         });
     </script>
 </body>
+
 </html>
