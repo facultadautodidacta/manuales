@@ -584,64 +584,85 @@
         </div>
 
         <!-- Background/Foreground -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card card-custom fade-in-up delay-5">
-                    <div class="card-header-custom">
-                        <h2 class="mb-0">
-                            <i class="bi bi-layers me-2"></i>
-                            Segundo plano (Background) y Primer plano (Foreground)
-                        </h2>
-                    </div>
-                    <div class="card-body p-4">
-                        <div class="analogy-box">
-                            <h5><i class="bi bi-lightbulb"></i> Analogía</h5>
-                            <p class="mb-0">
-                                Es como <strong>"minimizar ventanas"</strong>. El programa sigue corriendo, pero no ocupa tu terminal. 
-                                Útil para servidores web, descargas largas, o procesos que tardan mucho.
-                            </p>
-                        </div>
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card card-custom fade-in-up">
+            <div class="card-header-custom">
+                <h2 class="mb-0">
+                    <i class="bi bi-layers me-2"></i>
+                    Primer plano y Segundo plano en Linux
+                </h2>
+            </div>
 
-                        <h5 class="mt-4"><i class="bi bi-info-circle me-2"></i>Conceptos básicos</h5>
-                        <ul>
-                            <li><code>&</code> al final → ejecuta en segundo plano desde el inicio</li>
-                            <li><code>Ctrl+Z</code> → <strong>pausa</strong> el proceso actual (no lo cierra)</li>
-                            <li><code>jobs</code> → lista trabajos en segundo plano</li>
-                            <li><code>fg %1</code> → trae el trabajo 1 al primer plano</li>
-                            <li><code>bg %1</code> → reanuda el trabajo 1 en segundo plano</li>
-                        </ul>
+            <div class="card-body p-4">
 
-                        <h5 class="mt-4"><i class="bi bi-terminal me-2"></i>Ejemplo práctico</h5>
-                        <div class="terminal-window">
-                            <span class="terminal-comment"># Ejecutar en segundo plano desde el inicio</span>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> sleep 300 &</span>
-                            <span class="terminal-output">[1] 3421</span>
-                            <span class="terminal-comment"># ↑ [1] es el número de trabajo, 3421 es el PID</span>
-                            <br>
-                            <span class="terminal-comment"># Ver trabajos activos</span>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> jobs</span>
-                            <span class="terminal-output">[1]+  Running     sleep 300 &</span>
-                            <br>
-                            <span class="terminal-comment"># Traer al primer plano</span>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> fg %1</span>
-                            <span class="terminal-output">sleep 300</span>
-                            <span class="terminal-comment"># Ahora presiona Ctrl+Z para pausarlo</span>
-                            <span class="terminal-output">^Z</span>
-                            <span class="terminal-output">[1]+  Stopped     sleep 300</span>
-                            <br>
-                            <span class="terminal-comment"># Reanudar en segundo plano</span>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> bg %1</span>
-                            <span class="terminal-output">[1]+ sleep 300 &</span>
-                        </div>
+                <!-- Explicación sencilla -->
+                <p>
+                    En Linux, un programa puede ejecutarse de dos formas:
+                </p>
 
-                        <div class="alert alert-info mt-3 mb-0">
-                            <i class="bi bi-info-circle me-2"></i>
-                            <strong>Importante:</strong> <code>Ctrl+Z</code> NO cierra el programa, solo lo pausa. Usa <code>kill</code> para cerrarlo definitivamente.
-                        </div>
-                    </div>
+                <ul>
+                    <li>
+                        <strong>Primer plano (Foreground):</strong>  
+                        El programa usa la terminal y no te deja escribir hasta que termine.
+                    </li>
+                    <li>
+                        <strong>Segundo plano (Background):</strong>  
+                        El programa sigue ejecutándose, pero la terminal queda libre.
+                    </li>
+                </ul>
+
+                <!-- Analogía simple -->
+                <div class="analogy-box mt-3">
+                    <h5><i class="bi bi-lightbulb"></i> Ejemplo fácil</h5>
+                    <p class="mb-0">
+                        Es como minimizar una aplicación: sigue funcionando, pero ya no la ves.
+                    </p>
                 </div>
+
+                <!-- Comandos básicos -->
+                <h5 class="mt-4">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Comandos importantes
+                </h5>
+
+                <ul>
+                    <li><code>&</code> → ejecuta un programa en segundo plano</li>
+                    <li><code>Ctrl + Z</code> → pausa el programa</li>
+                    <li><code>jobs</code> → muestra los programas pausados</li>
+                    <li><code>fg</code> → regresa el programa a primer plano</li>
+                    <li><code>bg</code> → continúa el programa en segundo plano</li>
+                </ul>
+
+                <!-- Ejemplo práctico reducido -->
+                <h5 class="mt-4">
+                    <i class="bi bi-terminal me-2"></i>
+                    Ejemplo práctico
+                </h5>
+
+                <div class="terminal-window">
+                    <span class="terminal-comment"># Ejecutar un comando en segundo plano</span><br>
+                    <span class="terminal-prompt">usuario@linux:~$</span>
+                    <span class="terminal-command"> sleep 300 &</span>
+                    <span class="terminal-output">[1] 1234</span>
+                    <br><br>
+
+                    <span class="terminal-comment"># Ver procesos en segundo plano</span><br>
+                    <span class="terminal-prompt">usuario@linux:~$</span>
+                    <span class="terminal-command"> jobs</span>
+                </div>
+
+                <!-- Nota importante -->
+                <div class="alert alert-info mt-3 mb-0">
+                    <i class="bi bi-info-circle me-2"></i>
+                    <strong>Nota:</strong> <code>Ctrl + Z</code> solo pausa el programa, no lo cierra.
+                </div>
+
             </div>
         </div>
+    </div>
+</div>
+
 
         <!-- Práctica guiada rápida -->
         <div class="row mb-5">
