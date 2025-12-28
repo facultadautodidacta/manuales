@@ -299,38 +299,7 @@
         </div>
 
         <!-- gzip/gunzip (archivos individuales) -->
-        <div class="row mb-5">
-            <div class="col-12">
-                <div class="card card-custom fade-in-up delay-1">
-                    <div class="card-header-custom">
-                        <h2 class="mb-0">
-                            <i class="bi bi-file-zip me-2"></i>
-                            gzip y gunzip — archivos individuales (simple)
-                        </h2>
-                    </div>
-                    <div class="card-body p-4">
-                        <p class="lead">
-                            Usa <code>gzip archivo</code> para comprimir un solo archivo y <code>gunzip archivo.gz</code> para descomprimirlo. Opción útil: <span class="option-badge">-k</span> mantiene el original.
-                        </p>
-
-                        <div class="terminal-window">
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ls -lh documento.txt</span>
-                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="file-size">1.2M</span> fecha hora documento.txt</div>
-                            <br>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> gzip -k documento.txt</span>
-                            <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> ls -lh documento.*</span>
-                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="file-size">1.2M</span> fecha hora documento.txt</div>
-                            <div class="terminal-output">-rw-rw-r-- 1 usuario usuario <span class="compression-ratio">250K</span> fecha hora documento.txt.gz</div>
-                        </div>
-
-                        <div class="alert alert-warning mt-2">
-                            <small>Nota: sin <code>-k</code>, gzip reemplaza el archivo original.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
         <!-- zip/unzip básico -->
         <div class="row mb-5">
             <div class="col-12">
@@ -503,3 +472,4 @@ docs</pre>
     </script>
 </body>
 </html>
+
