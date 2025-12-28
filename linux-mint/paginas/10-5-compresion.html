@@ -245,8 +245,6 @@
                 <p class="lead fs-4">10.5 - Compresión y archivado</p>
                 <div class="mt-4">
                     <span class="command-badge">tar</span>
-                    <span class="command-badge">gzip</span>
-                    <span class="command-badge">gunzip</span>
                     <span class="command-badge">zip</span>
                     <span class="command-badge">unzip</span>
                 </div>
@@ -269,14 +267,15 @@
                         </p>
 
                         <h5 class="mb-3">Básico que necesitas</h5>
-                        <div class="mb-3">
-                            <span class="option-badge">-c</span>
-                            <span class="option-badge">-x</span>
-                            <span class="option-badge">-t</span>
-                            <span class="option-badge">-f</span>
-                            <span class="option-badge">-v</span>
-                            <span class="option-badge">-z</span>
-                        </div>
+                        <ul class="list-unstyled mb-3">
+                            <li><span class="option-badge">-c</span> Crear un archivo tar</li>
+                            <li><span class="option-badge">-x</span> Extraer archivos</li>
+                            <li><span class="option-badge">-t</span> Listar el contenido</li>
+                            <li><span class="option-badge">-f</span> Nombre del archivo</li>
+                            <li><span class="option-badge">-v</span> Mostrar detalles</li>
+                            <li><span class="option-badge">-z</span> Comprimir con gzip</li>
+                        </ul>
+
 
                         <div class="terminal-window">
                             <span class="terminal-prompt">usuario@mint:~$</span><span class="terminal-command"> tar -czf backup.tar.gz carpeta/</span>
@@ -472,4 +471,5 @@ docs</pre>
     </script>
 </body>
 </html>
+
 
