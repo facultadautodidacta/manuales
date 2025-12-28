@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalación de Linux Mint</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #87b84d;
+            --secondary-color: #3c3c3c;
+            --accent-color: #6a9e3d;
+            --text-color: #2e3436;
+            --light-bg: #f8f9fa;
+            --success-color: #28a745;
+            --info-color: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-color);
+            line-height: 1.7;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .card-custom {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header-custom {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            border: none;
+            padding: 1.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid p-4">
+        <!-- Hero Section -->
+        <div class="hero-section text-center fade-in-up">
+            <div class="container">
+                <i class="bi bi-hdd-network-fill hero-icon"></i>
+                <h1 class="display-4 fw-bold mb-3">Instalación de Linux Mint</h1>
+                <p class="lead fs-4">Guía visual paso a paso para configurar tu sistema</p>
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div class="card card-custom fade-in-up">
+                    <div class="card-header-custom text-center">
+                        <h2 class="mb-0">
+                            <i class="bi bi-play-circle-fill me-2"></i>
+                            Video Tutorial Oficial
+                        </h2>
+                    </div>
+                    <div class="card-body p-4 text-center">
+                        <div
+                            class="alert alert-light border border-start-0 border-end-0 border-top-0 border-success border-3 mb-4">
+                            <h5 class="text-success"><i class="bi bi-info-circle-fill me-2"></i>Pasos Importantes</h5>
+                            <p class="intro-text mb-0">
+                                Para facilitar tu proceso de aprendizaje, hemos preparado este video detallado que cubre
+                                todo el proceso de instalación.
+                                Desde el arranque inicial hasta la configuración de tu usuario. Te recomendamos ver el
+                                video completo antes de comenzar
+                                la instalación en tu propio equipo.
+                            </p>
+                        </div>
+
+                        <div class="video-container mt-4">
+                            <iframe width="560" height="315"
+                                src="https://www.youtube.com/embed/1xKMLZInAxk?si=PbkS4ON9DAocK0Vb"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="mt-4 text-muted small">
+                            <i class="bi bi-lightbulb-fill text-warning"></i> Tip: Puedes pausar el video en cada paso
+                            para seguirlo a tu propio ritmo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

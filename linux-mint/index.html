@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
-    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
     <style>
         :root {
             --primary-color: #87b84d;
@@ -28,7 +30,7 @@
         .header-custom {
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
             color: var(--light-text);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         .sidebar {
@@ -59,7 +61,7 @@
         .content-frame {
             border: none;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             background: white;
             height: calc(100vh - 120px);
             min-height: 500px;
@@ -91,7 +93,7 @@
 
         .course-title {
             font-weight: 600;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
 
         .chapter-number {
@@ -123,8 +125,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Responsivo adicional */
@@ -134,7 +143,7 @@
                 min-height: auto;
                 max-height: none;
             }
-            
+
             .content-frame {
                 height: 70vh;
                 min-height: 400px;
@@ -160,13 +169,15 @@
         }
     </style>
 </head>
+
 <body>
     <!-- Header -->
     <header class="header-custom py-3">
         <div class="container-fluid">
             <div class="row align-items-center">
                 <div class="col-auto d-lg-none">
-                    <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
+                    <button class="mobile-menu-btn" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#sidebarOffcanvas" aria-controls="sidebarOffcanvas">
                         <i class="bi bi-list fs-4"></i>
                     </button>
                 </div>
@@ -191,10 +202,10 @@
                     <a href="paginas/02-que-es-linux.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">2.</span> ¿Qué es Linux y por qué usar Linux Mint?
                     </a>
-                    <a href="paginas/03-instalacion.html" class="nav-link" data-target="contenido">
+                    <a href="paginas/03-instalacion-linux-mint.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">3.</span> Instalación de Linux Mint
                     </a>
-                    <a href="paginas/04-primeros-pasos.html" class="nav-link" data-target="contenido">
+                    <a href="paginas/04-primeros-pasos-linux-mint.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">4.</span> Primeros pasos con Linux Mint
                     </a>
                     <a href="paginas/05-migrar-de-windows.html" class="nav-link" data-target="contenido">
@@ -207,13 +218,15 @@
                         <span class="chapter-number">7.</span> Instalación de programas
                     </a>
                     <a href="paginas/08-1-Linea-comandos-navegacion.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">8.1</span> Línea de Comandos Parte 1: Navegación en el sistema de archivos
+                        <span class="chapter-number">8.1</span> Línea de Comandos Parte 1: Navegación en el sistema de
+                        archivos
                     </a>
-                     <a href="paginas/08-2-linea-comandos-estructura.html" class="nav-link" data-target="contenido">
+                    <a href="paginas/08-2-linea-comandos-estructura.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">8.2</span> Línea de Comandos Parte 1: Estructura del sistema Linux
                     </a>
-                     <a href="paginas/08-3-linea-comandos-manipulacion.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">8.3</span> Línea de Comandos Parte 1: Manipulación de Archivos y Directorios
+                    <a href="paginas/08-3-linea-comandos-manipulacion.html" class="nav-link" data-target="contenido">
+                        <span class="chapter-number">8.3</span> Línea de Comandos Parte 1: Manipulación de Archivos y
+                        Directorios
                     </a>
                     <a href="paginas/09-juegos-steam.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">9.</span> Videojuegos en Linux Mint
@@ -225,7 +238,8 @@
                         <span class="chapter-number">10.2</span> Línea de Comandos Parte 2: Redirección y tuberías
                     </a>
                     <a href="paginas/10-3-busqueda-archivos.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">10.3</span> Línea de Comandos Parte 2: Búsqueda de archivos y contenido
+                        <span class="chapter-number">10.3</span> Línea de Comandos Parte 2: Búsqueda de archivos y
+                        contenido
                     </a>
                     <a href="paginas/10-4-gestion-procesos.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">10.4</span> Línea de Comandos Parte 2: Gestión de procesos
@@ -233,24 +247,20 @@
                     <a href="paginas/10-5-compresion.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">10.5</span> Línea de Comandos Parte 2: Compresión y archivado
                     </a>
-                    <a href="paginas/11-herramientas-personalizacion.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">11.</span> Herramientas de personalización
+
+                    <a href="paginas/11-monitoreo-recursos.html" class="nav-link" data-target="contenido">
+                        <span class="chapter-number">11.</span> Monitoreo de recursos
                     </a>
-                    
                     <a href="paginas/12-tecnologias-desarrolladores.html" class="nav-link" data-target="contenido">
                         <span class="chapter-number">12.</span> Tecnologías para desarrolladores
                     </a>
-                    <a href="paginas/13-ssh-local-remoto.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">13.</span> SSH local y remoto
+
+
+                    <a href="paginas/13-rsync.html" class="nav-link" data-target="contenido">
+                        <span class="chapter-number">13.</span> Rsync
                     </a>
-                    <a href="paginas/14-monitoreo-recursos.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">14.</span> Monitoreo de recursos
-                    </a>
-                    <a href="paginas/15-rsync.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">15.</span> Rsync
-                    </a>
-                    <a href="paginas/16-scripts-con-cron.html" class="nav-link" data-target="contenido">
-                        <span class="chapter-number">16.</span> Scripts con Cron
+                    <a href="paginas/14-scripts-con-cron.html" class="nav-link" data-target="contenido">
+                        <span class="chapter-number">14.</span> Scripts con Cron
                     </a>
                 </div>
             </nav>
@@ -263,7 +273,8 @@
                     </div>
                     <p class="mt-2">Cargando contenido...</p>
                 </div>
-                <iframe name="contenido" src="paginas/01-introduccion.html" class="content-frame w-100 fade-in" title="Contenido del curso"></iframe>
+                <iframe name="contenido" src="paginas/01-introduccion.html" class="content-frame w-100 fade-in"
+                    title="Contenido del curso"></iframe>
             </main>
         </div>
     </div>
@@ -275,79 +286,93 @@
                 <i class="bi bi-book me-2"></i>
                 Contenido del Curso
             </h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                aria-label="Cerrar"></button>
         </div>
         <div class="offcanvas-body">
             <div class="nav flex-column" id="mobileNavList">
-                <a href="paginas/01-introduccion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/01-introduccion.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">1.</span> Introducción y objetivos del curso
                 </a>
-                <a href="paginas/02-que-es-linux.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/02-que-es-linux.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">2.</span> ¿Qué es Linux y por qué usar Linux Mint?
                 </a>
-                <a href="paginas/03-instalacion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/03-instalacion-linux-mint.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">3.</span> Instalación de Linux Mint
                 </a>
-                <a href="paginas/04-primeros-pasos.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/04-primeros-pasos-linux-mint.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">4.</span> Primeros pasos con Linux Mint
                 </a>
-                <a href="paginas/05-migrar-de-windows.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/05-migrar-de-windows.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">5.</span> Migrar de Windows a Linux
                 </a>
                 <a href="paginas/06-apt.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
                     <span class="chapter-number">6.</span> Administrador de paquetes APT
                 </a>
-                <a href="paginas/07-instalacion-programas.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/07-instalacion-programas.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">7.</span> Instalación de programas
                 </a>
-                <a href="paginas/08-1-Linea-comandos-navegacion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">8.1</span> Línea de Comandos Parte 1: Navegación en el sistema de archivos
+                <a href="paginas/08-1-Linea-comandos-navegacion.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
+                    <span class="chapter-number">8.1</span> Línea de Comandos Parte 1: Navegación en el sistema de
+                    archivos
                 </a>
-                <a href="paginas/08-2-linea-comandos-estructura.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/08-2-linea-comandos-estructura.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">8.2</span> Línea de Comandos Parte 1: Estructura del sistema Linux
                 </a>
-                 <a href="paginas/08-3-linea-comandos-manipulacion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">8.3</span> Línea de Comandos Parte 1: Manipulación de Archivos y Directorios
+                <a href="paginas/08-3-linea-comandos-manipulacion.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
+                    <span class="chapter-number">8.3</span> Línea de Comandos Parte 1: Manipulación de Archivos y
+                    Directorios
                 </a>
-                <a href="paginas/09-juegos-steam.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/09-juegos-steam.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">9.</span> Videojuegos en Linux Mint
                 </a>
-                <a href="paginas/10-1-visualizacion-contenido.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/10-1-visualizacion-contenido.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">10.1</span> Línea de Comandos Parte 2: Visualización de contenido
                 </a>
-                <a href="paginas/10-2-redireccion-tuberias.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/10-2-redireccion-tuberias.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">10.2</span> Línea de Comandos Parte 2: Redirección y tuberías
                 </a>
-                <a href="paginas/10-3-busqueda-archivos.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/10-3-busqueda-archivos.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">10.3</span> Línea de Comandos Parte 2: Búsqueda de archivos y contenido
                 </a>
-                <a href="paginas/10-4-gestion-procesos.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/10-4-gestion-procesos.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">10.4</span> Línea de Comandos Parte 2: Gestión de procesos
                 </a>
-                <a href="paginas/10-5-compresion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                <a href="paginas/10-5-compresion.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">10.5</span> Línea de Comandos Parte 2: Compresión y archivado
                 </a>
-                <a href="paginas/11-herramientas-personalizacion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">11.</span> Herramientas de personalización
+
+                <a href="paginas/11-monitoreo-recursos.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
+                    <span class="chapter-number">11.</span> Monitoreo de recursos
                 </a>
-                <a href="paginas/11-personalizacion.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">11.</span> Herramientas de personalización
-                </a>
-               
-                <a href="paginas/12-tecnologias-desarrolladores.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+
+                <a href="paginas/12-tecnologias-desarrolladores.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
                     <span class="chapter-number">12.</span> Tecnologías para desarrolladores
                 </a>
-                <a href="paginas/13-ssh-local-remoto.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">13.</span> SSH local y remoto
+
+                <a href="paginas/13-rsync.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
+                    <span class="chapter-number">13.</span> Rsync
                 </a>
-                <a href="paginas/14-monitoreo-recursos.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">14.</span> Monitoreo de recursos
-                </a>
-                <a href="paginas/15-rsync.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">15.</span> Rsync
-                </a>
-                <a href="paginas/16-scripts-con-cron.html" class="nav-link" data-target="contenido" data-bs-dismiss="offcanvas">
-                    <span class="chapter-number">16.</span> Scripts con Cron
+                <a href="paginas/14-scripts-con-cron.html" class="nav-link" data-target="contenido"
+                    data-bs-dismiss="offcanvas">
+                    <span class="chapter-number">14.</span> Scripts con Cron
                 </a>
             </div>
         </div>
@@ -355,67 +380,67 @@
 
     <!-- Bootstrap 5 JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const iframe = document.querySelector('iframe[name="contenido"]');
             const loadingSpinner = document.getElementById('loadingSpinner');
-            
+
             // Función para manejar clicks en enlaces de navegación
             function handleNavClick(navContainer) {
                 navContainer.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', function(e) {
+                    link.addEventListener('click', function (e) {
                         e.preventDefault();
-                        
+
                         // Mostrar loading
                         loadingSpinner.style.display = 'block';
                         iframe.style.display = 'none';
-                        
+
                         // Remover clase active de todos los enlaces
                         document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
-                        
+
                         // Agregar clase active al enlace clickeado
                         this.classList.add('active');
-                        
+
                         // También actualizar el enlace correspondiente en el otro menú
                         const href = this.getAttribute('href');
                         document.querySelectorAll(`[href="${href}"]`).forEach(a => a.classList.add('active'));
-                        
+
                         // Cargar nueva página en iframe
                         iframe.src = href;
                     });
                 });
             }
-            
+
             // Aplicar manejadores a ambos menús
             handleNavClick(document.getElementById('navList'));
             handleNavClick(document.getElementById('mobileNavList'));
-            
+
             // Manejar carga del iframe
-            iframe.addEventListener('load', function() {
+            iframe.addEventListener('load', function () {
                 loadingSpinner.style.display = 'none';
                 iframe.style.display = 'block';
                 iframe.classList.add('fade-in');
             });
-            
+
             // Marcar enlace activo al cargar la página
             const initialSrc = iframe.getAttribute('src');
             document.querySelectorAll(`[href="${initialSrc}"]`).forEach(link => {
                 link.classList.add('active');
             });
-            
+
             // Mejorar accesibilidad con teclado
             document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('keydown', function(e) {
+                link.addEventListener('keydown', function (e) {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         this.click();
                     }
                 });
             });
-            
+
             // Auto-cerrar offcanvas en dispositivos grandes si se redimensiona
-            window.addEventListener('resize', function() {
+            window.addEventListener('resize', function () {
                 if (window.innerWidth >= 992) {
                     const offcanvas = bootstrap.Offcanvas.getInstance(document.getElementById('sidebarOffcanvas'));
                     if (offcanvas) {
@@ -426,4 +451,5 @@
         });
     </script>
 </body>
+
 </html>

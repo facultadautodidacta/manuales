@@ -37,14 +37,15 @@
       <div class="container">
         <i class="bi bi-activity" style="font-size:3.5rem"></i>
         <h1 class="display-6 fw-bold mt-2 mb-2">Monitoreo de recursos</h1>
-        <p class="lead">Herramientas fáciles para ver CPU, memoria, red y disco</p>
+        <p class="lead">Herramientas sencillas para ver CPU, memoria, red y disco, válidas para cualquier distribución y entorno de escritorio.</p>
         <div class="mt-2">
-          <span class="badge-pill">System Monitor</span>
-          <span class="badge-pill">Discos</span>
           <span class="badge-pill">btop</span>
           <span class="badge-pill">htop</span>
           <span class="badge-pill">df</span>
           <span class="badge-pill">free</span>
+          <span class="badge-pill">uptime</span>
+          <span class="badge-pill">nethogs</span>
+          <span class="badge-pill">iotop</span>
         </div>
       </div>
     </div>
@@ -53,17 +54,17 @@
     <div class="row mb-4">
       <div class="col-lg-6 mb-4">
         <div class="card card-custom h-100 fade-in-up">
-          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-speedometer2 me-2"></i>Monitor del sistema (gráfico)</h3></div>
+          <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-speedometer2 me-2"></i>Monitores gráficos (opcional)</h3></div>
           <div class="card-body p-4">
-            <p>Abre el <strong>Monitor del sistema</strong> desde el menú (o instala si no lo tienes):</p>
-            <div class="terminal-window mb-2">
-              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y gnome-system-monitor</span>
-              <span class="terminal-comment"># CPU, memoria, procesos y red con interfaz gráfica</span>
-            </div>
-            <ul class="mb-0">
-              <li>Ordena por <em>CPU</em> o <em>Memoria</em> para detectar procesos pesados.</li>
-              <li>Cierra procesos colgados desde la pestaña de <em>Procesos</em>.</li>
+            <p>Si prefieres una interfaz gráfica, cada entorno de escritorio suele tener su propio monitor de sistema:</p>
+            <ul>
+              <li><strong>GNOME:</strong> Monitor del sistema (<code>gnome-system-monitor</code>)</li>
+              <li><strong>KDE:</strong> KSysGuard (<code>ksysguard</code>)</li>
+              <li><strong>LXDE/LXQt:</strong> LXTask (<code>lxtask</code>)</li>
+              <li><strong>Xfce:</strong> Monitor del sistema (<code>xfce4-taskmanager</code>)</li>
             </ul>
+            <p>Busca "monitor" o "task manager" en el menú de tu sistema. Si no tienes ninguno, puedes instalar el de tu entorno o usar solo terminal.</p>
+            <div class="tip"><i class="bi bi-info-circle me-2"></i>Los comandos de terminal funcionan en cualquier distribución y escritorio.</div>
           </div>
         </div>
       </div>
@@ -71,12 +72,13 @@
         <div class="card card-custom h-100 fade-in-up">
           <div class="card-header-custom"><h3 class="h5 mb-0"><i class="bi bi-hdd-network me-2"></i>Discos (SMART y particiones)</h3></div>
           <div class="card-body p-4">
-            <p>La app <strong>Discos</strong> muestra información de unidades y estado SMART.</p>
-            <div class="terminal-window mb-2">
-              <span class="terminal-prompt">usuario@mint:~$</span> <span class="terminal-command">sudo apt install -y gnome-disk-utility</span>
-              <span class="terminal-comment"># Revisa salud del disco y gestiona montajes</span>
-            </div>
-            <div class="tip"><i class="bi bi-info-circle me-2"></i>Si ves sectores reasignados o errores SMART, haz copia de seguridad.</div>
+            <p>Para revisar discos y particiones gráficamente, puedes usar:</p>
+            <ul>
+              <li><strong>GNOME:</strong> Discos (<code>gnome-disk-utility</code>)</li>
+              <li><strong>KDE:</strong> KDE Partition Manager (<code>partitionmanager</code>)</li>
+              <li><strong>O usa terminal:</strong> <code>lsblk</code>, <code>df -h</code>, <code>smartctl</code></li>
+            </ul>
+            <div class="tip"><i class="bi bi-info-circle me-2"></i>Para ver el estado SMART por terminal: <code>sudo smartctl -a /dev/sdX</code> (requiere <code>smartmontools</code>).</div>
           </div>
         </div>
       </div>
